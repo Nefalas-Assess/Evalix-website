@@ -1,0 +1,33 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { LanguageProvider } from './contexts/LanguageContext';
+import Layout from './components/layout/Layout';
+import Home from './pages/Home';
+import Pricing from './pages/Pricing';
+import Downloads from './pages/Downloads';
+import Contact from './pages/Contact';
+import Presentation from './pages/Presentation';
+import './App.css';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <LanguageProvider>
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/presentation" element={<Presentation />} />
+              <Route path="/tarifs" element={<Pricing />} />
+              <Route path="/telechargements" element={<Downloads />} />
+              <Route path="/contacts" element={<Contact />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </LanguageProvider>
+    </ThemeProvider>
+  );
+}
+
+export default App;
