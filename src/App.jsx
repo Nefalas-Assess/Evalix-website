@@ -8,6 +8,8 @@ import Pricing from './pages/Pricing';
 import Downloads from './pages/Downloads';
 import Contact from './pages/Contact';
 import Presentation from './pages/Presentation';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import './App.css';
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
               <Route path="/tarifs" element={<Pricing />} />
               <Route path="/telechargements" element={<Downloads />} />
               <Route path="/contacts" element={<Contact />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
             </Routes>
           </Layout>
         </Router>

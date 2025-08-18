@@ -6,7 +6,6 @@ export default function Signup() {
   const [formData, setFormData] = useState({
     company: "",
     address: "",
-    vat: "",
     email: "",
     password: "",
   });
@@ -45,7 +44,7 @@ export default function Signup() {
       <h1 className="text-2xl font-bold mb-4">Créer un compte</h1>
       {error && <p className="text-red-500">{error}</p>}
       <form onSubmit={handleSignup} className="space-y-4">
-                <input
+        <input
           type="email"
           name="email"
           placeholder="Email"
@@ -80,14 +79,6 @@ export default function Signup() {
           onChange={handleChange}
           className="w-full border p-2 rounded"
           required
-        />
-        <input
-          type="text"
-          name="vat"
-          placeholder="Numéro TVA"
-          value={formData.vat}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
         />
         <button
           type="submit"

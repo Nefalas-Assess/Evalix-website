@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Moon, Sun, Globe, Menu, X } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -39,9 +39,9 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img 
-              src={logoEvalix} 
-              alt="Evalix Logo" 
+            <img
+              src={logoEvalix}
+              alt="Evalix Logo"
               className="h-8 w-auto"
             />
             <span className="font-bold text-xl text-foreground">Evalix</span>
@@ -53,11 +53,10 @@ const Header = () => {
               <Link
                 key={item.key}
                 to={item.path}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActivePath(item.path)
-                    ? 'text-primary'
-                    : 'text-muted-foreground'
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-primary ${isActivePath(item.path)
+                  ? 'text-primary'
+                  : 'text-muted-foreground'
+                  }`}
               >
                 {t(`nav.${item.key}`)}
               </Link>
@@ -106,8 +105,8 @@ const Header = () => {
             </Button>
 
             {/* Bouton Souscrire */}
-            <Button className="bg-primary hover:bg-primary/90">
-              {t('nav.subscribe')}
+            <Button className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/login'}>
+              {t('nav.login')}
             </Button>
           </div>
 
@@ -137,17 +136,16 @@ const Header = () => {
                 <Link
                   key={item.key}
                   to={item.path}
-                  className={`block px-3 py-2 text-base font-medium transition-colors hover:text-primary ${
-                    isActivePath(item.path)
-                      ? 'text-primary bg-accent'
-                      : 'text-muted-foreground'
-                  }`}
+                  className={`block px-3 py-2 text-base font-medium transition-colors hover:text-primary ${isActivePath(item.path)
+                    ? 'text-primary bg-accent'
+                    : 'text-muted-foreground'
+                    }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t(`nav.${item.key}`)}
                 </Link>
               ))}
-              
+
               <div className="flex items-center justify-between px-3 py-2">
                 <div className="flex items-center space-x-2">
                   {/* Sélecteur de langue mobile */}
