@@ -50,60 +50,52 @@ const Account = () => {
             }
 
             setUser(user);
-
-            const { data, error } = await supabase
-                .from("profiles")
-                .select("*")
-                .eq("id", user.id)
-                .single();
-
-            if (!error && data) {
-                setProfile(data);
-            } else {
-                // If no profile exists, create one with a license
-                const newProfile = {
-                    id: user.id,
-                    company: "",
-                    address: "",
-                    vat: "",
-                    license_key: generateLicenseKey(),
-                    subscription_type: "quarterly",
-                };
-                await supabase.from("profiles").insert([newProfile]);
-                setProfile(newProfile);
-            }
             setLoading(false);
         };
 
         fetchProfile();
     }, [navigate]);
 
-    // Update profile
+    // Mise à jour des métadonnées utilisateur
+    const updateUserMetadata = async (metadata) => {
+        const { data, error } = await supabase.auth.updateUser({
+            data: metadata
+        });
+
+        if (error) {
+            console.error('Erreur lors de la mise à jour des métadonnées:', error);
+            return { success: false, error };
+        }
+
+        return { success: true, data };
+    };
+
+
+    // Mise à jour de votre fonction handleUpdate
     const handleUpdate = async (e) => {
         e.preventDefault();
         setMessage("");
         setSaving(true);
 
-        const { error } = await supabase
-            .from("profiles")
-            .update({
-                company: profile.company,
-                address: profile.address,
-                vat: profile.vat,
-                subscription_type: profile.subscription_type,
-            })
-            .eq("id", profile.id);
+        try {
 
-        if (error) {
-            setMessage("Erreur lors de la mise à jour du profil");
-            setMessageType("error");
-        } else {
+            const { error: profileError } = await updateUserMetadata({
+                company: user?.user_metadata?.company,
+                address: user?.user_metadata?.address,
+                vat: user?.user_metadata?.vat,
+            });
+
+            if (profileError) throw profileError;
+
             setMessage("Profil mis à jour avec succès");
             setMessageType("success");
-        }
-        setSaving(false);
 
-        // Clear message after 3 seconds
+        } catch (error) {
+            setMessage("Erreur lors de la mise à jour du profil");
+            setMessageType("error");
+        }
+
+        setSaving(false);
         setTimeout(() => setMessage(""), 3000);
     };
 
@@ -220,8 +212,8 @@ const Account = () => {
                                                 id="company"
                                                 type="text"
                                                 placeholder="Nom de votre société"
-                                                value={profile?.company || ""}
-                                                onChange={(e) => setProfile({ ...profile, company: e.target.value })}
+                                                value={user?.user_metadata?.company || ""}
+                                                onChange={(e) => setUser({ ...user, user_metadata: { ...user.user_metadata, company: e.target.value } })}
                                             />
                                         </div>
 
@@ -235,8 +227,8 @@ const Account = () => {
                                                 id="address"
                                                 type="text"
                                                 placeholder="Adresse complète"
-                                                value={profile?.address || ""}
-                                                onChange={(e) => setProfile({ ...profile, address: e.target.value })}
+                                                value={user?.user_metadata?.address || ""}
+                                                onChange={(e) => setUser({ ...user, user_metadata: { ...user.user_metadata, address: e.target.value } })}
                                             />
                                         </div>
 
@@ -250,29 +242,9 @@ const Account = () => {
                                                 id="vat"
                                                 type="text"
                                                 placeholder="Numéro de TVA (optionnel)"
-                                                value={profile?.vat || ""}
-                                                onChange={(e) => setProfile({ ...profile, vat: e.target.value })}
+                                                value={user?.user_metadata?.vat || ""}
+                                                onChange={(e) => setUser({ ...user, user_metadata: { ...user.user_metadata, vat: e.target.value } })}
                                             />
-                                        </div>
-
-                                        {/* Subscription Type */}
-                                        <div className="space-y-2">
-                                            <Label className="text-sm font-medium flex items-center gap-2">
-                                                <CreditCard className="h-4 w-4" />
-                                                Type d'abonnement
-                                            </Label>
-                                            <Select
-                                                value={profile?.subscription_type || "quarterly"}
-                                                onValueChange={(value) => setProfile({ ...profile, subscription_type: value })}
-                                            >
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Sélectionnez un abonnement" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="quarterly">Trimestriel</SelectItem>
-                                                    <SelectItem value="annual">Annuel</SelectItem>
-                                                </SelectContent>
-                                            </Select>
                                         </div>
 
                                         <Button
