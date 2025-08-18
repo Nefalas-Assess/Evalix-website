@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import Presentation from './pages/Presentation';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Account from './pages/Account';
 import './App.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path="/contacts" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/account" element={<Account />} />
             </Routes>
           </Layout>
         </Router>

@@ -2,7 +2,7 @@
 export const pricingData = {
   quarterly: {
     small: {
-      range: "1 à 10 licences",
+      range: "1 à 9 licences",
       priceHT: 50.00,
       priceTTC: 60.50,
       currency: "€",
@@ -18,7 +18,7 @@ export const pricingData = {
   },
   annual: {
     small: {
-      range: "1 à 10 licences",
+      range: "1 à 9 licences",
       priceHT: 45.00,
       priceTTC: 54.45,
       currency: "€",

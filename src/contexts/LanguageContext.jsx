@@ -19,7 +19,13 @@ const translations = {
       pricing: 'Tarifs',
       contact: 'Contacts',
       downloads: 'Téléchargements',
-      subscribe: 'Souscrire'
+      subscribe: 'Souscrire',
+      login: 'Connexion',
+      account: {
+        title: 'Mon compte',
+        space: 'Mon espace client',
+        logout: 'Se déconnecter'
+      }
     },
     hero: {
       title: 'L\'outil de calcul d\'indemnités pour dommages corporels',
@@ -188,7 +194,7 @@ const translations = {
       subscribe: 'Souscrire',
       plans: {
         small: {
-          name: '1 à 10 licences',
+          name: '1 à 9 licences',
           description: 'Parfait pour les petits cabinets et équipes'
         },
         large: {
@@ -1012,11 +1018,11 @@ export const LanguageProvider = ({ children }) => {
   const t = (key) => {
     const keys = key.split('.');
     let value = translations[currentLanguage];
-    
+
     for (const k of keys) {
       value = value?.[k];
     }
-    
+
     return value || key;
   };
 

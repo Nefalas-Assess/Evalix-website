@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
@@ -7,16 +7,32 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { Moon, Sun, Globe, Menu, X } from 'lucide-react';
+import { Moon, Sun, Globe, Menu, X, User } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { supabase } from '../../lib/supabaseClient';
 import logoEvalix from '../../assets/Logo-Evalix.png';
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const { currentLanguage, changeLanguage, availableLanguages, t } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
+
+  // Check authentication status
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user || null);
+    });
+
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const navigationItems = [
     { key: 'home', path: '/' },
@@ -104,10 +120,32 @@ const Header = () => {
               <span className="sr-only">{t('header.change_theme')}</span>
             </Button>
 
-            {/* Bouton Souscrire */}
-            <Button className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/login'}>
-              {t('nav.login')}
-            </Button>
+            {/* User Account / Login Button */}
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="bg-primary hover:bg-primary/90">
+                    <User className="h-4 w-4 mr-2" />
+                    {t('nav.account.title')}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => window.location.href = '/account'}>
+                    {t('nav.account.space')}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={async () => {
+                    await supabase.auth.signOut();
+                    window.location.href = '/';
+                  }}>
+                    {t('nav.account.logout')}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/login'}>
+                {t('nav.login')}
+              </Button>
+            )}
           </div>
 
           {/* Menu Mobile */}
@@ -190,9 +228,41 @@ const Header = () => {
               </div>
 
               <div className="px-3 py-2">
-                <Button className="w-full bg-primary hover:bg-primary/90">
-                  {t('nav.subscribe')}
-                </Button>
+                {user ? (
+                  <div className="space-y-2">
+                    <Button
+                      className="w-full bg-primary hover:bg-primary/90"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        window.location.href = '/account';
+                      }}
+                    >
+                      <User className="h-4 w-4 mr-2" />
+                      Mon espace client
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={async () => {
+                        await supabase.auth.signOut();
+                        setIsMobileMenuOpen(false);
+                        window.location.href = '/';
+                      }}
+                    >
+                      Se déconnecter
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    className="w-full bg-primary hover:bg-primary/90"
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      window.location.href = '/login';
+                    }}
+                  >
+                    {t('nav.login')}
+                  </Button>
+                )}
               </div>
             </div>
           </div>
