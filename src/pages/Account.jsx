@@ -24,6 +24,7 @@ import {
     RefreshCw
 } from 'lucide-react';
 import { generateLicenseKey } from '../utils/license';
+import GenerateKeyModal from '../components/common/GenerateKeyModal';
 
 const Account = () => {
     const [profile, setProfile] = useState(null);
@@ -34,6 +35,8 @@ const Account = () => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const { t } = useLanguage();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [generatingKey, setGeneratingKey] = useState(false);
 
     // Load user profile from Supabase
     useEffect(() => {
@@ -105,22 +108,32 @@ const Account = () => {
         navigate('/');
     };
 
-    // Generate new license key
-    const handleGenerateNewLicense = async () => {
-        const newLicenseKey = generateLicenseKey();
-        setProfile({ ...profile, license_key: newLicenseKey });
+    // Handle license key generation
+    const handleGenerateNewKey = async (licenseData) => {
+        setGeneratingKey(true);
+        try {
+            // Call Supabase Edge Function to generate new license key
+            const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+                body: {
+                    deviceCount: licenseData.licenseCount,
+                }
+            });
 
-        const { error } = await supabase
-            .from("profiles")
-            .update({ license_key: newLicenseKey })
-            .eq("id", profile.id);
+            if (error) {
+                console.error('Edge Function Error:', error);
+                throw new Error(error.message || 'Erreur lors de l\'appel à la fonction de génération');
+            }
 
-        if (!error) {
-            setMessage("Nouvelle clé de licence générée avec succès");
-            setMessageType("success");
-            setTimeout(() => setMessage(""), 3000);
+            console.log(data)
+        } catch (error) {
+            console.error('Generate Key Error:', error);
+            setMessage(error.message || "Erreur lors de la génération de la nouvelle clé");
+            setMessageType("error");
         }
+        setGeneratingKey(false);
+        setTimeout(() => setMessage(""), 5000); // Increased timeout for error messages
     };
+
 
     if (loading) {
         return (
@@ -295,8 +308,8 @@ const Account = () => {
                                     <Button
                                         variant="outline"
                                         size="sm"
-                                        onClick={handleGenerateNewLicense}
                                         className="w-full"
+                                        onClick={() => setIsModalOpen(true)}
                                     >
                                         <RefreshCw className="mr-2 h-4 w-4" />
                                         Générer une nouvelle clé
@@ -360,6 +373,14 @@ const Account = () => {
                             </Card>
                         </div>
                     </div>
+
+                    {/* Generate Key Modal */}
+                    <GenerateKeyModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        onGenerateKey={handleGenerateNewKey}
+                        isGenerating={generatingKey}
+                    />
                 </div>
             </div>
         </div>
