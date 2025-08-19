@@ -115,7 +115,8 @@ const Account = () => {
             // Call Supabase Edge Function to generate new license key
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
                 body: {
-                    deviceCount: licenseData.licenseCount,
+                    price: 'price_1RxqD24fzAUpRGLNEZDjg5Ke',
+                    quantity: licenseData.licenseCount,
                 }
             });
 
@@ -124,7 +125,9 @@ const Account = () => {
                 throw new Error(error.message || 'Erreur lors de l\'appel à la fonction de génération');
             }
 
-            console.log(data)
+            if (data.url) {
+                window.location.href = data.url;
+            }
         } catch (error) {
             console.error('Generate Key Error:', error);
             setMessage(error.message || "Erreur lors de la génération de la nouvelle clé");
@@ -360,7 +363,7 @@ const Account = () => {
 
                             {/* Logout */}
                             <Card className="border-0 shadow-lg bg-background/80 backdrop-blur-sm">
-                                <CardContent className="pt-6">
+                                <CardContent>
                                     <Button
                                         variant="outline"
                                         onClick={handleLogout}
