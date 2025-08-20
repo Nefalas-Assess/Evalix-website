@@ -8,7 +8,6 @@ import { supabase } from '../lib/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
-import Signup from '@/components/common/Signup';
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });

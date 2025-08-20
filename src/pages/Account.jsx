@@ -25,9 +25,10 @@ import {
 } from 'lucide-react';
 import { generateLicenseKey } from '../utils/license';
 import GenerateKeyModal from '../components/common/GenerateKeyModal';
+import SubscriptionStatus from '../components/common/SusbcriptionStatus';
 
 const Account = () => {
-    const [profile, setProfile] = useState(null);
+    const [subscription, setSubscription] = useState(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState("");
@@ -51,7 +52,12 @@ const Account = () => {
                 navigate('/login');
                 return;
             }
+            const { data: subs } = await supabase
+                .rpc('get_active_subscription', {
+                    user_id: user.id
+                });
 
+            setSubscription(subs?.[0]);
             setUser(user);
             setLoading(false);
         };
@@ -113,10 +119,15 @@ const Account = () => {
         setGeneratingKey(true);
         try {
             // Call Supabase Edge Function to generate new license key
+
+            const { data: { user } } = await supabase.auth.getUser();
+
+
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
                 body: {
                     price: 'price_1RxqD24fzAUpRGLNEZDjg5Ke',
                     quantity: licenseData.licenseCount,
+                    userId: user.id,
                 }
             });
 
@@ -184,6 +195,7 @@ const Account = () => {
                             <AlertDescription>{message}</AlertDescription>
                         </Alert>
                     )}
+
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Profile Information */}
@@ -304,7 +316,7 @@ const Account = () => {
                                             CLÉ DE LICENCE
                                         </Label>
                                         <p className="font-mono text-sm mt-1 break-all">
-                                            {profile?.license_key}
+                                            {/* {profile?.license_key} */}
                                         </p>
                                     </div>
 
@@ -325,41 +337,9 @@ const Account = () => {
                             </Card>
 
                             {/* Subscription Status */}
-                            <Card className="border-0 shadow-lg bg-background/80 backdrop-blur-sm">
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <CreditCard className="h-5 w-5 text-primary" />
-                                        Abonnement
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="space-y-4">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium">Statut</span>
-                                        <Badge variant="secondary" className="bg-green-100 text-green-700">
-                                            <CheckCircle className="h-3 w-3 mr-1" />
-                                            Actif
-                                        </Badge>
-                                    </div>
-
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium">Type</span>
-                                        <Badge variant="outline">
-                                            {profile?.subscription_type === 'quarterly' ? 'Trimestriel' : 'Annuel'}
-                                        </Badge>
-                                    </div>
-
-                                    <Separator />
-
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => navigate('/tarifs')}
-                                        className="w-full"
-                                    >
-                                        Voir tous les tarifs
-                                    </Button>
-                                </CardContent>
-                            </Card>
+                            {subscription && (
+                                <SubscriptionStatus subscription={subscription?.subscription} />
+                            )}
 
                             {/* Logout */}
                             <Card className="border-0 shadow-lg bg-background/80 backdrop-blur-sm">
