@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
     Key,
@@ -12,9 +11,20 @@ import {
     Calendar,
     CheckCircle
 } from 'lucide-react';
-import { useEffect } from 'react';
-import { supabase } from '@/lib/supabaseClient';
 import { useApi } from '@/contexts/ApiContext';
+
+// Helper functions moved outside component to prevent recreation
+const convertCentsToEuros = (cents) => cents / 100;
+
+const calculateAnnualMultiplier = (interval, intervalCount = 1) => {
+    if (interval === 'month') return 12 / intervalCount;
+    if (interval === 'year') return 1 / intervalCount;
+    return 1;
+};
+
+const findTierForQuantity = (tiers, quantity) => {
+    return tiers.find(tier => tier.up_to === null || quantity <= tier.up_to);
+};
 
 const GenerateKeyModal = ({
     isOpen,
@@ -27,164 +37,142 @@ const GenerateKeyModal = ({
 
     const { products } = useApi();
 
-    // Calculate pricing based on Stripe tiers for selected product
-    const calculatePriceForProduct = (product, quantity) => {
-        if (!product || !product.prices || !product.prices[0] || !product.prices[0].tiers) {
-            return { unitPrice: 0, totalPrice: 0 };
+    // Memoized price calculation function
+    const calculatePriceForProduct = useCallback((product, quantity) => {
+        if (!product?.prices?.[0]?.tiers) {
+            return { unitPrice: 0, totalPrice: 0, unitPriceAnnual: 0, totalPriceAnnual: 0 };
         }
 
         const price = product.prices[0];
-        const tiers = price.tiers;
+        const { tiers, recurring } = price;
+        const { interval, interval_count: intervalCount = 1 } = recurring || {};
 
-        // Find the appropriate tier based on quantity
-        let unitPrice = 0;
+        const tier = findTierForQuantity(tiers, quantity);
+        if (!tier) return { unitPrice: 0, totalPrice: 0, unitPriceAnnual: 0, totalPriceAnnual: 0 };
 
-        for (const tier of tiers) {
-            if (tier.up_to === null || quantity <= tier.up_to) {
-                unitPrice = tier.unit_amount;
-                break;
-            }
-        }
-
-        // Convert from cents to euros
-        const unitPriceEur = unitPrice / 100;
+        const unitPriceEur = convertCentsToEuros(tier.unit_amount);
         const totalPrice = unitPriceEur * quantity;
+        const multiplier = calculateAnnualMultiplier(interval, intervalCount);
 
         return {
             unitPrice: unitPriceEur,
-            totalPrice: totalPrice
+            totalPrice,
+            unitPriceAnnual: unitPriceEur * multiplier,
+            totalPriceAnnual: totalPrice * multiplier,
+            interval,
+            intervalCount
         };
-    };
+    }, []);
 
-    // Get current selected product object
-    const getCurrentProduct = () => {
-        return products?.find(product => product.id === selectedProduct);
-    };
+    // Memoized current product
+    const currentProduct = useMemo(() =>
+        products?.find(product => product.id === selectedProduct),
+        [products, selectedProduct]
+    );
 
-    // Get pricing info for current selection
-    const getPricingInfo = () => {
-        const product = getCurrentProduct();
-        if (!product) return { unitPrice: 0, totalPrice: 0 };
+    // Memoized pricing info
+    const pricingInfo = useMemo(() =>
+        currentProduct ? calculatePriceForProduct(currentProduct, licenseCount) : { unitPrice: 0, totalPrice: 0 },
+        [currentProduct, licenseCount, calculatePriceForProduct]
+    );
 
-        return calculatePriceForProduct(product, licenseCount);
-    };
-
-    // Get billing interval for display
-    const getBillingInterval = () => {
-        const product = getCurrentProduct();
-        if (!product || !product.prices || !product.prices[0]) return '';
-
-        const interval = product.prices[0].recurring?.interval;
+    // Memoized billing interval
+    const billingInterval = useMemo(() => {
+        if (!currentProduct?.prices?.[0]?.recurring?.interval) return '';
+        const interval = currentProduct.prices[0].recurring.interval;
         return interval === 'month' ? 'mois' : interval === 'year' ? 'an' : interval;
-    };
+    }, [currentProduct]);
 
-    // Check if there are volume discounts available
-    const hasVolumeDiscount = () => {
-        const product = getCurrentProduct();
-        if (!product || !product.prices || !product.prices[0] || !product.prices[0].tiers) {
-            return false;
-        }
+    // Memoized products with pricing (sorted by annual price)
+    const productsWithPricing = useMemo(() => {
+        if (!products) return [];
 
-        return product.prices[0].tiers.length > 1;
-    };
+        return products
+            .map(product => ({
+                product,
+                pricing: calculatePriceForProduct(product, licenseCount)
+            }))
+            .sort((a, b) => a.pricing.unitPriceAnnual - b.pricing.unitPriceAnnual);
+    }, [products, licenseCount, calculatePriceForProduct]);
 
-    // Get tier information for display
-    const getTierInfo = () => {
-        const product = getCurrentProduct();
-        if (!product || !product.prices || !product.prices[0] || !product.prices[0].tiers) {
-            return '';
-        }
+    // Memoized tier information
+    const tierInfo = useMemo(() => {
+        if (!currentProduct?.prices?.[0]?.tiers) return { hasDiscount: false, info: '', discount: null };
 
-        const tiers = product.prices[0].tiers;
-        const currentTier = tiers.find(tier =>
-            tier.up_to === null || licenseCount <= tier.up_to
-        );
+        const tiers = currentProduct.prices[0].tiers;
+        const hasDiscount = tiers.length > 1;
 
-        if (!currentTier) return '';
+        if (!hasDiscount) return { hasDiscount: false, info: '', discount: null };
+
+        const currentTier = findTierForQuantity(tiers, licenseCount);
+        if (!currentTier) return { hasDiscount: true, info: '', discount: null };
 
         const tierIndex = tiers.indexOf(currentTier);
+        let info = '';
+        let discount = null;
+
         if (tierIndex === 0 && tiers.length > 1) {
-            return `Tarif standard (jusqu'à ${currentTier.up_to} licences)`;
-        } else if (tierIndex > 0) {
-            return `Tarif préférentiel (${tiers[tierIndex - 1].up_to + 1}+ licences)`;
-        }
-
-        return 'Tarif standard';
-    };
-
-    // Calculate discount information compared to higher tier pricing
-    const getDiscountInfo = () => {
-        const product = getCurrentProduct();
-        if (!product || !product.prices || !product.prices[0] || !product.prices[0].tiers) {
-            return null;
-        }
-
-        const tiers = product.prices[0].tiers;
-        if (tiers.length <= 1) return null;
-
-        const currentTier = tiers.find(tier =>
-            tier.up_to === null || licenseCount <= tier.up_to
-        );
-
-        if (!currentTier) return null;
-
-        const currentTierIndex = tiers.indexOf(currentTier);
-
-        // If we're in the first tier, show potential savings for higher quantity
-        if (currentTierIndex === 0 && tiers.length > 1) {
+            info = `Tarif standard (jusqu'à ${currentTier.up_to} licences)`;
+            // Calculate potential savings
             const nextTier = tiers[1];
-            const currentUnitPrice = currentTier.unit_amount / 100;
-            const nextTierPrice = nextTier.unit_amount / 100;
+            const currentUnitPrice = convertCentsToEuros(currentTier.unit_amount);
+            const nextTierPrice = convertCentsToEuros(nextTier.unit_amount);
             const savings = currentUnitPrice - nextTierPrice;
             const savingsPercentage = Math.round((savings / currentUnitPrice) * 100);
-
             const minQuantityForDiscount = currentTier.up_to + 1;
 
-            return {
+            discount = {
                 type: 'potential',
-                savings: savings,
-                savingsPercentage: savingsPercentage,
+                savings,
+                savingsPercentage,
                 minQuantity: minQuantityForDiscount,
                 message: `Économisez ${savingsPercentage}% (${savings.toFixed(2)}€/licence) à partir de ${minQuantityForDiscount} licences`
             };
-        }
-
-        // If we're in a higher tier, show current savings
-        if (currentTierIndex > 0) {
+        } else if (tierIndex > 0) {
+            info = `Tarif préférentiel (${tiers[tierIndex - 1].up_to + 1}+ licences)`;
+            // Calculate current savings
             const firstTier = tiers[0];
-            const firstTierPrice = firstTier.unit_amount / 100;
-            const currentUnitPrice = currentTier.unit_amount / 100;
+            const firstTierPrice = convertCentsToEuros(firstTier.unit_amount);
+            const currentUnitPrice = convertCentsToEuros(currentTier.unit_amount);
             const savings = firstTierPrice - currentUnitPrice;
             const savingsPercentage = Math.round((savings / firstTierPrice) * 100);
 
-            return {
+            discount = {
                 type: 'current',
-                savings: savings,
-                savingsPercentage: savingsPercentage,
+                savings,
+                savingsPercentage,
                 totalSavings: savings * licenseCount,
                 message: `Vous économisez ${savingsPercentage}% par licence (${(savings * licenseCount).toFixed(2)}€ au total)`
             };
+        } else {
+            info = 'Tarif standard';
         }
 
-        return null;
-    };
+        return { hasDiscount: true, info, discount };
+    }, [currentProduct, licenseCount]);
 
-    const handleGenerate = () => {
-        const product = getCurrentProduct();
+    // Handlers
+    const handleLicenseCountChange = useCallback((e) => {
+        setLicenseCount(parseInt(e.target.value) || 1);
+    }, []);
+
+    const handleProductSelect = useCallback((productId) => {
+        setSelectedProduct(productId);
+    }, []);
+
+    const handleGenerate = useCallback(() => {
         onGenerateKey({
             licenseCount,
             productId: selectedProduct,
-            product: product
+            product: currentProduct
         });
-    };
+    }, [licenseCount, selectedProduct, currentProduct, onGenerateKey]);
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         if (!isGenerating) {
             onClose();
         }
-    };
-
-    const pricingInfo = getPricingInfo();
+    }, [isGenerating, onClose]);
 
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -212,13 +200,13 @@ const GenerateKeyModal = ({
                             min="1"
                             max="100"
                             value={licenseCount}
-                            onChange={(e) => setLicenseCount(parseInt(e.target.value) || 1)}
+                            onChange={handleLicenseCountChange}
                             placeholder="Entrez le nombre de licences"
                             disabled={isGenerating}
                         />
-                        {hasVolumeDiscount() && (
+                        {tierInfo.hasDiscount && (
                             <p className="text-xs text-muted-foreground">
-                                {getTierInfo()}
+                                {tierInfo.info}
                             </p>
                         )}
                     </div>
@@ -227,66 +215,40 @@ const GenerateKeyModal = ({
                     <div className="space-y-2">
                         <Label className="flex items-center gap-2">
                             <Calendar className="h-4 w-4" />
-                            Type d'abonnement
+                            Choisissez votre abonnement
                         </Label>
-                        <Select
-                            value={selectedProduct}
-                            onValueChange={setSelectedProduct}
-                            disabled={isGenerating}
-                        >
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Sélectionnez le type d'abonnement" />
-                            </SelectTrigger>
-                            <SelectContent className="w-full">
-                                {products?.map((product) => (
-                                    <SelectItem key={product.id} value={product.id}>
-                                        {product.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+
+                        {productsWithPricing.length > 0 ? (
+                            <div className="space-y-2">
+                                {productsWithPricing.map(({ product, pricing }) => {
+                                    const isSelected = product.id === selectedProduct;
+                                    const interval = pricing.interval === 'month' ? '/mois' : pricing.interval === 'year' ? '/an' : '';
+
+                                    return (
+                                        <ProductOption
+                                            key={product.id}
+                                            product={product}
+                                            pricing={pricing}
+                                            interval={interval}
+                                            isSelected={isSelected}
+                                            onSelect={handleProductSelect}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <EmptyProductsState />
+                        )}
                     </div>
 
                     {/* Pricing Summary */}
                     {selectedProduct && (
-                        <div className="space-y-3 p-4 bg-muted rounded-lg">
-                            <h4 className="font-medium text-sm">Résumé de la commande</h4>
-
-                            <div className="space-y-2 text-sm">
-                                <div className="flex justify-between">
-                                    <span>{licenseCount} licence{licenseCount > 1 ? 's' : ''}</span>
-                                    <span>x {pricingInfo.unitPrice.toFixed(2)}€/{getBillingInterval()}</span>
-                                </div>
-
-                                <Separator />
-
-                                <div className="flex justify-between font-medium">
-                                    <span>Total {getBillingInterval() === 'mois' ? 'mensuel' : 'annuel'}</span>
-                                    <span>{pricingInfo.totalPrice.toFixed(2)}€ TTC</span>
-                                </div>
-
-                                {(() => {
-                                    const discountInfo = getDiscountInfo();
-                                    if (!discountInfo) return null;
-
-                                    return (
-                                        <div className="pt-2">
-                                            {discountInfo.type === 'current' ? (
-                                                <div className="flex items-center gap-2 text-green-600 text-xs">
-                                                    <CheckCircle className="h-3 w-3" />
-                                                    <span>{discountInfo.message}</span>
-                                                </div>
-                                            ) : (
-                                                <div className="flex items-center gap-2 text-blue-600 text-xs">
-                                                    <CheckCircle className="h-3 w-3" />
-                                                    <span>{discountInfo.message}</span>
-                                                </div>
-                                            )}
-                                        </div>
-                                    );
-                                })()}
-                            </div>
-                        </div>
+                        <PricingSummary
+                            licenseCount={licenseCount}
+                            pricingInfo={pricingInfo}
+                            billingInterval={billingInterval}
+                            tierInfo={tierInfo}
+                        />
                     )}
                 </div>
 
@@ -320,5 +282,79 @@ const GenerateKeyModal = ({
         </Dialog>
     );
 };
+
+// Extracted components for better readability and performance
+const ProductOption = React.memo(({ product, pricing, interval, isSelected, onSelect }) => (
+    <div
+        className={`relative cursor-pointer transition-all duration-200 rounded-lg ${isSelected
+                ? 'bg-primary/10 border-2 border-primary shadow-sm'
+                : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm'
+            }`}
+        onClick={() => onSelect(product.id)}
+    >
+        <div className="p-4 rounded-lg">
+            <div className="flex justify-between items-start">
+                <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                        {isSelected && <CheckCircle className="h-4 w-4 text-primary" />}
+                        <h4 className={`font-medium ${isSelected ? 'text-primary' : 'text-gray-900'}`}>
+                            {product.name}
+                        </h4>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-2">
+                        {product.description}
+                    </p>
+                </div>
+
+                <div className="text-right ml-4">
+                    <div className="text-lg font-bold text-gray-900">
+                        {pricing.unitPrice.toFixed(2)}€{interval}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                        par licence
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+));
+
+const EmptyProductsState = React.memo(() => (
+    <div className="text-center py-8 text-gray-500">
+        <Calendar className="h-8 w-8 mx-auto mb-2 opacity-50" />
+        <p>Aucun abonnement disponible</p>
+    </div>
+));
+
+const PricingSummary = React.memo(({ licenseCount, pricingInfo, billingInterval, tierInfo }) => (
+    <div className="space-y-3 p-4 bg-muted rounded-lg">
+        <h4 className="font-medium text-sm">Résumé de la commande</h4>
+
+        <div className="space-y-2 text-sm">
+            <div className="flex justify-between">
+                <span>{licenseCount} licence{licenseCount > 1 ? 's' : ''}</span>
+                <span>x {pricingInfo.unitPrice.toFixed(2)}€/{billingInterval}</span>
+            </div>
+
+            <Separator />
+
+            <div className="flex justify-between font-medium">
+                <span>Total {billingInterval === 'mois' ? 'mensuel' : 'annuel'}</span>
+                <span>{pricingInfo.totalPrice.toFixed(2)}€ TTC</span>
+            </div>
+
+            {/* Volume discount info */}
+            {tierInfo.discount && (
+                <div className="pt-2">
+                    <div className={`flex items-center gap-2 text-xs ${tierInfo.discount.type === 'current' ? 'text-green-600' : 'text-blue-600'
+                        }`}>
+                        <CheckCircle className="h-3 w-3" />
+                        <span>{tierInfo.discount.message}</span>
+                    </div>
+                </div>
+            )}
+        </div>
+    </div>
+));
 
 export default GenerateKeyModal;
