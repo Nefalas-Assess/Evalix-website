@@ -75,7 +75,7 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Statut</span>
                     <Badge variant="secondary" className={`${subscription?.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                        <CheckCircle className="h-3 w-3 mr-1" />
+                        {subscription?.status === "active" ? <CheckCircle className="h-3 w-3 mr-1" /> : <Ban className="h-3 w-3 mr-1" />}
                         {subscription?.status === 'active' ? 'Actif' : 'Inactif'}
                     </Badge>
                 </div>

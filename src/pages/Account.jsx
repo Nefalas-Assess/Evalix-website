@@ -125,7 +125,7 @@ const Account = () => {
 
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
                 body: {
-                    price: 'price_1RxqD24fzAUpRGLNEZDjg5Ke',
+                    price: licenseData?.product?.prices[0]?.id,
                     quantity: licenseData.licenseCount,
                     userId: user.id,
                 }
