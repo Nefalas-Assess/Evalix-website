@@ -112,6 +112,63 @@ const GenerateKeyModal = ({
         return 'Tarif standard';
     };
 
+    // Calculate discount information compared to higher tier pricing
+    const getDiscountInfo = () => {
+        const product = getCurrentProduct();
+        if (!product || !product.prices || !product.prices[0] || !product.prices[0].tiers) {
+            return null;
+        }
+
+        const tiers = product.prices[0].tiers;
+        if (tiers.length <= 1) return null;
+
+        const currentTier = tiers.find(tier =>
+            tier.up_to === null || licenseCount <= tier.up_to
+        );
+
+        if (!currentTier) return null;
+
+        const currentTierIndex = tiers.indexOf(currentTier);
+
+        // If we're in the first tier, show potential savings for higher quantity
+        if (currentTierIndex === 0 && tiers.length > 1) {
+            const nextTier = tiers[1];
+            const currentUnitPrice = currentTier.unit_amount / 100;
+            const nextTierPrice = nextTier.unit_amount / 100;
+            const savings = currentUnitPrice - nextTierPrice;
+            const savingsPercentage = Math.round((savings / currentUnitPrice) * 100);
+
+            const minQuantityForDiscount = currentTier.up_to + 1;
+
+            return {
+                type: 'potential',
+                savings: savings,
+                savingsPercentage: savingsPercentage,
+                minQuantity: minQuantityForDiscount,
+                message: `Économisez ${savingsPercentage}% (${savings.toFixed(2)}€/licence) à partir de ${minQuantityForDiscount} licences`
+            };
+        }
+
+        // If we're in a higher tier, show current savings
+        if (currentTierIndex > 0) {
+            const firstTier = tiers[0];
+            const firstTierPrice = firstTier.unit_amount / 100;
+            const currentUnitPrice = currentTier.unit_amount / 100;
+            const savings = firstTierPrice - currentUnitPrice;
+            const savingsPercentage = Math.round((savings / firstTierPrice) * 100);
+
+            return {
+                type: 'current',
+                savings: savings,
+                savingsPercentage: savingsPercentage,
+                totalSavings: savings * licenseCount,
+                message: `Vous économisez ${savingsPercentage}% par licence (${(savings * licenseCount).toFixed(2)}€ au total)`
+            };
+        }
+
+        return null;
+    };
+
     const handleGenerate = () => {
         const product = getCurrentProduct();
         onGenerateKey({
@@ -208,16 +265,26 @@ const GenerateKeyModal = ({
                                     <span>{pricingInfo.totalPrice.toFixed(2)}€ TTC</span>
                                 </div>
 
-                                {hasVolumeDiscount() && licenseCount > 1 && (
-                                    <div className="pt-2">
-                                        <div className="flex items-center gap-2 text-blue-600 text-xs">
-                                            <CheckCircle className="h-3 w-3" />
-                                            <span>
-                                                Tarification par volumes disponible
-                                            </span>
+                                {(() => {
+                                    const discountInfo = getDiscountInfo();
+                                    if (!discountInfo) return null;
+
+                                    return (
+                                        <div className="pt-2">
+                                            {discountInfo.type === 'current' ? (
+                                                <div className="flex items-center gap-2 text-green-600 text-xs">
+                                                    <CheckCircle className="h-3 w-3" />
+                                                    <span>{discountInfo.message}</span>
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center gap-2 text-blue-600 text-xs">
+                                                    <CheckCircle className="h-3 w-3" />
+                                                    <span>{discountInfo.message}</span>
+                                                </div>
+                                            )}
                                         </div>
-                                    </div>
-                                )}
+                                    );
+                                })()}
                             </div>
                         </div>
                     )}
