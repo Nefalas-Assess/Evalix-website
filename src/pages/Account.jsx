@@ -338,7 +338,7 @@ const Account = () => {
 
                             {/* Subscription Status */}
                             {subscription && (
-                                <SubscriptionStatus subscription={subscription?.subscription} />
+                                <SubscriptionStatus subscription={subscription?.subscription} refreshSubscription={(item) => setSubscription((prev) => ({ ...prev, subscription: item }))} />
                             )}
 
                             {/* Logout */}

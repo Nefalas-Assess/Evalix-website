@@ -17,7 +17,7 @@ import {
 import { CreditCard, CheckCircle, Ban, AlertTriangle, Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
-const SubscriptionStatus = ({ subscription }) => {
+const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false); // Add dialog state management
 
@@ -32,7 +32,9 @@ const SubscriptionStatus = ({ subscription }) => {
                 }
             });
 
-            console.log(data);
+            if (data?.subscription) {
+                refreshSubscription(data?.subscription)
+            }
         } catch (error) {
             console.error('Erreur lors de l\'annulation:', error);
         } finally {
@@ -40,6 +42,26 @@ const SubscriptionStatus = ({ subscription }) => {
             setIsDialogOpen(false); // Close dialog after operation completes
         }
     };
+
+    const handleRenewSubscription = async (e) => {
+        e.preventDefault();
+        try {
+            setIsLoading(true);
+            const { data } = await supabase.functions.invoke('resume-subscription', {
+                body: {
+                    subscriptionId: subscription.id,
+                }
+            });
+            if (data?.subscription) {
+                refreshSubscription(data?.subscription)
+            }
+        } catch (error) {
+            console.error('Erreur lors du renouvellement:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
 
     return (
         <Card className="border-0 shadow-lg bg-background/80 backdrop-blur-sm">
@@ -65,58 +87,78 @@ const SubscriptionStatus = ({ subscription }) => {
                     </Badge>
                 </div>
 
-                {/* {subscription?.current_period_end && (
+                {subscription?.cancel_at && (
                     <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium">Renouvellement</span>
+                        <span className="text-sm font-medium">Fin de l'abonnement</span>
                         <span className="text-sm text-muted-foreground">
-                            {new Date(subscription.current_period_end).toLocaleDateString('fr-FR')}
+                            {new Date(subscription.cancel_at * 1000).toLocaleDateString('fr-FR')}
                         </span>
                     </div>
-                )} */}
+                )}
 
                 <Separator />
 
-                <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <AlertDialogTrigger asChild>
-                        <Button
-                            variant="outline"
-                            className="w-full text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
-                        >
-                            <Ban className="mr-2 h-4 w-4" />
-                            Annuler l'abonnement
-                        </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle className="flex items-center gap-2">
-                                <AlertTriangle className="h-5 w-5 text-orange-500" />
-                                Confirmer l'annulation
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                                Êtes-vous sûr de vouloir annuler votre abonnement ? Cette action est irréversible et vous perdrez l'accès à tous les services premium à la fin de votre période de facturation actuelle.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel disabled={isLoading}>
-                                Annuler
-                            </AlertDialogCancel>
-                            <AlertDialogAction
-                                onClick={handleCancelSubscription}
-                                disabled={isLoading}
-                                className="bg-red-600 hover:bg-red-700 text-white disabled:opacity-50"
+                {subscription?.cancel_at_period_end ? (
+                    <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={handleRenewSubscription}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Reprise en cours...
+                            </>
+                        ) : (
+                            'Reprendre l\'abonnement'
+                        )}
+                    </Button>
+                ) : (
+
+                    <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <AlertDialogTrigger asChild>
+                            <Button
+                                variant="outline"
+                                className="w-full text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
                             >
-                                {isLoading ? (
-                                    <>
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                        Annulation en cours...
-                                    </>
-                                ) : (
-                                    'Confirmer l\'annulation'
-                                )}
-                            </AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+                                <Ban className="mr-2 h-4 w-4" />
+                                Annuler l'abonnement
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle className="flex items-center gap-2">
+                                    <AlertTriangle className="h-5 w-5 text-orange-500" />
+                                    Confirmer l'annulation
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    Êtes-vous sûr de vouloir annuler votre abonnement ? Cette action est irréversible et vous perdrez l'accès à tous les services premium à la fin de votre période de facturation actuelle.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel disabled={isLoading}>
+                                    Annuler
+                                </AlertDialogCancel>
+                                <AlertDialogAction
+                                    onClick={handleCancelSubscription}
+                                    disabled={isLoading}
+                                    className="bg-red-600 hover:bg-red-700 text-white disabled:opacity-50"
+                                >
+                                    {isLoading ? (
+                                        <>
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                            Annulation en cours...
+                                        </>
+                                    ) : (
+                                        'Confirmer l\'annulation'
+                                    )}
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                )}
+
             </CardContent>
         </Card>
     );
