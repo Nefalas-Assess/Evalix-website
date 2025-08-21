@@ -14,6 +14,8 @@ import {
 const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
     const hasLicense = license && license.key;
 
+    const activeDevices = (license?.devices || [])?.length;
+
     return (
         <Card className="border-0 shadow-lg bg-background/80 backdrop-blur-sm">
             <CardHeader>
@@ -42,11 +44,57 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
                     <div className="p-3 bg-muted rounded-lg">
                         <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
                             <Monitor className="h-3 w-3" />
-                            APPAREILS AUTORISÉS
+                            UTILISATION DES APPAREILS
                         </Label>
-                        <p className="text-sm mt-1 font-semibold">
-                            {license.maxDevices} {license.maxDevices > 1 ? 'appareils' : 'appareil'}
-                        </p>
+
+                        {/* Device usage display */}
+                        <div className="mt-2 space-y-2">
+                            <div className="flex items-center justify-between">
+                                <span className="text-sm font-medium">
+                                    {activeDevices || 0} / {license.maxDevices} appareils
+                                </span>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                                    <span className="text-xs text-muted-foreground">
+                                        {activeDevices || 0} actif{(activeDevices || 0) > 1 ? 's' : ''}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Progress bar */}
+                            <div className="w-full bg-secondary rounded-full h-2">
+                                <div
+                                    className={`h-2 rounded-full transition-all duration-300 ${(activeDevices || 0) >= license.maxDevices
+                                        ? 'bg-red-500'
+                                        : (activeDevices || 0) / license.maxDevices > 0.8
+                                            ? 'bg-yellow-500'
+                                            : 'bg-green-500'
+                                        }`}
+                                    style={{
+                                        width: `${Math.min(((activeDevices || 0) / license.maxDevices) * 100, 100)}%`
+                                    }}
+                                />
+                            </div>
+
+                            {/* Status message */}
+                            <div className="flex items-center gap-1 text-xs">
+                                {(activeDevices || 0) >= license.maxDevices ? (
+                                    <>
+                                        <AlertTriangle className="h-3 w-3 text-red-500" />
+                                        <span className="text-red-600">Limite atteinte</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="w-3 h-3 rounded-full bg-green-500/20 flex items-center justify-center">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                                        </div>
+                                        <span className="text-green-600">
+                                            {license.maxDevices - (activeDevices || 0)} appareil{license.maxDevices - (activeDevices || 0) > 1 ? 's' : ''} disponible{license.maxDevices - (activeDevices || 0) > 1 ? 's' : ''}
+                                        </span>
+                                    </>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 )}
 
