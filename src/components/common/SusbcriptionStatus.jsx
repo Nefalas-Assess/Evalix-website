@@ -14,7 +14,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { CreditCard, CheckCircle, Ban, AlertTriangle, Loader2 } from 'lucide-react';
+import { CreditCard, CheckCircle, Ban, AlertTriangle, Loader2, Edit } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 
 const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
@@ -62,6 +62,29 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
         }
     };
 
+    const handleUpdatePaymentMethod = async () => {
+        try {
+            setIsLoading(true);
+
+            // Call Supabase function to get the payment method update URL
+            const { data } = await supabase.functions.invoke('update-pm', {
+                body: {
+                    customerId: subscription.customer,
+                }
+            });
+
+            if (data?.url) {
+                // Redirect to Stripe's payment method update page
+                window.open(data.url, '_blank');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour du moyen de paiement:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
 
     return (
         <Card className="border-0 shadow-lg bg-background/80 backdrop-blur-sm">
@@ -83,7 +106,7 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Type</span>
                     <Badge variant="outline">
-                        {subscription?.subscription_type === 'quarterly' ? 'Trimestriel' : 'Annuel'}
+                        {subscription?.plan?.interval === 'month' ? 'Mensuel' : 'Annuel'}
                     </Badge>
                 </div>
 
@@ -97,6 +120,28 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
                 )}
 
                 <Separator />
+
+                {/* Update Payment Method Button */}
+                <Button
+                    variant="outline"
+                    className="w-full h-auto"
+                    onClick={handleUpdatePaymentMethod}
+                    disabled={isLoading}
+                >
+                    {isLoading ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Mise à jour...
+                        </>
+                    ) : (
+                        <div className="flex items-center justify-center text-center">
+                            <Edit className="mr-2 h-4 w-4 flex-shrink-0" />
+                            <span>
+                                Modifier le moyen de paiement
+                            </span>
+                        </div>
+                    )}
+                </Button>
 
                 {subscription?.cancel_at_period_end ? (
                     <Button
