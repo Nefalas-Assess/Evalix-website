@@ -15,19 +15,16 @@ import {
     Building2,
     MapPin,
     Hash,
-    Key,
     CreditCard,
     CheckCircle,
     AlertCircle,
     LogOut,
     Save,
-    RefreshCw,
-    AlertTriangle,
-    Monitor
+    RefreshCw
 } from 'lucide-react';
-import { generateLicenseKey } from '../utils/license';
 import GenerateKeyModal from '../components/common/GenerateKeyModal';
 import SubscriptionStatus from '../components/common/SusbcriptionStatus';
+import LicenseSection from '../components/common/LicenseSection';
 
 const Account = () => {
     const [subscription, setSubscription] = useState(null);
@@ -319,71 +316,10 @@ const Account = () => {
                         {/* Sidebar */}
                         <div className="space-y-6">
                             {/* License Information */}
-                            <Card className="border-0 shadow-lg bg-background/80 backdrop-blur-sm">
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <Key className="h-5 w-5 text-primary" />
-                                        Licence
-                                    </CardTitle>
-                                    <CardDescription>
-                                        Votre clé de licence Evalix
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-4">
-                                    <div className="p-3 bg-muted rounded-lg">
-                                        <Label className="text-xs font-medium text-muted-foreground">
-                                            CLÉ DE LICENCE
-                                        </Label>
-                                        <p className="font-mono text-sm mt-1 break-all">
-                                            {license?.key ? license.key.replace(/(.{4})/g, '$1-').replace(/-$/, '') : ''}
-                                        </p>
-                                    </div>
-
-                                    {/* Device count information */}
-                                    {license?.maxDevices && (
-                                        <div className="p-3 bg-muted rounded-lg">
-                                            <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                                                <Monitor className="h-3 w-3" />
-                                                APPAREILS AUTORISÉS
-                                            </Label>
-                                            <p className="text-sm mt-1 font-semibold">
-                                                {license.maxDevices} {license.maxDevices > 1 ? 'appareils' : 'appareil'}
-                                            </p>
-                                        </div>
-                                    )}
-
-                                    {/* Warning for license expiration */}
-                                    {license?.end_date && (
-                                        <Alert variant="destructive" className="mt-3">
-                                            <AlertTriangle className="h-4 w-4" />
-                                            <AlertDescription>
-                                                Cette clé sera désactivée le {new Date(license.end_date).toLocaleDateString('fr-FR', {
-                                                    year: 'numeric',
-                                                    month: 'long',
-                                                    day: 'numeric'
-                                                })}
-                                            </AlertDescription>
-                                        </Alert>
-                                    )}
-
-                                    {!license && (
-                                        <>
-                                            <Button
-                                                variant="outline"
-                                                size="sm"
-                                                className="w-full"
-                                                onClick={() => setIsModalOpen(true)}
-                                            >
-                                                <RefreshCw className="mr-2 h-4 w-4" />
-                                                Générer une clé
-                                            </Button>
-                                            <p className="text-xs text-muted-foreground">
-                                                Cette clé est nécessaire pour activer votre logiciel Evalix.
-                                            </p>
-                                        </>
-                                    )}
-                                </CardContent>
-                            </Card>
+                            <LicenseSection
+                                license={license}
+                                onGenerateKey={() => setIsModalOpen(true)}
+                            />
 
                             {/* Subscription Status */}
                             {subscription && (
