@@ -21,7 +21,9 @@ import {
     AlertCircle,
     LogOut,
     Save,
-    RefreshCw
+    RefreshCw,
+    AlertTriangle,
+    Monitor
 } from 'lucide-react';
 import { generateLicenseKey } from '../utils/license';
 import GenerateKeyModal from '../components/common/GenerateKeyModal';
@@ -38,6 +40,7 @@ const Account = () => {
     const { t } = useLanguage();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [generatingKey, setGeneratingKey] = useState(false);
+    const [license, setLicense] = useState(null);
 
     // Load user profile from Supabase
     useEffect(() => {
@@ -52,11 +55,20 @@ const Account = () => {
                 navigate('/login');
                 return;
             }
+
             const { data: subs } = await supabase
                 .rpc('get_active_subscription', {
                     user_id: user.id
                 });
 
+
+            const { data: licenseData } = await supabase.functions.invoke('get-my-license', {
+                body: {
+                    userId: user.id
+                }
+            });
+
+            setLicense(licenseData);
             setSubscription(subs?.[0]);
             setUser(user);
             setLoading(false);
@@ -146,6 +158,13 @@ const Account = () => {
         }
         setGeneratingKey(false);
         setTimeout(() => setMessage(""), 5000); // Increased timeout for error messages
+    };
+
+    const handleRefreshSubscription = async (item) => {
+        // Refresh subscription
+        setSubscription((prev) => ({ ...prev, subscription: item }));
+        // Display the new end date of the license
+        setLicense((prev) => ({ ...prev, end_date: item?.cancel_at ? new Date(item?.cancel_at * 1000) : null }));
     };
 
 
@@ -316,29 +335,59 @@ const Account = () => {
                                             CLÉ DE LICENCE
                                         </Label>
                                         <p className="font-mono text-sm mt-1 break-all">
-                                            {/* {profile?.license_key} */}
+                                            {license?.key ? license.key.replace(/(.{4})/g, '$1-').replace(/-$/, '') : ''}
                                         </p>
                                     </div>
 
-                                    <Button
-                                        variant="outline"
-                                        size="sm"
-                                        className="w-full"
-                                        onClick={() => setIsModalOpen(true)}
-                                    >
-                                        <RefreshCw className="mr-2 h-4 w-4" />
-                                        Générer une nouvelle clé
-                                    </Button>
+                                    {/* Device count information */}
+                                    {license?.maxDevices && (
+                                        <div className="p-3 bg-muted rounded-lg">
+                                            <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                                                <Monitor className="h-3 w-3" />
+                                                APPAREILS AUTORISÉS
+                                            </Label>
+                                            <p className="text-sm mt-1 font-semibold">
+                                                {license.maxDevices} {license.maxDevices > 1 ? 'appareils' : 'appareil'}
+                                            </p>
+                                        </div>
+                                    )}
 
-                                    <p className="text-xs text-muted-foreground">
-                                        Cette clé est nécessaire pour activer votre logiciel Evalix.
-                                    </p>
+                                    {/* Warning for license expiration */}
+                                    {license?.end_date && (
+                                        <Alert variant="destructive" className="mt-3">
+                                            <AlertTriangle className="h-4 w-4" />
+                                            <AlertDescription>
+                                                Cette clé sera désactivée le {new Date(license.end_date).toLocaleDateString('fr-FR', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric'
+                                                })}
+                                            </AlertDescription>
+                                        </Alert>
+                                    )}
+
+                                    {!license && (
+                                        <>
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="w-full"
+                                                onClick={() => setIsModalOpen(true)}
+                                            >
+                                                <RefreshCw className="mr-2 h-4 w-4" />
+                                                Générer une clé
+                                            </Button>
+                                            <p className="text-xs text-muted-foreground">
+                                                Cette clé est nécessaire pour activer votre logiciel Evalix.
+                                            </p>
+                                        </>
+                                    )}
                                 </CardContent>
                             </Card>
 
                             {/* Subscription Status */}
                             {subscription && (
-                                <SubscriptionStatus subscription={subscription?.subscription} refreshSubscription={(item) => setSubscription((prev) => ({ ...prev, subscription: item }))} />
+                                <SubscriptionStatus subscription={subscription?.subscription} refreshSubscription={(item) => handleRefreshSubscription(item)} />
                             )}
 
                             {/* Logout */}
