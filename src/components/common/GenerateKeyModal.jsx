@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,7 +9,9 @@ import {
     RefreshCw,
     Calculator,
     Calendar,
-    CheckCircle
+    CheckCircle,
+    CreditCard,
+    Settings
 } from 'lucide-react';
 import { useApi } from '@/contexts/ApiContext';
 
@@ -29,21 +31,37 @@ const findTierForQuantity = (tiers, quantity) => {
 const GenerateKeyModal = ({
     isOpen,
     onClose,
-    onGenerateKey,
-    isGenerating = false
+    onAction,
+    isGenerating = false,
+    currentSubscription = null,
+    mode = 'generate' // 'generate' or 'update'
 }) => {
     const [licenseCount, setLicenseCount] = useState(1);
-    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedPriceId, setSelectedPriceId] = useState(null);
 
     const { products } = useApi();
 
-    // Memoized price calculation function
-    const calculatePriceForProduct = useCallback((product, quantity) => {
-        if (!product?.prices?.[0]?.tiers) {
+    // Get the first (and only) product
+    const product = useMemo(() => products?.[0], [products]);
+
+    // Initialize with current subscription data if in update mode
+    useEffect(() => {
+        if (mode === 'update' && currentSubscription) {
+            setLicenseCount(currentSubscription.quantity || 1);
+            setSelectedPriceId(currentSubscription?.plan?.id || null);
+        } else {
+            // Reset for generate mode
+            setLicenseCount(1);
+            setSelectedPriceId(null);
+        }
+    }, [mode, currentSubscription, isOpen]);
+
+    // Memoized price calculation function for a specific price
+    const calculatePriceForPrice = useCallback((price, quantity) => {
+        if (!price?.tiers) {
             return { unitPrice: 0, totalPrice: 0, unitPriceAnnual: 0, totalPriceAnnual: 0 };
         }
 
-        const price = product.prices[0];
         const { tiers, recurring } = price;
         const { interval, interval_count: intervalCount = 1 } = recurring || {};
 
@@ -64,42 +82,42 @@ const GenerateKeyModal = ({
         };
     }, []);
 
-    // Memoized current product
-    const currentProduct = useMemo(() =>
-        products?.find(product => product.id === selectedProduct),
-        [products, selectedProduct]
+    // Memoized current price
+    const currentPrice = useMemo(() =>
+        product?.prices?.find(price => price.id === selectedPriceId),
+        [product, selectedPriceId]
     );
 
     // Memoized pricing info
     const pricingInfo = useMemo(() =>
-        currentProduct ? calculatePriceForProduct(currentProduct, licenseCount) : { unitPrice: 0, totalPrice: 0 },
-        [currentProduct, licenseCount, calculatePriceForProduct]
+        currentPrice ? calculatePriceForPrice(currentPrice, licenseCount) : { unitPrice: 0, totalPrice: 0 },
+        [currentPrice, licenseCount, calculatePriceForPrice]
     );
 
     // Memoized billing interval
     const billingInterval = useMemo(() => {
-        if (!currentProduct?.prices?.[0]?.recurring?.interval) return '';
-        const interval = currentProduct.prices[0].recurring.interval;
+        if (!currentPrice?.recurring?.interval) return '';
+        const interval = currentPrice.recurring.interval;
         return interval === 'month' ? 'mois' : interval === 'year' ? 'an' : interval;
-    }, [currentProduct]);
+    }, [currentPrice]);
 
-    // Memoized products with pricing (sorted by annual price)
-    const productsWithPricing = useMemo(() => {
-        if (!products) return [];
+    // Memoized prices with pricing (sorted by annual price)
+    const pricesWithPricing = useMemo(() => {
+        if (!product?.prices) return [];
 
-        return products
-            .map(product => ({
-                product,
-                pricing: calculatePriceForProduct(product, licenseCount)
+        return product.prices
+            .map(price => ({
+                price,
+                pricing: calculatePriceForPrice(price, licenseCount)
             }))
             .sort((a, b) => a.pricing.unitPriceAnnual - b.pricing.unitPriceAnnual);
-    }, [products, licenseCount, calculatePriceForProduct]);
+    }, [product, licenseCount, calculatePriceForPrice]);
 
     // Memoized tier information
     const tierInfo = useMemo(() => {
-        if (!currentProduct?.prices?.[0]?.tiers) return { hasDiscount: false, info: '', discount: null };
+        if (!currentPrice?.tiers) return { hasDiscount: false, info: '', discount: null };
 
-        const tiers = currentProduct.prices[0].tiers;
+        const tiers = currentPrice.tiers;
         const hasDiscount = tiers.length > 1;
 
         if (!hasDiscount) return { hasDiscount: false, info: '', discount: null };
@@ -149,24 +167,26 @@ const GenerateKeyModal = ({
         }
 
         return { hasDiscount: true, info, discount };
-    }, [currentProduct, licenseCount]);
+    }, [currentPrice, licenseCount]);
 
     // Handlers
     const handleLicenseCountChange = useCallback((e) => {
         setLicenseCount(parseInt(e.target.value) || 1);
     }, []);
 
-    const handleProductSelect = useCallback((productId) => {
-        setSelectedProduct(productId);
+    const handlePriceSelect = useCallback((priceId) => {
+        setSelectedPriceId(priceId);
     }, []);
 
-    const handleGenerate = useCallback(() => {
-        onGenerateKey({
+    const handleSubmit = useCallback(() => {
+        onAction({
             licenseCount,
-            productId: selectedProduct,
-            product: currentProduct
+            priceId: selectedPriceId,
+            price: currentPrice,
+            product: product,
+            subscriptionId: mode === 'update' ? currentSubscription?.id : undefined
         });
-    }, [licenseCount, selectedProduct, currentProduct, onGenerateKey]);
+    }, [licenseCount, selectedPriceId, currentPrice, product, onAction, mode, currentSubscription]);
 
     const handleClose = useCallback(() => {
         if (!isGenerating) {
@@ -174,20 +194,52 @@ const GenerateKeyModal = ({
         }
     }, [isGenerating, onClose]);
 
+    // Determine if changes were made (for update mode)
+    const hasChanges = useMemo(() => {
+        if (mode !== 'update' || !currentSubscription) return true;
+
+        return selectedPriceId !== currentSubscription.price?.id ||
+            licenseCount !== (currentSubscription.quantity || 1);
+    }, [mode, currentSubscription, selectedPriceId, licenseCount]);
+
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <Key className="h-5 w-5 text-primary" />
-                        Générer une nouvelle clé de licence
+                        {mode === 'generate' ? (
+                            <Key className="h-5 w-5 text-primary" />
+                        ) : (
+                            <Settings className="h-5 w-5 text-primary" />
+                        )}
+                        {mode === 'generate'
+                            ? 'Générer une nouvelle clé de licence'
+                            : 'Mettre à jour votre abonnement'
+                        }
                     </DialogTitle>
                     <DialogDescription>
-                        Configurez votre nouvelle licence en sélectionnant le nombre de licences et le type d'abonnement.
+                        {mode === 'generate'
+                            ? 'Configurez votre nouvelle licence en sélectionnant le nombre de licences et le type d\'abonnement.'
+                            : 'Modifiez le nombre de licences ou changez votre plan d\'abonnement.'
+                        }
                     </DialogDescription>
                 </DialogHeader>
 
                 <div className="space-y-6 py-4">
+                    {/* Current subscription info for update mode */}
+                    {mode === 'update' && currentSubscription && (
+                        <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                            <div className="flex items-center gap-2 text-blue-800 mb-1">
+                                <CreditCard className="h-4 w-4" />
+                                <span className="font-medium text-sm">Abonnement actuel</span>
+                            </div>
+                            <p className="text-xs text-blue-600">
+                                {currentSubscription.quantity || 1} licence{(currentSubscription.quantity || 1) > 1 ? 's' : ''} •
+                                {currentSubscription.price?.recurring?.interval === 'month' ? 'Mensuel' : 'Annuel'}
+                            </p>
+                        </div>
+                    )}
+
                     {/* License Count Selection */}
                     <div className="space-y-2">
                         <Label htmlFor="license-count" className="flex items-center gap-2">
@@ -211,38 +263,40 @@ const GenerateKeyModal = ({
                         )}
                     </div>
 
-                    {/* Product Selection */}
+                    {/* Price Selection */}
                     <div className="space-y-2">
                         <Label className="flex items-center gap-2">
                             <Calendar className="h-4 w-4" />
-                            Choisissez votre abonnement
+                            Choisissez votre plan de facturation
                         </Label>
 
-                        {productsWithPricing.length > 0 ? (
+                        {pricesWithPricing.length > 0 ? (
                             <div className="space-y-2">
-                                {productsWithPricing.map(({ product, pricing }) => {
-                                    const isSelected = product.id === selectedProduct;
+                                {pricesWithPricing.map(({ price, pricing }) => {
+                                    const isSelected = price.id === selectedPriceId;
                                     const interval = pricing.interval === 'month' ? '/mois' : pricing.interval === 'year' ? '/an' : '';
+                                    const planName = pricing.interval === 'month' ? 'Plan Mensuel' : 'Plan Annuel';
 
                                     return (
-                                        <ProductOption
-                                            key={product.id}
-                                            product={product}
+                                        <PriceOption
+                                            key={price.id}
+                                            price={price}
                                             pricing={pricing}
                                             interval={interval}
+                                            planName={planName}
                                             isSelected={isSelected}
-                                            onSelect={handleProductSelect}
+                                            onSelect={handlePriceSelect}
                                         />
                                     );
                                 })}
                             </div>
                         ) : (
-                            <EmptyProductsState />
+                            <EmptyPricesState />
                         )}
                     </div>
 
                     {/* Pricing Summary */}
-                    {selectedProduct && (
+                    {selectedPriceId && (
                         <PricingSummary
                             licenseCount={licenseCount}
                             pricingInfo={pricingInfo}
@@ -261,19 +315,23 @@ const GenerateKeyModal = ({
                         Annuler
                     </Button>
                     <Button
-                        onClick={handleGenerate}
-                        disabled={isGenerating || !selectedProduct}
+                        onClick={handleSubmit}
+                        disabled={isGenerating || !selectedPriceId || (mode === 'update' && !hasChanges)}
                         className="bg-primary hover:bg-primary/90"
                     >
                         {isGenerating ? (
                             <>
                                 <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                                Génération...
+                                {mode === 'generate' ? 'Génération...' : 'Mise à jour...'}
                             </>
                         ) : (
                             <>
-                                <Key className="mr-2 h-4 w-4" />
-                                Générer la clé
+                                {mode === 'generate' ? (
+                                    <Key className="mr-2 h-4 w-4" />
+                                ) : (
+                                    <Settings className="mr-2 h-4 w-4" />
+                                )}
+                                {mode === 'generate' ? 'Générer la clé' : 'Mettre à jour'}
                             </>
                         )}
                     </Button>
@@ -283,14 +341,14 @@ const GenerateKeyModal = ({
     );
 };
 
-// Extracted components for better readability and performance
-const ProductOption = React.memo(({ product, pricing, interval, isSelected, onSelect }) => (
+// Updated component for price selection instead of product selection
+const PriceOption = React.memo(({ price, pricing, interval, planName, isSelected, onSelect }) => (
     <div
         className={`relative cursor-pointer transition-all duration-200 rounded-lg ${isSelected
-                ? 'bg-primary/10 border-2 border-primary shadow-sm'
-                : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm'
+            ? 'bg-primary/10 border-2 border-primary shadow-sm'
+            : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm'
             }`}
-        onClick={() => onSelect(product.id)}
+        onClick={() => onSelect(price.id)}
     >
         <div className="p-4 rounded-lg">
             <div className="flex justify-between items-start">
@@ -298,11 +356,11 @@ const ProductOption = React.memo(({ product, pricing, interval, isSelected, onSe
                     <div className="flex items-center gap-2 mb-1">
                         {isSelected && <CheckCircle className="h-4 w-4 text-primary" />}
                         <h4 className={`font-medium ${isSelected ? 'text-primary' : 'text-gray-900'}`}>
-                            {product.name}
+                            {planName}
                         </h4>
                     </div>
                     <p className="text-sm text-gray-600 mb-2">
-                        {product.description}
+                        Facturation {pricing.interval === 'month' ? 'mensuelle' : 'annuelle'}
                     </p>
                 </div>
 
@@ -319,10 +377,10 @@ const ProductOption = React.memo(({ product, pricing, interval, isSelected, onSe
     </div>
 ));
 
-const EmptyProductsState = React.memo(() => (
+const EmptyPricesState = React.memo(() => (
     <div className="text-center py-8 text-gray-500">
         <Calendar className="h-8 w-8 mx-auto mb-2 opacity-50" />
-        <p>Aucun abonnement disponible</p>
+        <p>Aucun plan disponible</p>
     </div>
 ));
 

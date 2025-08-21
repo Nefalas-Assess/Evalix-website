@@ -127,14 +127,11 @@ const Account = () => {
     const handleGenerateNewKey = async (licenseData) => {
         setGeneratingKey(true);
         try {
-            // Call Supabase Edge Function to generate new license key
-
             const { data: { user } } = await supabase.auth.getUser();
-
 
             const { data, error } = await supabase.functions.invoke('create-checkout-session', {
                 body: {
-                    price: licenseData?.product?.prices[0]?.id,
+                    price: licenseData?.priceId, // Changed from product.prices[0].id to priceId
                     quantity: licenseData.licenseCount,
                     userId: user.id,
                 }
@@ -154,7 +151,46 @@ const Account = () => {
             setMessageType("error");
         }
         setGeneratingKey(false);
-        setTimeout(() => setMessage(""), 5000); // Increased timeout for error messages
+        setTimeout(() => setMessage(""), 5000);
+    };
+
+    // Handle subscription update
+    const handleUpdateSubscription = async (subscriptionData) => {
+        setGeneratingKey(true);
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            const { data, error } = await supabase.functions.invoke('update-subscription', {
+                body: {
+                    subscriptionId: subscriptionData.subscriptionId,
+                    priceId: subscriptionData?.priceId, // Changed from product.prices[0].id to priceId
+                    quantity: subscriptionData.licenseCount,
+                }
+            });
+
+            if (error) {
+                console.error('Update Subscription Error:', error);
+                throw new Error(error.message || 'Erreur lors de la mise à jour de l\'abonnement');
+            }
+
+
+            if (data.url) {
+                window.location.href = data.url;
+            } else if (data) {
+                setMessage("Abonnement mis à jour avec succès");
+                setMessageType("success");
+                // Refresh subscription data
+                setSubscription((prev) => ({ ...prev, subscription: { ...prev.subscription, plan: data?.plan, quantity: data?.quantity } }));
+                setLicense((prev) => ({ ...prev, maxDevices: data?.quantity }));
+                setIsModalOpen(false);
+            }
+        } catch (error) {
+            console.error('Update Subscription Error:', error);
+            setMessage(error.message || "Erreur lors de la mise à jour de l'abonnement");
+            setMessageType("error");
+        }
+        setGeneratingKey(false);
+        setTimeout(() => setMessage(""), 5000);
     };
 
     const handleRefreshSubscription = async (item) => {
@@ -179,6 +215,8 @@ const Account = () => {
             </div>
         );
     }
+
+    const hasLicense = license && license.key;
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
@@ -319,6 +357,7 @@ const Account = () => {
                             <LicenseSection
                                 license={license}
                                 onGenerateKey={() => setIsModalOpen(true)}
+                                onUpdateSubscription={() => setIsModalOpen(true)}
                             />
 
                             {/* Subscription Status */}
@@ -346,8 +385,10 @@ const Account = () => {
                     <GenerateKeyModal
                         isOpen={isModalOpen}
                         onClose={() => setIsModalOpen(false)}
-                        onGenerateKey={handleGenerateNewKey}
+                        onAction={hasLicense ? handleUpdateSubscription : handleGenerateNewKey}
                         isGenerating={generatingKey}
+                        currentSubscription={subscription?.subscription}
+                        mode={hasLicense ? 'update' : 'generate'}
                     />
                 </div>
             </div>

@@ -7,10 +7,13 @@ import {
     Key,
     Monitor,
     AlertTriangle,
-    RefreshCw
+    RefreshCw,
+    Settings
 } from 'lucide-react';
 
-const LicenseSection = ({ license, onGenerateKey }) => {
+const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
+    const hasLicense = license && license.key;
+
     return (
         <Card className="border-0 shadow-lg bg-background/80 backdrop-blur-sm">
             <CardHeader>
@@ -19,18 +22,20 @@ const LicenseSection = ({ license, onGenerateKey }) => {
                     Licence
                 </CardTitle>
                 <CardDescription>
-                    Votre clé de licence Evalix
+                    {hasLicense ? 'Votre clé de licence Evalix' : 'Générez votre clé de licence Evalix'}
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-                <div className="p-3 bg-muted rounded-lg">
-                    <Label className="text-xs font-medium text-muted-foreground">
-                        CLÉ DE LICENCE
-                    </Label>
-                    <p className="font-mono text-sm mt-1 break-all">
-                        {license?.key ? license.key.replace(/(.{4})/g, '$1-').replace(/-$/, '') : ''}
-                    </p>
-                </div>
+                {hasLicense && (
+                    <div className="p-3 bg-muted rounded-lg">
+                        <Label className="text-xs font-medium text-muted-foreground">
+                            CLÉ DE LICENCE
+                        </Label>
+                        <p className="font-mono text-sm mt-1 break-all">
+                            {license.key.replace(/(.{4})/g, '$1-').replace(/-$/, '')}
+                        </p>
+                    </div>
+                )}
 
                 {/* Device count information */}
                 {license?.maxDevices && (
@@ -59,18 +64,38 @@ const LicenseSection = ({ license, onGenerateKey }) => {
                     </Alert>
                 )}
 
-                <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full"
-                    onClick={onGenerateKey}
-                >
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    Générer une clé
-                </Button>
-                <p className="text-xs text-muted-foreground">
-                    Cette clé est nécessaire pour activer votre logiciel Evalix.
-                </p>
+                {/* Action button based on license status */}
+                {hasLicense ? (
+                    <>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full"
+                            onClick={onUpdateSubscription}
+                        >
+                            <Settings className="mr-2 h-4 w-4" />
+                            Modifier l'abonnement
+                        </Button>
+                        <p className="text-xs text-muted-foreground">
+                            Modifiez le nombre de licences ou changez votre plan d'abonnement.
+                        </p>
+                    </>
+                ) : (
+                    <>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full"
+                            onClick={onGenerateKey}
+                        >
+                            <RefreshCw className="mr-2 h-4 w-4" />
+                            Générer une clé
+                        </Button>
+                        <p className="text-xs text-muted-foreground">
+                            Cette clé est nécessaire pour activer votre logiciel Evalix.
+                        </p>
+                    </>
+                )}
             </CardContent>
         </Card>
     );
