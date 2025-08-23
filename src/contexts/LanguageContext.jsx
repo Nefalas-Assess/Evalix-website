@@ -470,7 +470,12 @@ const translations = {
       pricing: 'Tarieven',
       contact: 'Contact',
       downloads: 'Downloads',
-      subscribe: 'Abonneren'
+      subscribe: 'Abonneren',
+        account: {
+        title: 'Mijn account',
+        space: 'Mijn klantenzone',
+        logout: 'Uitloggen'
+      }
     },
     hero: {
       title: "De tool voor het berekenen van schadevergoedingen voor lichamelijk letsel",
@@ -904,7 +909,12 @@ const translations = {
       pricing: 'Pricing',
       contact: 'Contact',
       downloads: 'Downloads',
-      subscribe: 'Subscribe'
+      subscribe: 'Subscribe',
+      account: {
+        title: 'My account',
+        space: 'My customer zone',
+        logout: 'Disconnect'
+      }
     },
     hero: {
       title: "The tool for calculating personal injury compensation",
