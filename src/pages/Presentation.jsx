@@ -3,14 +3,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { 
-  Zap, 
-  Eye, 
-  Clock, 
-  TestTube, 
-  Calendar, 
-  DollarSign, 
-  Building, 
+import {
+  Zap,
+  Eye,
+  Clock,
+  TestTube,
+  Calendar,
+  DollarSign,
+  Building,
   Users,
   CheckCircle,
   ArrowRight,
@@ -18,6 +18,7 @@ import {
   Calculator
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import PageTitle from '../components/layout/PageTitle';
 
 const Presentation = () => {
   const { t } = useLanguage();
@@ -55,6 +56,7 @@ const Presentation = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageTitle pageKey="presentation" />
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         {/* En-tête */}
         <div className="text-center mb-12">
@@ -198,7 +200,7 @@ const Presentation = () => {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
-              
+
               {/* Espace réservé pour capture d'écran */}
               <div className="w-full md:w-80 h-48 bg-muted rounded-lg border-2 border-dashed border-muted-foreground/25 flex items-center justify-center">
                 <div className="text-center text-muted-foreground">
@@ -225,7 +227,7 @@ const Presentation = () => {
             <p className="text-muted-foreground mb-6">
               {t("presentation.fair_pricing.content")}
             </p>
-            
+
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               {pricingBenefits.map((benefit, index) => (
                 <div key={index} className="flex items-start gap-3 p-4 rounded-lg border bg-card">

@@ -13,6 +13,17 @@ export const useLanguage = () => {
 // Traductions pour les différentes langues
 const translations = {
   fr: {
+    pageTitle: {
+      base: 'Evalix - Logiciel de calcul d\'indemnités pour dommages corporels',
+      home: 'Accueil - Evalix',
+      presentation: 'Présentation - Evalix',
+      pricing: 'Tarifs - Evalix',
+      contact: 'Contact - Evalix',
+      downloads: 'Téléchargements - Evalix',
+      login: 'Connexion - Evalix',
+      signup: 'Inscription - Evalix',
+      account: 'Mon compte - Evalix'
+    },
     nav: {
       home: 'Accueil',
       presentation: 'Présentation',
@@ -176,6 +187,7 @@ const translations = {
     footer: {
       description: 'Evalix - Solution professionnelle pour le calcul d\'indemnités en dommages corporels',
       legal: 'Mentions légales',
+      legal_section: 'Légal',
       privacy: 'Politique de confidentialité',
       navigation: 'Navigation'
     },
@@ -213,6 +225,12 @@ const translations = {
         support: 'Assistance technique dédiée et assistance à l\'utilisation du logiciel',
         updates: 'Mises à jour automatiques avec les dernières évolutions légales',
         security: 'Aucune conservation des données sur nos serveurs et conformité GDPR garantie',
+      },
+      period: {
+        month1: 'Mensuel',
+        month3: 'Trimestriel',
+        month6: 'Semestriel',
+        year1: 'Annuel'
       }
     },
     contact_page: {
@@ -335,9 +353,117 @@ const translations = {
       change_language: 'Changer de langue',
       change_theme: 'Changer de thème',
       menu: 'Menu'
+    },
+    account: {
+      title: 'Mon espace client',
+      subtitle: 'Gérez vos informations personnelles et votre abonnement Evalix',
+      loading: 'Chargement de votre espace client...',
+      general_info: {
+        title: 'Informations générales',
+        subtitle: 'Mettez à jour vos informations personnelles et professionnelles',
+        email: 'Adresse e-mail',
+        email_readonly: 'Votre adresse e-mail ne peut pas être modifiée',
+        company: 'Nom de société',
+        company_placeholder: 'Nom de votre société',
+        address: 'Adresse',
+        address_placeholder: 'Adresse complète',
+        vat: 'Numéro TVA',
+        vat_placeholder: 'Numéro de TVA (optionnel)',
+        save: 'Sauvegarder les modifications',
+        saving: 'Sauvegarde en cours...',
+        success: 'Profil mis à jour avec succès',
+        error: 'Erreur lors de la mise à jour du profil'
+      },
+      license: {
+        title: 'Licence',
+        subtitle_with: 'Votre clé de licence Evalix',
+        subtitle_without: 'Générez votre clé de licence Evalix',
+        key_label: 'CLÉ DE LICENCE',
+        devices_usage: 'UTILISATION DES APPAREILS',
+        devices_count: 'appareils',
+        devices_active: 'actif',
+        devices_active_plural: 'actifs',
+        devices_available: 'appareil disponible',
+        devices_available_plural: 'appareils disponibles',
+        limit_reached: 'Limite atteinte',
+        expires_warning: 'Cette clé sera désactivée le',
+        update_subscription: 'Modifier l\'abonnement',
+        update_subscription_desc: 'Modifiez le nombre de licences ou changez votre plan d\'abonnement.',
+        generate_key: 'Générer une clé',
+        generate_key_desc: 'Cette clé est nécessaire pour activer votre logiciel Evalix.'
+      },
+      subscription: {
+        title: 'Abonnement',
+        status: 'Statut',
+        status_active: 'Actif',
+        status_inactive: 'Inactif',
+        type: 'Type',
+        type_monthly: 'Mensuel',
+        type_annual: 'Annuel',
+        end_date: 'Fin de l\'abonnement',
+        update_payment: 'Modifier le moyen de paiement',
+        updating_payment: 'Mise à jour...',
+        cancel: 'Annuler l\'abonnement',
+        cancelling: 'Annulation en cours...',
+        resume: 'Reprendre l\'abonnement',
+        resuming: 'Reprise en cours...',
+        confirm_cancel_title: 'Confirmer l\'annulation',
+        confirm_cancel_desc: 'Êtes-vous sûr de vouloir annuler votre abonnement ? Cette action est irréversible et vous perdrez l\'accès à tous les services premium à la fin de votre période de facturation actuelle.',
+        confirm_cancel_button: 'Confirmer l\'annulation'
+      },
+      logout: 'Se déconnecter'
+    },
+    generate_key_modal: {
+      forfait: 'Forfait',
+      per_license: 'par licence',
+      plan: 'Plan',
+      title_generate: 'Générer une nouvelle clé de licence',
+      title_update: 'Mettre à jour votre abonnement',
+      desc_generate: 'Configurez votre nouvelle licence en sélectionnant le nombre de licences et le type d\'abonnement.',
+      desc_update: 'Modifiez le nombre de licences ou changez votre plan d\'abonnement.',
+      current_subscription: 'Abonnement actuel',
+      license_count: 'Nombre de licences',
+      license_count_placeholder: 'Entrez le nombre de licences',
+      billing_plan: 'Choisissez votre plan de facturation',
+      no_plans: 'Aucun plan disponible',
+      order_summary: 'Résumé de la commande',
+      licenses: 'licence',
+      licenses_plural: 'licences',
+      total_monthly: 'Total mensuel',
+      total_annual: 'Total annuel',
+      cancel: 'Annuler',
+      generate: 'Générer la clé',
+      update: 'Mettre à jour',
+      generating: 'Génération...',
+      updating: 'Mise à jour...',
+      tier_standard: 'Tarif standard',
+      tier_standard_up_to: 'Tarif standard (jusqu\'à',
+      tier_preferential: 'Tarif préférentiel',
+      savings_potential: 'Économisez',
+      savings_current: 'Vous économisez',
+      savings_per_license: 'par licence',
+      savings_total: 'au total',
+      savings_from: 'à partir de',
+      pricing_tiers: {
+        standard: 'Tarif standard',
+        bulk: 'Tarif préférentiel',
+        save_message: 'Économisez {percentage}% ({amount}€/licence) à partir de {quantity} licences',
+        current_savings: 'Vous économisez {percentage}% par licence ({total}€ au total)'
+      }
     }
   },
   nl: {
+    pageTitle: {
+      base: "Evalix - Software voor berekening van letselschade vergoedingen",
+      home: "Home - Evalix",
+      presentation: "Presentatie - Evalix",
+      pricing: "Prijzen - Evalix",
+      contact: "Contact - Evalix",
+      downloads: "Downloads - Evalix",
+      login: "Inloggen - Evalix",
+      signup: "Registreren - Evalix",
+      account: "Mijn Account - Evalix"
+    },
     nav: {
       home: 'Home',
       presentation: 'Presentatie',
@@ -495,6 +621,7 @@ const translations = {
     footer: {
       description: 'Evalix - Professionele oplossing voor het berekenen van schadevergoedingen bij lichamelijk letsel',
       legal: 'Juridische vermeldingen',
+      legal_section: 'Juridisch',
       privacy: 'Privacybeleid',
       navigation: 'Navigatie'
     },
@@ -532,6 +659,12 @@ const translations = {
         support: 'Toegewijde technische assistentie en hulp bij het gebruik van de software',
         updates: 'Automatische updates met de laatste juridische ontwikkelingen',
         security: 'Geen bewaring van gegevens op onze servers en gegarandeerde GDPR-naleving',
+      },
+      period: {
+        month1: 'Maandelijks',
+        month3: 'Driemaandelijks',
+        month6: 'Halfjaarlijks',
+        year1: 'Jaarlijks'
       }
     },
     contact_page: {
@@ -654,9 +787,117 @@ const translations = {
       change_language: 'Taal wijzigen',
       change_theme: 'Thema wijzigen',
       menu: 'Menu'
+    },
+    account: {
+      title: 'Mijn klantportaal',
+      subtitle: 'Beheer uw persoonlijke informatie en uw Evalix abonnement',
+      loading: 'Laden van uw klantportaal...',
+      general_info: {
+        title: 'Algemene informatie',
+        subtitle: 'Werk uw persoonlijke en professionele informatie bij',
+        email: 'E-mailadres',
+        email_readonly: 'Uw e-mailadres kan niet worden gewijzigd',
+        company: 'Bedrijfsnaam',
+        company_placeholder: 'Naam van uw bedrijf',
+        address: 'Adres',
+        address_placeholder: 'Volledig adres',
+        vat: 'BTW-nummer',
+        vat_placeholder: 'BTW-nummer (optioneel)',
+        save: 'Wijzigingen opslaan',
+        saving: 'Opslaan...',
+        success: 'Profiel succesvol bijgewerkt',
+        error: 'Fout bij het bijwerken van het profiel'
+      },
+      license: {
+        title: 'Licentie',
+        subtitle_with: 'Uw Evalix licentiesleutel',
+        subtitle_without: 'Genereer uw Evalix licentiesleutel',
+        key_label: 'LICENTIESLEUTEL',
+        devices_usage: 'APPARAATGEBRUIK',
+        devices_count: 'apparaten',
+        devices_active: 'actief',
+        devices_active_plural: 'actief',
+        devices_available: 'apparaat beschikbaar',
+        devices_available_plural: 'apparaten beschikbaar',
+        limit_reached: 'Limiet bereikt',
+        expires_warning: 'Deze sleutel wordt gedeactiveerd op',
+        update_subscription: 'Abonnement wijzigen',
+        update_subscription_desc: 'Wijzig het aantal licenties of verander uw abonnementsplan.',
+        generate_key: 'Sleutel genereren',
+        generate_key_desc: 'Deze sleutel is nodig om uw Evalix software te activeren.'
+      },
+      subscription: {
+        title: 'Abonnement',
+        status: 'Status',
+        status_active: 'Actief',
+        status_inactive: 'Inactief',
+        type: 'Type',
+        type_monthly: 'Maandelijks',
+        type_annual: 'Jaarlijks',
+        end_date: 'Einde abonnement',
+        update_payment: 'Betaalmethode wijzigen',
+        updating_payment: 'Bijwerken...',
+        cancel: 'Abonnement annuleren',
+        cancelling: 'Annuleren...',
+        resume: 'Abonnement hervatten',
+        resuming: 'Hervatten...',
+        confirm_cancel_title: 'Annulering bevestigen',
+        confirm_cancel_desc: 'Weet u zeker dat u uw abonnement wilt annuleren? Deze actie is onomkeerbaar en u verliest toegang tot alle premiumdiensten aan het einde van uw huidige factureringsperiode.',
+        confirm_cancel_button: 'Annulering bevestigen'
+      },
+      logout: 'Uitloggen'
+    },
+    generate_key_modal: {
+      forfait: 'Pakket',
+      per_license: 'per licentie',
+      plan: 'Plan',
+      title_generate: 'Nieuwe licentiesleutel genereren',
+      title_update: 'Uw abonnement bijwerken',
+      desc_generate: 'Configureer uw nieuwe licentie door het aantal licenties en het type abonnement te selecteren.',
+      desc_update: 'Wijzig het aantal licenties of verander uw abonnementsplan.',
+      current_subscription: 'Huidig abonnement',
+      license_count: 'Aantal licenties',
+      license_count_placeholder: 'Voer het aantal licenties in',
+      billing_plan: 'Kies uw factureringsplan',
+      no_plans: 'Geen plannen beschikbaar',
+      order_summary: 'Bestelsamenvatting',
+      licenses: 'licentie',
+      licenses_plural: 'licenties',
+      total_monthly: 'Maandelijks totaal',
+      total_annual: 'Jaarlijks totaal',
+      cancel: 'Annuleren',
+      generate: 'Sleutel genereren',
+      update: 'Bijwerken',
+      generating: 'Genereren...',
+      updating: 'Bijwerken...',
+      tier_standard: 'Standaardtarief',
+      tier_standard_up_to: 'Standaardtarief (tot',
+      tier_preferential: 'Voorkeurtarief',
+      savings_potential: 'Bespaar',
+      savings_current: 'U bespaart',
+      savings_per_license: 'per licentie',
+      savings_total: 'in totaal',
+      savings_from: 'vanaf',
+      pricing_tiers: {
+        standard: 'Standaardtarief',
+        bulk: 'Voorkeurtarief',
+        save_message: 'Bespaar {percentage}% ({amount}€/licentie) vanaf {quantity} licenties',
+        current_savings: 'U bespaart {percentage}% per licentie ({total}€ in totaal)'
+      }
     }
   },
   en: {
+    pageTitle: {
+      base: "Evalix - Personal Injury Compensation Calculation Software",
+      home: "Home - Evalix",
+      presentation: "Presentation - Evalix",
+      pricing: "Pricing - Evalix",
+      contact: "Contact - Evalix",
+      downloads: "Downloads - Evalix",
+      login: "Login - Evalix",
+      signup: "Sign Up - Evalix",
+      account: "My Account - Evalix"
+    },
     nav: {
       home: 'Home',
       presentation: 'Presentation',
@@ -814,6 +1055,7 @@ const translations = {
     footer: {
       description: 'Evalix - Professional solution for calculating personal injury compensation',
       legal: 'Legal notices',
+      legal_section: 'Legal',
       privacy: 'Privacy policy',
       navigation: 'Navigation'
     },
@@ -851,6 +1093,12 @@ const translations = {
         support: 'Dedicated technical assistance and software usage assistance',
         updates: 'Automatic updates with the latest legal developments',
         security: 'No data storage on our servers and guaranteed GDPR compliance',
+      },
+      period: {
+        month1: 'Monthly',
+        month3: 'Quarterly',
+        month6: 'Semi-annual',
+        year1: 'Annual'
       }
     },
     contact_page: {
@@ -973,6 +1221,103 @@ const translations = {
       change_language: 'Change language',
       change_theme: 'Change theme',
       menu: 'Menu'
+    },
+    account: {
+      title: 'My client portal',
+      subtitle: 'Manage your personal information and your Evalix subscription',
+      loading: 'Loading your client portal...',
+      general_info: {
+        title: 'General information',
+        subtitle: 'Update your personal and professional information',
+        email: 'Email address',
+        email_readonly: 'Your email address cannot be changed',
+        company: 'Company name',
+        company_placeholder: 'Your company name',
+        address: 'Address',
+        address_placeholder: 'Full address',
+        vat: 'VAT number',
+        vat_placeholder: 'VAT number (optional)',
+        save: 'Save changes',
+        saving: 'Saving...',
+        success: 'Profile updated successfully',
+        error: 'Error updating profile'
+      },
+      license: {
+        title: 'License',
+        subtitle_with: 'Your Evalix license key',
+        subtitle_without: 'Generate your Evalix license key',
+        key_label: 'LICENSE KEY',
+        devices_usage: 'DEVICE USAGE',
+        devices_count: 'devices',
+        devices_active: 'active',
+        devices_active_plural: 'active',
+        devices_available: 'device available',
+        devices_available_plural: 'devices available',
+        limit_reached: 'Limit reached',
+        expires_warning: 'This key will be deactivated on',
+        update_subscription: 'Update subscription',
+        update_subscription_desc: 'Change the number of licenses or modify your subscription plan.',
+        generate_key: 'Generate key',
+        generate_key_desc: 'This key is required to activate your Evalix software.'
+      },
+      subscription: {
+        title: 'Subscription',
+        status: 'Status',
+        status_active: 'Active',
+        status_inactive: 'Inactive',
+        type: 'Type',
+        type_monthly: 'Monthly',
+        type_annual: 'Annual',
+        end_date: 'Subscription end',
+        update_payment: 'Update payment method',
+        updating_payment: 'Updating...',
+        cancel: 'Cancel subscription',
+        cancelling: 'Cancelling...',
+        resume: 'Resume subscription',
+        resuming: 'Resuming...',
+        confirm_cancel_title: 'Confirm cancellation',
+        confirm_cancel_desc: 'Are you sure you want to cancel your subscription? This action is irreversible and you will lose access to all premium services at the end of your current billing period.',
+        confirm_cancel_button: 'Confirm cancellation'
+      },
+      logout: 'Log out'
+    },
+    generate_key_modal: {
+      forfait: 'Package',
+      per_license: 'per license',
+      plan: 'Plan',
+      title_generate: 'Generate new license key',
+      title_update: 'Update your subscription',
+      desc_generate: 'Configure your new license by selecting the number of licenses and subscription type.',
+      desc_update: 'Change the number of licenses or modify your subscription plan.',
+      current_subscription: 'Current subscription',
+      license_count: 'Number of licenses',
+      license_count_placeholder: 'Enter number of licenses',
+      billing_plan: 'Choose your billing plan',
+      no_plans: 'No plans available',
+      order_summary: 'Order summary',
+      licenses: 'license',
+      licenses_plural: 'licenses',
+      total_monthly: 'Monthly total',
+      total_annual: 'Annual total',
+      cancel: 'Cancel',
+      generate: 'Generate key',
+      update: 'Update',
+      generating: 'Generating...',
+      updating: 'Updating...',
+      tier_standard: 'Standard rate',
+      tier_standard_up_to: 'Standard rate (up to',
+      tier_preferential: 'Preferential rate',
+      savings_potential: 'Save',
+      savings_current: 'You save',
+      savings_per_license: 'per license',
+      savings_total: 'total',
+      savings_from: 'from',
+      pricing_tiers: {
+        standard: 'Standard rate',
+        bulk: 'Preferential rate',
+        save_message: 'Save {percentage}% ({amount}€/license) from {quantity} licenses',
+        current_savings: 'You save {percentage}% per license ({total}€ total)'
+      }
     }
   }
 };

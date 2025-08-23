@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
     Key,
     Monitor,
@@ -12,6 +13,7 @@ import {
 } from 'lucide-react';
 
 const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
+    const { t } = useLanguage();
     const hasLicense = license && license.key;
 
     const activeDevices = (license?.devices || [])?.length;
@@ -21,17 +23,17 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                     <Key className="h-5 w-5 text-primary" />
-                    Licence
+                    {t('account.license.title')}
                 </CardTitle>
                 <CardDescription>
-                    {hasLicense ? 'Votre clé de licence Evalix' : 'Générez votre clé de licence Evalix'}
+                    {hasLicense ? t('account.license.subtitle_with') : t('account.license.subtitle_without')}
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 {hasLicense && (
                     <div className="p-3 bg-muted rounded-lg">
                         <Label className="text-xs font-medium text-muted-foreground">
-                            CLÉ DE LICENCE
+                            {t('account.license.key_label')}
                         </Label>
                         <p className="font-mono text-sm mt-1 break-all">
                             {license.key.replace(/(.{4})/g, '$1-').replace(/-$/, '')}
@@ -44,19 +46,19 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
                     <div className="p-3 bg-muted rounded-lg">
                         <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
                             <Monitor className="h-3 w-3" />
-                            UTILISATION DES APPAREILS
+                            {t('account.license.devices_usage')}
                         </Label>
 
                         {/* Device usage display */}
                         <div className="mt-2 space-y-2">
                             <div className="flex items-center justify-between">
                                 <span className="text-sm font-medium">
-                                    {activeDevices || 0} / {license.maxDevices} appareils
+                                    {activeDevices || 0} / {license.maxDevices} {t('account.license.devices_count')}
                                 </span>
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-green-500"></div>
                                     <span className="text-xs text-muted-foreground">
-                                        {activeDevices || 0} actif{(activeDevices || 0) > 1 ? 's' : ''}
+                                        {activeDevices || 0} {(activeDevices || 0) > 1 ? t('account.license.devices_active_plural') : t('account.license.devices_active')}
                                     </span>
                                 </div>
                             </div>
@@ -81,7 +83,7 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
                                 {(activeDevices || 0) >= license.maxDevices ? (
                                     <>
                                         <AlertTriangle className="h-3 w-3 text-red-500" />
-                                        <span className="text-red-600">Limite atteinte</span>
+                                        <span className="text-red-600">{t('account.license.limit_reached')}</span>
                                     </>
                                 ) : (
                                     <>
@@ -89,7 +91,7 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
                                             <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
                                         </div>
                                         <span className="text-green-600">
-                                            {license.maxDevices - (activeDevices || 0)} appareil{license.maxDevices - (activeDevices || 0) > 1 ? 's' : ''} disponible{license.maxDevices - (activeDevices || 0) > 1 ? 's' : ''}
+                                            {license.maxDevices - (activeDevices || 0)} {license.maxDevices - (activeDevices || 0) > 1 ? t('account.license.devices_available_plural') : t('account.license.devices_available')}
                                         </span>
                                     </>
                                 )}
@@ -103,7 +105,7 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
                     <Alert variant="destructive" className="mt-3">
                         <AlertTriangle className="h-4 w-4" />
                         <AlertDescription>
-                            Cette clé sera désactivée le {new Date(license.end_date).toLocaleDateString('fr-FR', {
+                            {t('account.license.expires_warning')} {new Date(license.end_date).toLocaleDateString('fr-FR', {
                                 year: 'numeric',
                                 month: 'long',
                                 day: 'numeric'
@@ -122,10 +124,10 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
                             onClick={onUpdateSubscription}
                         >
                             <Settings className="mr-2 h-4 w-4" />
-                            Modifier l'abonnement
+                            {t('account.license.update_subscription')}
                         </Button>
                         <p className="text-xs text-muted-foreground">
-                            Modifiez le nombre de licences ou changez votre plan d'abonnement.
+                            {t('account.license.update_subscription_desc')}
                         </p>
                     </>
                 ) : (
@@ -137,10 +139,10 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
                             onClick={onGenerateKey}
                         >
                             <RefreshCw className="mr-2 h-4 w-4" />
-                            Générer une clé
+                            {t('account.license.generate_key')}
                         </Button>
                         <p className="text-xs text-muted-foreground">
-                            Cette clé est nécessaire pour activer votre logiciel Evalix.
+                            {t('account.license.generate_key_desc')}
                         </p>
                     </>
                 )}

@@ -25,6 +25,7 @@ import {
 import GenerateKeyModal from '../components/common/GenerateKeyModal';
 import SubscriptionStatus from '../components/common/SusbcriptionStatus';
 import LicenseSection from '../components/common/LicenseSection';
+import PageTitle from '../components/layout/PageTitle';
 
 const Account = () => {
     const [subscription, setSubscription] = useState(null);
@@ -105,11 +106,11 @@ const Account = () => {
 
             if (profileError) throw profileError;
 
-            setMessage("Profil mis à jour avec succès");
+            setMessage(t('account.general_info.success'));
             setMessageType("success");
 
         } catch (error) {
-            setMessage("Erreur lors de la mise à jour du profil");
+            setMessage(t('account.general_info.error'));
             setMessageType("error");
         }
 
@@ -208,7 +209,7 @@ const Account = () => {
                     <div className="flex items-center justify-center">
                         <div className="text-center">
                             <RefreshCw className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
-                            <p className="text-muted-foreground">Chargement de votre espace client...</p>
+                            <p className="text-muted-foreground">{t('account.loading')}</p>
                         </div>
                     </div>
                 </div>
@@ -228,10 +229,10 @@ const Account = () => {
                             <User className="h-8 w-8 text-primary" />
                         </div>
                         <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-                            Mon espace client
+                            {t('account.title')}
                         </h1>
                         <p className="text-muted-foreground">
-                            Gérez vos informations personnelles et votre abonnement Evalix
+                            {t('account.subtitle')}
                         </p>
                     </div>
 
@@ -258,10 +259,10 @@ const Account = () => {
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
                                         <Building2 className="h-5 w-5 text-primary" />
-                                        Informations générales
+                                        {t('account.general_info.title')}
                                     </CardTitle>
                                     <CardDescription>
-                                        Mettez à jour vos informations personnelles et professionnelles
+                                        {t('account.general_info.subtitle')}
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -270,7 +271,7 @@ const Account = () => {
                                         <div className="space-y-2">
                                             <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
                                                 <User className="h-4 w-4" />
-                                                Adresse e-mail
+                                                {t('account.general_info.email')}
                                             </Label>
                                             <Input
                                                 id="email"
@@ -280,7 +281,7 @@ const Account = () => {
                                                 disabled
                                             />
                                             <p className="text-xs text-muted-foreground">
-                                                Votre adresse e-mail ne peut pas être modifiée
+                                                {t('account.general_info.email_readonly')}
                                             </p>
                                         </div>
 
@@ -288,12 +289,12 @@ const Account = () => {
                                         <div className="space-y-2">
                                             <Label htmlFor="company" className="text-sm font-medium flex items-center gap-2">
                                                 <Building2 className="h-4 w-4" />
-                                                Nom de société
+                                                {t('account.general_info.company')}
                                             </Label>
                                             <Input
                                                 id="company"
                                                 type="text"
-                                                placeholder="Nom de votre société"
+                                                placeholder={t('account.general_info.company_placeholder')}
                                                 value={user?.user_metadata?.company || ""}
                                                 onChange={(e) => setUser({ ...user, user_metadata: { ...user.user_metadata, company: e.target.value } })}
                                             />
@@ -303,12 +304,12 @@ const Account = () => {
                                         <div className="space-y-2">
                                             <Label htmlFor="address" className="text-sm font-medium flex items-center gap-2">
                                                 <MapPin className="h-4 w-4" />
-                                                Adresse
+                                                {t('account.general_info.address')}
                                             </Label>
                                             <Input
                                                 id="address"
                                                 type="text"
-                                                placeholder="Adresse complète"
+                                                placeholder={t('account.general_info.address_placeholder')}
                                                 value={user?.user_metadata?.address || ""}
                                                 onChange={(e) => setUser({ ...user, user_metadata: { ...user.user_metadata, address: e.target.value } })}
                                             />
@@ -318,12 +319,12 @@ const Account = () => {
                                         <div className="space-y-2">
                                             <Label htmlFor="vat" className="text-sm font-medium flex items-center gap-2">
                                                 <Hash className="h-4 w-4" />
-                                                Numéro TVA
+                                                {t('account.general_info.vat')}
                                             </Label>
                                             <Input
                                                 id="vat"
                                                 type="text"
-                                                placeholder="Numéro de TVA (optionnel)"
+                                                placeholder={t('account.general_info.vat_placeholder')}
                                                 value={user?.user_metadata?.vat || ""}
                                                 onChange={(e) => setUser({ ...user, user_metadata: { ...user.user_metadata, vat: e.target.value } })}
                                             />
@@ -337,12 +338,12 @@ const Account = () => {
                                             {saving ? (
                                                 <>
                                                     <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                                                    Sauvegarde en cours...
+                                                    {t('account.general_info.saving')}
                                                 </>
                                             ) : (
                                                 <>
                                                     <Save className="mr-2 h-4 w-4" />
-                                                    Sauvegarder les modifications
+                                                    {t('account.general_info.save')}
                                                 </>
                                             )}
                                         </Button>
@@ -374,7 +375,7 @@ const Account = () => {
                                         className="w-full text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
                                     >
                                         <LogOut className="mr-2 h-4 w-4" />
-                                        Se déconnecter
+                                        {t('account.logout')}
                                     </Button>
                                 </CardContent>
                             </Card>
@@ -396,4 +397,13 @@ const Account = () => {
     );
 };
 
-export default Account;
+const Wrapper = () => {
+    return (
+        <>
+            <PageTitle pageKey="account" />
+            <Account />
+        </>
+    );
+};
+
+export default Wrapper;

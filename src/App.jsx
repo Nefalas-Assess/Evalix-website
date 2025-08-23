@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ApiProvider } from './contexts/ApiContext';
@@ -16,26 +17,28 @@ import './App.css';
 
 function App() {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <ApiProvider>
-          <Router>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/presentation" element={<Presentation />} />
-                <Route path="/tarifs" element={<Pricing />} />
-                <Route path="/telechargements" element={<Downloads />} />
-                <Route path="/contacts" element={<Contact />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/account" element={<Account />} />
-              </Routes>
-            </Layout>
-          </Router>
-        </ApiProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <LanguageProvider>
+          <ApiProvider>
+            <Router>
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/presentation" element={<Presentation />} />
+                  <Route path="/tarifs" element={<Pricing />} />
+                  <Route path="/telechargements" element={<Downloads />} />
+                  <Route path="/contacts" element={<Contact />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/account" element={<Account />} />
+                </Routes>
+              </Layout>
+            </Router>
+          </ApiProvider>
+        </LanguageProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

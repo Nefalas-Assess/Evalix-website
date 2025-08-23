@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import PageTitle from '../components/layout/PageTitle';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -50,6 +51,7 @@ const Contact = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <PageTitle pageKey="contact" />
       {/* Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -69,7 +71,7 @@ const Contact = () => {
               {t('contact_page.form.send_message_description')}
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -84,7 +86,7 @@ const Contact = () => {
                     placeholder={t('contact_page.form.your_name')}
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="email">{t('contact_page.form.email')} *</Label>
                   <Input
@@ -110,7 +112,7 @@ const Contact = () => {
                     placeholder={t('contact_page.form.company_name')}
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="phone">{t('contact_page.form.phone')}</Label>
                   <Input
@@ -163,7 +165,7 @@ const Contact = () => {
             <h2 className="text-2xl font-bold text-foreground mb-6">
               {t('contact_page.contact_info.title')}
             </h2>
-            
+
             <div className="grid grid-cols-1 gap-6">
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
@@ -207,7 +209,7 @@ const Contact = () => {
                   {t('contact_page.faq.q1.answer')}
                 </p>
               </div>
-              
+
               <div>
                 <h4 className="font-semibold text-foreground mb-2">
                   {t('contact_page.faq.q2.title')}
@@ -216,7 +218,7 @@ const Contact = () => {
                   {t('contact_page.faq.q2.answer')}
                 </p>
               </div>
-              
+
               <div>
                 <h4 className="font-semibold text-foreground mb-2">
                   {t('contact_page.faq.q3.title')}

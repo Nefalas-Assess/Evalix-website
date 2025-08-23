@@ -8,6 +8,7 @@ import { supabase } from '../lib/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
+import PageTitle from '../components/layout/PageTitle';
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -46,6 +47,7 @@ const Login = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+            <PageTitle pageKey="login" />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div className="max-w-md mx-auto">
                     {/* Header */}

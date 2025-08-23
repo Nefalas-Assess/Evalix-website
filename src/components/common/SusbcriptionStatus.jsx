@@ -16,8 +16,10 @@ import {
 } from '@/components/ui/alert-dialog';
 import { CreditCard, CheckCircle, Ban, AlertTriangle, Loader2, Edit } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
+    const { t } = useLanguage();
     const [isLoading, setIsLoading] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false); // Add dialog state management
 
@@ -91,28 +93,28 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                     <CreditCard className="h-5 w-5 text-primary" />
-                    Abonnement
+                    {t('account.subscription.title')}
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Statut</span>
+                    <span className="text-sm font-medium">{t('account.subscription.status')}</span>
                     <Badge variant="secondary" className={`${subscription?.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                         {subscription?.status === "active" ? <CheckCircle className="h-3 w-3 mr-1" /> : <Ban className="h-3 w-3 mr-1" />}
-                        {subscription?.status === 'active' ? 'Actif' : 'Inactif'}
+                        {subscription?.status === 'active' ? t('account.subscription.status_active') : t('account.subscription.status_inactive')}
                     </Badge>
                 </div>
 
                 <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Type</span>
+                    <span className="text-sm font-medium">{t('account.subscription.type')}</span>
                     <Badge variant="outline">
-                        {subscription?.plan?.interval === 'month' ? 'Mensuel' : 'Annuel'}
+                        {subscription?.plan?.interval === 'month' ? t('account.subscription.type_monthly') : t('account.subscription.type_annual')}
                     </Badge>
                 </div>
 
                 {subscription?.cancel_at && (
                     <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium">Fin de l'abonnement</span>
+                        <span className="text-sm font-medium">{t('account.subscription.end_date')}</span>
                         <span className="text-sm text-muted-foreground">
                             {new Date(subscription.cancel_at * 1000).toLocaleDateString('fr-FR')}
                         </span>
@@ -131,13 +133,13 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
                     {isLoading ? (
                         <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Mise à jour...
+                            {t('account.subscription.updating_payment')}
                         </>
                     ) : (
                         <div className="flex items-center justify-center text-center">
                             <Edit className="mr-2 h-4 w-4 flex-shrink-0" />
                             <span>
-                                Modifier le moyen de paiement
+                                {t('account.subscription.update_payment')}
                             </span>
                         </div>
                     )}
@@ -153,10 +155,10 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
                         {isLoading ? (
                             <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Reprise en cours...
+                                {t('account.subscription.resuming')}
                             </>
                         ) : (
-                            'Reprendre l\'abonnement'
+                            t('account.subscription.resume')
                         )}
                     </Button>
                 ) : (
@@ -168,22 +170,22 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
                                 className="w-full text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
                             >
                                 <Ban className="mr-2 h-4 w-4" />
-                                Annuler l'abonnement
+                                {t('account.subscription.cancel')}
                             </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                             <AlertDialogHeader>
                                 <AlertDialogTitle className="flex items-center gap-2">
                                     <AlertTriangle className="h-5 w-5 text-orange-500" />
-                                    Confirmer l'annulation
+                                    {t('account.subscription.confirm_cancel_title')}
                                 </AlertDialogTitle>
                                 <AlertDialogDescription>
-                                    Êtes-vous sûr de vouloir annuler votre abonnement ? Cette action est irréversible et vous perdrez l'accès à tous les services premium à la fin de votre période de facturation actuelle.
+                                    {t('account.subscription.confirm_cancel_desc')}
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                                 <AlertDialogCancel disabled={isLoading}>
-                                    Annuler
+                                    {t('generate_key_modal.cancel')}
                                 </AlertDialogCancel>
                                 <AlertDialogAction
                                     onClick={handleCancelSubscription}
@@ -193,10 +195,10 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
                                     {isLoading ? (
                                         <>
                                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            Annulation en cours...
+                                            {t('account.subscription.cancelling')}
                                         </>
                                     ) : (
-                                        'Confirmer l\'annulation'
+                                        t('account.subscription.confirm_cancel_button')
                                     )}
                                 </AlertDialogAction>
                             </AlertDialogFooter>

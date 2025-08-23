@@ -15,6 +15,7 @@ import {
   Award
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import PageTitle from '../components/layout/PageTitle';
 
 const Home = () => {
   const { t } = useLanguage();
@@ -63,6 +64,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
+      <PageTitle pageKey="home" />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/5 via-background to-secondary/5 py-20 lg:py-32">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,15 +72,15 @@ const Home = () => {
             <Badge variant="secondary" className="mb-6 bg-primary/10 text-primary">
               {t("home.new_version_badge")}
             </Badge>
-            
+
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
               {t("hero.title")}
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
               {t("hero.subtitle")}
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/telechargements'}>
                 {t("hero.cta")}
@@ -207,18 +209,19 @@ const Home = () => {
             {t("home.cta.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
+            <Button
               variant="secondary"
+              size="lg"
               className="bg-background text-foreground hover:bg-background/90 text-lg px-8 py-6"
-              onClick={() => window.location.href = t("home.cta.start_now")}
+              onClick={() => window.location.href = "account"}
             >
               {t("home.cta.start_now")}
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="border-primary-foreground text-black hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6"
-              onClick={() => window.location.href = t("home.cta.view_pricing")}
+              onClick={() => window.location.href = "tarifs"}
             >
               {t("home.cta.view_pricing")}
             </Button>

@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Monitor, Smartphone, Shield, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import PageTitle from '../components/layout/PageTitle';
 
 const Downloads = () => {
   const { t } = useLanguage();
@@ -48,6 +49,7 @@ const Downloads = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <PageTitle pageKey="downloads" />
       {/* Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -83,7 +85,7 @@ const Downloads = () => {
               </ul>
             </div>
 
-            <Button 
+            <Button
               onClick={() => handleDownload('windows')}
               className="w-full bg-primary hover:bg-primary/90"
               size="lg"
@@ -91,7 +93,7 @@ const Downloads = () => {
               <Download className="h-4 w-4 mr-2" />
               {t('downloads_page.windows_card.download_button')}
             </Button>
-            
+
             <p className="text-xs text-muted-foreground text-center">
               {t('downloads_page.windows_card.file_info')}
             </p>
@@ -121,7 +123,7 @@ const Downloads = () => {
               </ul>
             </div>
 
-            <Button 
+            <Button
               onClick={() => handleDownload('macos')}
               className="w-full bg-primary hover:bg-primary/90"
               size="lg"
@@ -129,7 +131,7 @@ const Downloads = () => {
               <Download className="h-4 w-4 mr-2" />
               {t('downloads_page.macos_card.download_button')}
             </Button>
-            
+
             <p className="text-xs text-muted-foreground text-center">
               {t('downloads_page.macos_card.file_info')}
             </p>
@@ -162,7 +164,7 @@ const Downloads = () => {
         <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
           {t('downloads_page.installation_instructions.title')}
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <h3 className="font-semibold text-foreground mb-4 flex items-center">
@@ -176,7 +178,7 @@ const Downloads = () => {
               <li>{t('downloads_page.installation_instructions.windows.step4')}</li>
             </ol>
           </div>
-          
+
           <div>
             <h3 className="font-semibold text-foreground mb-4 flex items-center">
               <Smartphone className="h-5 w-5 mr-2 text-gray-600" />

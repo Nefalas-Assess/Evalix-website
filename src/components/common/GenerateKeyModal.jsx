@@ -14,6 +14,7 @@ import {
     Settings
 } from 'lucide-react';
 import { useApi } from '@/contexts/ApiContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // Helper functions moved outside component to prevent recreation
 const convertCentsToEuros = (cents) => cents / 100;
@@ -38,6 +39,7 @@ const GenerateKeyModal = ({
 }) => {
     const [licenseCount, setLicenseCount] = useState(1);
     const [selectedPriceId, setSelectedPriceId] = useState(null);
+    const { t } = useLanguage();
 
     const { products } = useApi();
 
@@ -130,7 +132,7 @@ const GenerateKeyModal = ({
         let discount = null;
 
         if (tierIndex === 0 && tiers.length > 1) {
-            info = `Tarif standard (jusqu'à ${currentTier.up_to} licences)`;
+            info = `${t('generate_key_modal.tier_standard_up_to')} ${currentTier.up_to} ${currentTier.up_to > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')})`;
             // Calculate potential savings
             const nextTier = tiers[1];
             const currentUnitPrice = convertCentsToEuros(currentTier.unit_amount);
@@ -144,10 +146,10 @@ const GenerateKeyModal = ({
                 savings,
                 savingsPercentage,
                 minQuantity: minQuantityForDiscount,
-                message: `Économisez ${savingsPercentage}% (${savings.toFixed(2)}€/licence) à partir de ${minQuantityForDiscount} licences`
+                message: `${t('generate_key_modal.savings_potential')} ${savingsPercentage}% (${savings.toFixed(2)}€/${t('generate_key_modal.per_license')}) ${t('generate_key_modal.savings_from')} ${minQuantityForDiscount} ${minQuantityForDiscount > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')}`
             };
         } else if (tierIndex > 0) {
-            info = `Tarif préférentiel (${tiers[tierIndex - 1].up_to + 1}+ licences)`;
+            info = `${t('generate_key_modal.tier_preferential')} (${tiers[tierIndex - 1].up_to + 1}+ ${t('generate_key_modal.licenses_plural')})`;
             // Calculate current savings
             const firstTier = tiers[0];
             const firstTierPrice = convertCentsToEuros(firstTier.unit_amount);
@@ -160,10 +162,10 @@ const GenerateKeyModal = ({
                 savings,
                 savingsPercentage,
                 totalSavings: savings * licenseCount,
-                message: `Vous économisez ${savingsPercentage}% par licence (${(savings * licenseCount).toFixed(2)}€ au total)`
+                message: `${t('generate_key_modal.savings_current')} ${savingsPercentage}% ${t('generate_key_modal.savings_per_license')} (${(savings * licenseCount).toFixed(2)}€ ${t('generate_key_modal.savings_total')})`
             };
         } else {
-            info = 'Tarif standard';
+            info = t('generate_key_modal.tier_standard');
         }
 
         return { hasDiscount: true, info, discount };
@@ -213,14 +215,14 @@ const GenerateKeyModal = ({
                             <Settings className="h-5 w-5 text-primary" />
                         )}
                         {mode === 'generate'
-                            ? 'Générer une nouvelle clé de licence'
-                            : 'Mettre à jour votre abonnement'
+                            ? t('generate_key_modal.title_generate')
+                            : t('generate_key_modal.title_update')
                         }
                     </DialogTitle>
                     <DialogDescription>
                         {mode === 'generate'
-                            ? 'Configurez votre nouvelle licence en sélectionnant le nombre de licences et le type d\'abonnement.'
-                            : 'Modifiez le nombre de licences ou changez votre plan d\'abonnement.'
+                            ? t('generate_key_modal.desc_generate')
+                            : t('generate_key_modal.desc_update')
                         }
                     </DialogDescription>
                 </DialogHeader>
@@ -231,11 +233,11 @@ const GenerateKeyModal = ({
                         <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                             <div className="flex items-center gap-2 text-blue-800 mb-1">
                                 <CreditCard className="h-4 w-4" />
-                                <span className="font-medium text-sm">Abonnement actuel</span>
+                                <span className="font-medium text-sm">{t('generate_key_modal.current_subscription')}</span>
                             </div>
                             <p className="text-xs text-blue-600">
-                                {currentSubscription.quantity || 1} licence{(currentSubscription.quantity || 1) > 1 ? 's' : ''} •
-                                {currentSubscription.price?.recurring?.interval === 'month' ? 'Mensuel' : 'Annuel'}
+                                {currentSubscription.quantity || 1} {(currentSubscription.quantity || 1) > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')} •
+                                {currentSubscription.price?.recurring?.interval === 'month' ? t('account.subscription.type_monthly') : t('account.subscription.type_annual')}
                             </p>
                         </div>
                     )}
@@ -244,7 +246,7 @@ const GenerateKeyModal = ({
                     <div className="space-y-2">
                         <Label htmlFor="license-count" className="flex items-center gap-2">
                             <Calculator className="h-4 w-4" />
-                            Nombre de licences
+                            {t('generate_key_modal.license_count')}
                         </Label>
                         <Input
                             id="license-count"
@@ -253,7 +255,7 @@ const GenerateKeyModal = ({
                             max="100"
                             value={licenseCount}
                             onChange={handleLicenseCountChange}
-                            placeholder="Entrez le nombre de licences"
+                            placeholder={t('generate_key_modal.license_count_placeholder')}
                             disabled={isGenerating}
                         />
                         {tierInfo.hasDiscount && (
@@ -267,7 +269,7 @@ const GenerateKeyModal = ({
                     <div className="space-y-2">
                         <Label className="flex items-center gap-2">
                             <Calendar className="h-4 w-4" />
-                            Choisissez votre plan de facturation
+                            {t('generate_key_modal.billing_plan')}
                         </Label>
 
                         {pricesWithPricing.length > 0 ? (
@@ -275,15 +277,12 @@ const GenerateKeyModal = ({
                                 {pricesWithPricing.map(({ price, pricing }) => {
                                     const isSelected = price.id === selectedPriceId;
                                     const interval = pricing.interval === 'month' ? '/mois' : pricing.interval === 'year' ? '/an' : '';
-                                    const planName = pricing.interval === 'month' ? 'Plan Mensuel' : 'Plan Annuel';
 
                                     return (
                                         <PriceOption
                                             key={price.id}
                                             price={price}
                                             pricing={pricing}
-                                            interval={interval}
-                                            planName={planName}
                                             isSelected={isSelected}
                                             onSelect={handlePriceSelect}
                                         />
@@ -312,7 +311,7 @@ const GenerateKeyModal = ({
                         onClick={handleClose}
                         disabled={isGenerating}
                     >
-                        Annuler
+                        {t('generate_key_modal.cancel')}
                     </Button>
                     <Button
                         onClick={handleSubmit}
@@ -322,7 +321,7 @@ const GenerateKeyModal = ({
                         {isGenerating ? (
                             <>
                                 <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                                {mode === 'generate' ? 'Génération...' : 'Mise à jour...'}
+                                {mode === 'generate' ? t('generate_key_modal.generating') : t('generate_key_modal.updating')}
                             </>
                         ) : (
                             <>
@@ -331,7 +330,7 @@ const GenerateKeyModal = ({
                                 ) : (
                                     <Settings className="mr-2 h-4 w-4" />
                                 )}
-                                {mode === 'generate' ? 'Générer la clé' : 'Mettre à jour'}
+                                {mode === 'generate' ? t('generate_key_modal.generate') : t('generate_key_modal.update')}
                             </>
                         )}
                     </Button>
@@ -342,77 +341,86 @@ const GenerateKeyModal = ({
 };
 
 // Updated component for price selection instead of product selection
-const PriceOption = React.memo(({ price, pricing, interval, planName, isSelected, onSelect }) => (
-    <div
-        className={`relative cursor-pointer transition-all duration-200 rounded-lg ${isSelected
-            ? 'bg-primary/10 border-2 border-primary shadow-sm'
-            : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm'
-            }`}
-        onClick={() => onSelect(price.id)}
-    >
-        <div className="p-4 rounded-lg">
-            <div className="flex justify-between items-start">
-                <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                        {isSelected && <CheckCircle className="h-4 w-4 text-primary" />}
-                        <h4 className={`font-medium ${isSelected ? 'text-primary' : 'text-gray-900'}`}>
-                            {planName}
-                        </h4>
+const PriceOption = React.memo(({ price, pricing, isSelected, onSelect }) => {
+    const { t } = useLanguage();
+    return (
+        <div
+            className={`relative cursor-pointer transition-all duration-200 rounded-lg ${isSelected
+                ? 'bg-primary/10 border-2 border-primary shadow-sm'
+                : 'bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                }`}
+            onClick={() => onSelect(price.id)}
+        >
+            <div className="p-4 rounded-lg">
+                <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                            {isSelected && <CheckCircle className="h-4 w-4 text-primary" />}
+                            <h4 className={`font-medium ${isSelected ? 'text-primary' : 'text-gray-900'}`}>
+                                {t('generate_key_modal.plan')} {t(`pricing.period.${pricing.interval}${pricing.intervalCount}`)}
+                            </h4>
+                        </div>
+                        <p className="text-sm text-gray-600 mb-2">
+                            {t('generate_key_modal.forfait')} {t(`pricing.period.${pricing.interval}${pricing.intervalCount}`)}
+                        </p>
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">
-                        Facturation {pricing.interval === 'month' ? 'mensuelle' : 'annuelle'}
-                    </p>
-                </div>
 
-                <div className="text-right ml-4">
-                    <div className="text-lg font-bold text-gray-900">
-                        {pricing.unitPrice.toFixed(2)}€{interval}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                        par licence
+                    <div className="text-right ml-4">
+                        <div className="text-lg font-bold text-gray-900">
+                            {pricing.unitPrice.toFixed(2)}€
+                        </div>
+                        <div className="text-sm text-gray-500">
+                            {t('generate_key_modal.per_license')}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-));
+    )
+});
 
-const EmptyPricesState = React.memo(() => (
-    <div className="text-center py-8 text-gray-500">
-        <Calendar className="h-8 w-8 mx-auto mb-2 opacity-50" />
-        <p>Aucun plan disponible</p>
-    </div>
-));
-
-const PricingSummary = React.memo(({ licenseCount, pricingInfo, billingInterval, tierInfo }) => (
-    <div className="space-y-3 p-4 bg-muted rounded-lg">
-        <h4 className="font-medium text-sm">Résumé de la commande</h4>
-
-        <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-                <span>{licenseCount} licence{licenseCount > 1 ? 's' : ''}</span>
-                <span>x {pricingInfo.unitPrice.toFixed(2)}€/{billingInterval}</span>
-            </div>
-
-            <Separator />
-
-            <div className="flex justify-between font-medium">
-                <span>Total {billingInterval === 'mois' ? 'mensuel' : 'annuel'}</span>
-                <span>{pricingInfo.totalPrice.toFixed(2)}€ TTC</span>
-            </div>
-
-            {/* Volume discount info */}
-            {tierInfo.discount && (
-                <div className="pt-2">
-                    <div className={`flex items-center gap-2 text-xs ${tierInfo.discount.type === 'current' ? 'text-green-600' : 'text-blue-600'
-                        }`}>
-                        <CheckCircle className="h-3 w-3" />
-                        <span>{tierInfo.discount.message}</span>
-                    </div>
-                </div>
-            )}
+const EmptyPricesState = React.memo(() => {
+    const { t } = useLanguage();
+    return (
+        <div className="text-center py-8 text-gray-500">
+            <Calendar className="h-8 w-8 mx-auto mb-2 opacity-50" />
+            <p>{t('generate_key_modal.no_plans')}</p>
         </div>
-    </div>
-));
+    );
+});
+
+const PricingSummary = React.memo(({ licenseCount, pricingInfo, billingInterval, tierInfo }) => {
+    const { t } = useLanguage();
+    return (
+        <div className="space-y-3 p-4 bg-muted rounded-lg">
+            <h4 className="font-medium text-sm">{t('generate_key_modal.order_summary')}</h4>
+
+            <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                    <span>{licenseCount} {licenseCount > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')}</span>
+                    <span>x {pricingInfo.unitPrice.toFixed(2)}€/{billingInterval}</span>
+                </div>
+
+                <Separator />
+
+                <div className="flex justify-between font-medium">
+                    <span>{billingInterval === 'mois' ? t('generate_key_modal.total_monthly') : t('generate_key_modal.total_annual')}</span>
+                    <span>{pricingInfo.totalPrice.toFixed(2)}€ TTC</span>
+                </div>
+
+                {/* Volume discount info */}
+                {tierInfo.discount && (
+                    <div className="pt-2">
+                        <div className={`flex items-center gap-2 text-xs ${tierInfo.discount.type === 'current' ? 'text-green-600' : 'text-blue-600'
+                            }`}>
+                            <CheckCircle className="h-3 w-3" />
+                            <span>{tierInfo.discount.message}</span>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+});
 
 export default GenerateKeyModal;

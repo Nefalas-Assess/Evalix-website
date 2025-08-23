@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Check, Calculator, FileText, Shield, Users, Headphones, RefreshCw } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { pricingData, calculateSavings } from '../utils/pricing';
+import PageTitle from '../components/layout/PageTitle';
 
 const Pricing = () => {
   const { t } = useLanguage();
@@ -39,6 +40,7 @@ const Pricing = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <PageTitle pageKey="pricing" />
       {/* Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -54,21 +56,19 @@ const Pricing = () => {
         <div className="bg-muted p-1 rounded-lg">
           <button
             onClick={() => setSelectedPlan("quarterly")}
-            className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
-              selectedPlan === "quarterly"
+            className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${selectedPlan === "quarterly"
                 ? "bg-background text-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             {t("pricing.quarterly")}
           </button>
           <button
             onClick={() => setSelectedPlan("annual")}
-            className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
-              selectedPlan === "annual"
+            className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${selectedPlan === "annual"
                 ? "bg-background text-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
-            }`}
+              }`}
           >
             {t("pricing.annual")}
             <Badge variant="secondary" className="ml-2 bg-primary/10 text-primary">
@@ -83,7 +83,7 @@ const Pricing = () => {
         {plans.map((plan) => {
           const currentPricing = plan[selectedPlan];
           const savings = calculateSavings(plan.id === "large" ? 10 : 5);
-          
+
           return (
             <Card key={plan.id} className={`relative ${plan.popular ? "border-primary shadow-lg" : ""}`}>
               {plan.popular && (
@@ -91,13 +91,13 @@ const Pricing = () => {
                   {t("pricing.recommended")}
                 </Badge>
               )}
-              
+
               <CardHeader className="text-center pb-8">
                 <CardTitle className="text-2xl font-bold">{t(plan.nameKey)}</CardTitle>
                 <CardDescription className="text-muted-foreground">
                   {t(plan.descriptionKey)}
                 </CardDescription>
-                
+
                 <div className="mt-6">
                   <div className="flex items-baseline justify-center">
                     <span className="text-4xl font-bold text-foreground">
@@ -107,11 +107,11 @@ const Pricing = () => {
                       / {t("pricing.perMonth")} / {t("pricing.perLicense")}
                     </span>
                   </div>
-                  
+
                   <div className="text-sm text-muted-foreground mt-2">
                     {currentPricing.currency}{currentPricing.priceHT.toFixed(2)} {t("pricing.htva")} | {currentPricing.currency}{currentPricing.priceTTC.toFixed(2)} {t("pricing.tvac")} {t("pricing.perMonthPerLicense")}
                   </div>
-                  
+
                   {selectedPlan === "annual" && (
                     <div className="text-sm text-primary font-medium mt-2">
                       {t("pricing.savings")}: {savings.savingsPercentage}% ({currentPricing.currency}{savings.savings.toFixed(2)}/an)
@@ -137,7 +137,7 @@ const Pricing = () => {
               </CardContent>
 
               <CardFooter className="pt-6">
-                <Button 
+                <Button
                   className="w-full bg-primary hover:bg-primary/90"
                   size="lg"
                 >
@@ -167,7 +167,7 @@ const Pricing = () => {
         <h2 className="text-3xl font-bold text-center text-foreground mb-12">
           {t("pricing.features_included")}
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => {
             const Icon = feature.icon;
