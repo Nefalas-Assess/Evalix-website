@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Account from './pages/Account';
 import MentionLegal from './pages/MentionLegal';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import './App.css';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/account" element={<Account />} />
                   <Route path="/mentions-legales" element={<MentionLegal />} />
+                  <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
                 </Routes>
               </Layout>
             </Router>
