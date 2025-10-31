@@ -13,6 +13,7 @@ import Presentation from './pages/Presentation';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Account from './pages/Account';
+import MentionLegal from './pages/MentionLegal';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/account" element={<Account />} />
+                  <Route path="/mentions-legales" element={<MentionLegal />} />
                 </Routes>
               </Layout>
             </Router>

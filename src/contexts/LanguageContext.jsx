@@ -22,7 +22,8 @@ const translations = {
       downloads: 'Téléchargements - Evalix',
       login: 'Connexion - Evalix',
       signup: 'Inscription - Evalix',
-      account: 'Mon compte - Evalix'
+      account: 'Mon compte - Evalix',
+      legal: 'Mentions légales - Evalix'
     },
     nav: {
       home: 'Accueil',
@@ -462,7 +463,8 @@ const translations = {
       downloads: "Downloads - Evalix",
       login: "Inloggen - Evalix",
       signup: "Registreren - Evalix",
-      account: "Mijn Account - Evalix"
+      account: "Mijn Account - Evalix",
+      legal: "Juridische vermeldingen - Evalix"
     },
     nav: {
       home: 'Home',
@@ -901,7 +903,8 @@ const translations = {
       downloads: "Downloads - Evalix",
       login: "Login - Evalix",
       signup: "Sign Up - Evalix",
-      account: "My Account - Evalix"
+      account: "My Account - Evalix",
+      legal: "Legal notices - Evalix"
     },
     nav: {
       home: 'Home',
@@ -1396,4 +1399,3 @@ export const LanguageProvider = ({ children }) => {
 };
 
 export default LanguageContext;
-
