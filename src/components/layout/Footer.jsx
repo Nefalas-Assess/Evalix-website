@@ -92,6 +92,14 @@ const Footer = () => {
                   {t('footer.privacy')}
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/conditions-generales"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {t('footer.conditions_generales')}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

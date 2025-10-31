@@ -24,7 +24,8 @@ const translations = {
       signup: 'Inscription - Evalix',
       account: 'Mon compte - Evalix',
       legal: 'Mentions légales - Evalix',
-      privacy: 'Politique de confidentialité - Evalix'
+      privacy: 'Politique de confidentialité - Evalix',
+      terms: 'Conditions générales - Evalix'
     },
     nav: {
       home: 'Accueil',
@@ -191,7 +192,8 @@ const translations = {
       legal: 'Mentions légales',
       legal_section: 'Légal',
       privacy: 'Politique de confidentialité',
-      navigation: 'Navigation'
+      navigation: 'Navigation',
+      conditions_generales: 'Conditions générales de vente'
     },
     pricing: {
       title: 'Nos plans tarifaires',
@@ -466,7 +468,8 @@ const translations = {
       signup: "Registreren - Evalix",
       account: "Mijn Account - Evalix",
       legal: "Juridische vermeldingen - Evalix",
-      privacy: "Privacybeleid - Evalix"
+      privacy: "Privacybeleid - Evalix",
+      terms: "Algemene voorwaarden - Evalix"
     },
     nav: {
       home: 'Home',
@@ -632,7 +635,8 @@ const translations = {
       legal: 'Juridische vermeldingen',
       legal_section: 'Juridisch',
       privacy: 'Privacybeleid',
-      navigation: 'Navigatie'
+      navigation: 'Navigatie',
+      conditions_generales: 'Algemene voorwaarden van verkoop'
     },
     pricing: {
       title: 'Onze tariefplannen',
@@ -907,7 +911,8 @@ const translations = {
       signup: "Sign Up - Evalix",
       account: "My Account - Evalix",
       legal: "Legal notices - Evalix",
-      privacy: "Privacy Policy - Evalix"
+      privacy: "Privacy Policy - Evalix",
+      terms: "Terms and conditions - Evalix"
     },
     nav: {
       home: 'Home',
@@ -1073,7 +1078,8 @@ const translations = {
       legal: 'Legal notices',
       legal_section: 'Legal',
       privacy: 'Privacy policy',
-      navigation: 'Navigation'
+      navigation: 'Navigation',
+      conditions_generales: 'General conditions of sale'
     },
     pricing: {
       title: 'Our pricing plans',
