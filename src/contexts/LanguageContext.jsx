@@ -195,6 +195,443 @@ const translations = {
       navigation: 'Navigation',
       conditions_generales: 'Conditions générales de vente'
     },
+    legal_page: {
+      badge: 'Mentions légales',
+      heroTitle: 'Informations légales du site Evalix',
+      heroIntro: 'Ces informations ont pour objectif d\'informer les utilisateurs sur l\'identité de l\'éditeur du site, son hébergeur, ainsi que sur les conditions d\'utilisation.',
+      sections: [
+        {
+          title: '1. Informations légales',
+          paragraphs: [
+            'Le présent site internet est édité par :'
+          ],
+          details: [
+            'JVTP SNC',
+            'Chemin des Pères 1',
+            '1420 Braine-l\'Alleud - Belgique',
+            'Numéro d\'entreprise (BCE) : 1029.330.643',
+            'Date de création : 17 octobre 2025',
+            'Numéro de TVA : [à compléter]',
+            'Adresse e-mail : [à compléter]'
+          ]
+        },
+        {
+          title: '2. Responsables de la publication',
+          paragraphs: [
+            'Les responsables de la publication sont Thomas Point et Julien Van der Borght, en leur qualité de gérants de la société JVTP SNC.',
+            'Ils peuvent être contactés à l\'adresse e-mail mentionnée ci-dessus.'
+          ]
+        },
+        {
+          title: '3. Hébergeur du site',
+          paragraphs: [
+            'Le site est hébergé par :'
+          ],
+          details: [
+            'Hostinger International Ltd.',
+            '61 Lordou Vironos Street, 6023 Larnaca, Chypre'
+          ],
+          links: [
+            {
+              label: 'Site web',
+              text: 'www.hostinger.com',
+              href: 'https://www.hostinger.com'
+            }
+          ]
+        },
+        {
+          title: '4. Objet du site',
+          paragraphs: [
+            'Le site JVTP a pour objet de présenter et de commercialiser le logiciel développé par la société.',
+            'Toute commande passée via le site implique l\'acceptation préalable des Conditions Générales de Vente (CGV), consultables sur le site.'
+          ]
+        },
+        {
+          title: '5. Propriété intellectuelle',
+          paragraphs: [
+            'L\'ensemble du contenu du site (textes, images, logos, graphismes, vidéos, logiciels, etc.) est la propriété exclusive de JVTP SNC, sauf mention contraire.',
+            'Toute reproduction, représentation, modification, publication, transmission ou adaptation, totale ou partielle, est strictement interdite sans autorisation écrite préalable.'
+          ]
+        },
+        {
+          title: '6. Protection des données personnelles (RGPD)',
+          paragraphs: [
+            'JVTP SNC s\'engage à ce que la collecte et le traitement de vos données personnelles soient conformes au Règlement Général sur la Protection des Données (UE) 2016/679.',
+            'Les utilisateurs disposent d\'un droit d\'accès, de rectification, d\'effacement et d\'opposition concernant leurs données personnelles.',
+            'Ces demandes peuvent être adressées à : [adresse e-mail de contact].',
+            'Une politique de confidentialité détaillée est disponible sur le site.'
+          ]
+        },
+        {
+          title: '7. Cookies',
+          paragraphs: [
+            'Le site n\'utilise aucun cookie.'
+          ]
+        },
+        {
+          title: '8. Responsabilité',
+          paragraphs: [
+            'JVTP SNC s\'efforce d\'assurer la disponibilité et la mise à jour du site, mais ne saurait être tenue responsable d\'interruptions, d\'erreurs, de pertes de données ou de tout dommage direct ou indirect résultant de l\'utilisation du site ou des services proposés.'
+          ]
+        }
+      ]
+    },
+    privacy_page: {
+      badge: 'Politique de confidentialité',
+      heroTitle: 'Protection des données personnelles',
+      heroIntro: 'Cette politique explique comment JVTP SNC collecte, utilise, conserve et protège vos données personnelles dans le cadre de l\'utilisation du site et du logiciel Evalix.',
+      title: 'Politique de Confidentialité',
+      lastUpdated: 'Dernière mise à jour : [à compléter]',
+      sections: [
+        {
+          title: '1. Introduction',
+          paragraphs: [
+            'La présente politique de confidentialité décrit la manière dont JVTP SNC, société en nom collectif dont le siège social est situé Chemin des Pères 1, 1420 Braine-l\'Alleud (Belgique) et enregistrée à la BCE sous le numéro 1029.330.643, traite les données personnelles de ses clients, prospects et utilisateurs du logiciel Evalix.',
+            'JVTP SNC s\'engage à respecter la législation en vigueur en matière de protection des données, notamment le RGPD et la loi belge du 30 juillet 2018.'
+          ]
+        },
+        {
+          title: '2. Responsable du traitement',
+          paragraphs: [
+            'Le responsable du traitement des données est : JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. E-mail : [à compléter].'
+          ]
+        },
+        {
+          title: '3. Données collectées',
+          paragraphs: [
+            'JVTP SNC collecte uniquement les données nécessaires à la gestion de la relation commerciale et du support client.',
+            'Le logiciel Evalix ne collecte, ne transmet ni ne stocke aucune donnée encodée par l\'utilisateur, celles-ci demeurant sous la seule responsabilité du client.'
+          ]
+        },
+        {
+          title: '4. Finalités du traitement',
+          paragraphs: [
+            'Les données sont utilisées pour : la gestion des commandes et licences, le support technique, la communication sur les mises à jour, la gestion comptable et légale, et les communications commerciales (avec consentement).'
+          ]
+        },
+        {
+          title: '5. Base légale du traitement',
+          paragraphs: [
+            'Les traitements reposent sur les bases suivantes : exécution du contrat, obligation légale, consentement et intérêt légitime.'
+          ]
+        },
+        {
+          title: '6. Durée de conservation',
+          paragraphs: [
+            'Les données sont conservées pendant la durée de la relation contractuelle puis archivées 5 ans.',
+            'Les données marketing sont conservées jusqu\'au retrait du consentement.'
+          ]
+        },
+        {
+          title: '7. Partage des données',
+          paragraphs: [
+            'Les données ne sont jamais vendues ni louées.',
+            'Elles peuvent être partagées avec des prestataires techniques ou les autorités si la loi l\'exige.'
+          ]
+        },
+        {
+          title: '8. Hébergement et sécurité',
+          paragraphs: [
+            'Le site web de JVTP SNC est hébergé par Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Chypre.',
+            'JVTP SNC met en œuvre des mesures techniques et organisationnelles pour protéger les données contre la perte, le vol ou l\'accès non autorisé.'
+          ]
+        },
+        {
+          title: '9. Droits des personnes concernées',
+          paragraphs: [
+            'Chaque utilisateur dispose d\'un droit d\'accès, de rectification, d\'effacement, de limitation, d\'opposition et de portabilité.',
+            'Pour exercer ces droits : [adresse e-mail à compléter]. Réponse sous 30 jours ouvrés.'
+          ]
+        },
+        {
+          title: '10. Transfert de données hors UE',
+          paragraphs: [
+            'Aucun transfert hors de l\'Union européenne n\'est effectué, sauf nécessité contractuelle et garanties conformes au RGPD.'
+          ]
+        },
+        {
+          title: '11. Cookies',
+          paragraphs: [
+            'Le site n\'utilise aucun cookie.'
+          ]
+        },
+        {
+          title: '12. Modification de la politique',
+          paragraphs: [
+            'La présente politique peut être mise à jour à tout moment.',
+            'Les modifications importantes seront notifiées via le site ou par e-mail.'
+          ]
+        },
+        {
+          title: '13. Contact',
+          paragraphs: [
+            'Pour toute question concernant la protection des données : JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud.',
+            'E-mail : [à compléter].'
+          ]
+        }
+      ]
+    },
+    terms_page: {
+      badge: 'Conditions générales de vente',
+      heroTitle: 'Conditions Générales de Vente (CGV) - Licence logiciel Evalix',
+      heroIntro: 'Ces conditions encadrent la vente et l\'utilisation des licences du logiciel Evalix édité par JVTP SNC.',
+      sections: [
+        {
+          title: 'Article 1 : Parties',
+          paragraphs: [
+            'Les présentes Conditions Générales de Vente (ci-après les "CGV") régissent la vente et l\'octroi de licences du logiciel Evalix entre :',
+            'La société JVTP SNC, dont le siège social est situé Chemin des Pères 1, 1420 Braine-l\'Alleud (Belgique), immatriculée sous le numéro de TVA [Numéro d\'immatriculation - à compléter] (ci-après l\'Éditeur ou le Vendeur).',
+            'Et le Client désirant acquérir une licence d\'utilisation du logiciel Evalix (ci-après le Client ou le Licencié).'
+          ],
+          list: [
+            'Numéro de téléphone : [à compléter]',
+            'Adresse e-mail : [à compléter]',
+            'Site web : [à compléter]'
+          ]
+        },
+        {
+          title: 'Article 2 : Objet du contrat',
+          paragraphs: [
+            'Le présent contrat a pour objet la concession non exclusive et non transférable d\'un droit d\'utilisation du logiciel Evalix, édité par JVTP SNC.',
+            'Le logiciel Evalix est un outil informatique destiné au calcul de l\'indemnisation de dommages corporels résultant d\'accidents.',
+            'Le Vendeur concède au Client une licence d\'utilisation du logiciel, sans transfert de propriété sur le logiciel, ses mises à jour ou sa documentation.'
+          ]
+        },
+        {
+          title: 'Article 3 : Périmètre et restrictions de la licence',
+          paragraphs: [
+            'La présente licence définit les droits et limites accordés au Client concernant l\'utilisation du logiciel Evalix.'
+          ],
+          subsections: [
+            {
+              title: '3.1. Droits d\'utilisation concédés',
+              list: [
+                'Installer et utiliser le logiciel Evalix sur le nombre de postes correspondant au nombre de licences acquises.',
+                'Utiliser le programme pour ses besoins propres et conformément à sa destination.',
+                'Partager les fichiers générés par le logiciel Evalix avec des tiers.'
+              ]
+            },
+            {
+              title: '3.2. Restrictions d\'utilisation',
+              paragraphs: [
+                'Sauf autorisation écrite et préalable de l\'Éditeur, le Client s\'interdit expressément de :'
+              ],
+              list: [
+                'Procéder à la rétro-ingénierie, la décompilation ou le désassemblage du logiciel.',
+                'Modifier, adapter ou créer des dérivés du logiciel.',
+                'Distribuer, vendre, sous-licencier, louer, prêter ou mettre à disposition le logiciel à des tiers.',
+                'Utiliser le logiciel à des fins illicites ou non conformes à sa destination.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 4 : Durée de la licence et renouvellement',
+          paragraphs: [
+            'La licence d\'utilisation du logiciel Evalix est concédée pour une durée déterminée, selon le choix effectué lors de la commande :'
+          ],
+          list: [
+            'Durée trimestrielle (3 mois).',
+            'Durée annuelle (12 mois).'
+          ],
+          note: 'Un mois avant l\'expiration de la licence, l\'Éditeur contacte le Client pour proposer le renouvellement. Le renouvellement est effectif après réception du paiement conformément à l\'article 5.'
+        },
+        {
+          title: 'Article 5 : Prix et modalités de paiement',
+          subsections: [
+            {
+              title: '5.1. Prix des licences',
+              paragraphs: [
+                'Les prix sont exprimés en euros, hors TVA (HTVA) et toutes taxes comprises (TTC), au taux de TVA belge en vigueur (actuellement 21 %).'
+              ],
+              list: [
+                'Formule trimestrielle : jusqu\'à dix licences, 50 € par mois HTVA par licence ; à partir de onze licences, 45 € par mois HTVA par licence.',
+                'Formule annuelle : jusqu\'à dix licences, 45 € par mois HTVA par licence ; à partir de onze licences, 40 € par mois HTVA par licence.',
+                'Le paiement est dû en une seule fois pour la période de licence choisie.'
+              ]
+            },
+            {
+              title: '5.2. Modalités de paiement',
+              paragraphs: [
+                'Le paiement des licences s\'effectue exclusivement par virement bancaire sur le compte de JVTP SNC.',
+                'Les coordonnées bancaires sont communiquées au Client lors de la commande.'
+              ]
+            },
+            {
+              title: '5.3. Conséquences du non-paiement',
+              paragraphs: [
+                'En cas de non-réception du paiement dans les délais impartis, l\'Éditeur se réserve le droit de suspendre immédiatement les licences du Client jusqu\'à régularisation complète.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 6 : Livraison et activation',
+          subsections: [
+            {
+              title: '6.1. Mode de livraison',
+              list: [
+                'Le logiciel Evalix est fourni via un lien de téléchargement sécurisé envoyé par e-mail et disponible sur le site de l\'Éditeur.',
+                'Les codes d\'activation des licences sont envoyés au Client par e-mail.'
+              ]
+            },
+            {
+              title: '6.2. Délais de livraison',
+              paragraphs: [
+                'Les codes d\'activation sont transmis dans un délai maximum de 72 heures ouvrées à compter de la réception effective du paiement.'
+              ]
+            },
+            {
+              title: '6.3. Procédure d\'activation',
+              paragraphs: [
+                'Le Client reçoit par e-mail les instructions détaillées ainsi que les codes nécessaires pour activer ses licences et utiliser le logiciel Evalix.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 7 : Mises à jour et support',
+          subsections: [
+            {
+              title: '7.1. Politique de mises à jour',
+              paragraphs: [
+                'Les mises à jour du logiciel Evalix sont incluses dans le prix de la licence.',
+                'Elles sont automatiquement téléchargées et installées lorsque le logiciel est en fonctionnement et qu\'une connexion internet est disponible.'
+              ]
+            },
+            {
+              title: '7.2. Services de support',
+              paragraphs: [
+                'En cas de difficulté, le Client peut contacter l\'Éditeur :'
+              ],
+              list: [
+                'Par e-mail : [adresse e-mail de support - à compléter].',
+                'Via le formulaire de contact sur le site de l\'Éditeur : [adresse du site web - à compléter].'
+              ],
+              note: 'La demande doit inclure une description détaillée du problème et, si possible, des captures d\'écran. Un accusé de réception est envoyé sous 24 heures ouvrées et l\'Éditeur s\'efforce de résoudre le problème dans les meilleurs délais.'
+            }
+          ]
+        },
+        {
+          title: 'Article 8 : Garanties et responsabilités',
+          subsections: [
+            {
+              title: '8.1. Garanties légales',
+              paragraphs: [
+                'L\'Éditeur est tenu des défauts de conformité du logiciel et des vices cachés de la chose vendue dans les conditions prévues par la loi belge.'
+              ]
+            },
+            {
+              title: '8.2. Garantie commerciale',
+              paragraphs: [
+                'L\'Éditeur garantit que le logiciel Evalix est exempt de bugs majeurs empêchant son utilisation normale pendant la durée de la licence.',
+                'Cette garantie ne couvre pas les problèmes résultant d\'une utilisation non conforme, de modifications du logiciel ou d\'incompatibilités non spécifiées.',
+                'En cas de bug majeur empêchant l\'utilisation complète du logiciel, l\'Éditeur peut prolonger la durée des licences actives ou rembourser partiellement le Client.'
+              ]
+            },
+            {
+              title: '8.3. Exclusions de garantie',
+              list: [
+                'Utilisation du logiciel non conforme à sa destination ou aux instructions fournies par l\'Éditeur.',
+                'Modifications, adaptations ou altérations du logiciel par le Client ou un tiers non autorisé.',
+                'Dommages causés par des logiciels tiers, des virus, des attaques informatiques ou toute autre cause extérieure au logiciel.',
+                'Non-respect des prérequis techniques ou d\'environnement spécifiés par l\'Éditeur.'
+              ]
+            },
+            {
+              title: '8.4. Limitation de responsabilité',
+              paragraphs: [
+                'La responsabilité de l\'Éditeur est limitée au montant total payé par le Client pour la licence au cours des douze derniers mois précédant le fait générateur du dommage.',
+                'Aucun dédommagement n\'est dû pour les dommages indirects, y compris la perte de données, de chiffre d\'affaires ou de clientèle.',
+                'Le logiciel Evalix ne collectant aucune donnée personnelle, le Client reste seul responsable des données traitées via le logiciel.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 9 : Propriété intellectuelle',
+          paragraphs: [
+            'Le logiciel Evalix et tous les droits de propriété intellectuelle afférents demeurent la propriété exclusive de JVTP SNC.',
+            'L\'acquisition d\'une licence n\'accorde aucun droit de propriété intellectuelle au Client. Toute reproduction, adaptation ou utilisation non autorisée est strictement interdite.'
+          ]
+        },
+        {
+          title: 'Article 10 : Résiliation',
+          subsections: [
+            {
+              title: '10.1. Conditions de résiliation',
+              paragraphs: [
+                'La licence peut être résiliée de plein droit par l\'Éditeur, sans préavis ni indemnité, en cas de manquement grave du Client, notamment :'
+              ],
+              list: [
+                'Non-paiement des sommes dues dans les délais impartis.',
+                'Violation des restrictions d\'utilisation de la licence.',
+                'Tentative de rétro-ingénierie, de décompilation, de modification ou de distribution non autorisée du logiciel.'
+              ],
+              note: 'Le Client peut ne pas renouveler sa licence à l\'issue de la période en cours. Aucun remboursement n\'est accordé pour la période restante.'
+            },
+            {
+              title: '10.2. Conséquences de la résiliation',
+              list: [
+                'Toutes les licences concédées au Client sont immédiatement désactivées.',
+                'Les droits d\'utilisation prennent fin et le Client doit désinstaller le logiciel de tous ses systèmes.',
+                'Le Client ne peut prétendre à aucun remboursement des sommes déjà versées.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 11 : Protection des données personnelles',
+          paragraphs: [
+            'L\'Éditeur respecte le Règlement Général sur la Protection des Données (RGPD) pour les données collectées dans le cadre de la gestion des licences et de la relation client.',
+            'Le logiciel Evalix ne collecte ni ne stocke les données encodées par l\'utilisateur, lesquelles restent sous la seule responsabilité du Client.'
+          ]
+        },
+        {
+          title: 'Article 12 : Force majeure',
+          paragraphs: [
+            'En cas de force majeure empêchant l\'exécution des obligations de l\'une des parties, celles-ci sont suspendues.',
+            'En cas de bug majeur avéré empêchant l\'utilisation normale du logiciel, l\'Éditeur prolonge la durée des licences pour couvrir la période comprise entre la notification du problème et sa résolution.'
+          ]
+        },
+        {
+          title: 'Article 13 : Non-cession',
+          paragraphs: [
+            'La licence d\'utilisation du logiciel Evalix est personnelle et incessible. Toute cession, transfert ou concession à un tiers nécessite l\'accord écrit préalable de l\'Éditeur.'
+          ]
+        },
+        {
+          title: 'Article 14 : Droit applicable et règlement des litiges',
+          subsections: [
+            {
+              title: '14.1. Droit applicable',
+              paragraphs: [
+                'Les présentes CGV sont régies et interprétées conformément au droit belge.'
+              ]
+            },
+            {
+              title: '14.2. Règlement amiable des litiges',
+              paragraphs: [
+                'En cas de litige relatif à la validité, à l\'interprétation ou à l\'exécution des CGV, les parties recherchent une solution amiable, notamment via la médiation.'
+              ]
+            },
+            {
+              title: '14.3. Juridiction compétente',
+              paragraphs: [
+                'À défaut de résolution amiable, tout litige relève de la compétence exclusive du Tribunal de l\'entreprise du Brabant wallon, division Nivelles (Belgique), même en cas de pluralité de défendeurs ou d\'appel en garantie.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 15 : Acceptation des CGV',
+          paragraphs: [
+            'Le Client reconnaît avoir pris connaissance des présentes CGV avant de passer commande.',
+            'L\'acquisition d\'une licence et la réception du paiement par le Vendeur valent acceptation pleine et entière des présentes CGV.'
+          ]
+        }
+      ]
+    },
     pricing: {
       title: 'Nos plans tarifaires',
       subtitle: 'Choisissez le plan qui correspond le mieux à vos besoins et à la taille de votre équipe.',
@@ -638,6 +1075,443 @@ const translations = {
       navigation: 'Navigatie',
       conditions_generales: 'Algemene voorwaarden van verkoop'
     },
+    legal_page: {
+      badge: 'Juridische vermeldingen',
+      heroTitle: 'Wettelijke informatie over de website van Evalix',
+      heroIntro: 'Deze informatie heeft als doel gebruikers te informeren over de identiteit van de uitgever van de website, de hostingprovider en de gebruiksvoorwaarden.',
+      sections: [
+        {
+          title: '1. Wettelijke informatie',
+          paragraphs: [
+            'Deze website wordt uitgegeven door:'
+          ],
+          details: [
+            'JVTP SNC',
+            'Chemin des Pères 1',
+            '1420 Braine-l\'Alleud - België',
+            'Ondernemingsnummer (KBO): 1029.330.643',
+            'Oprichtingsdatum: 17 oktober 2025',
+            'btw-nummer: [aan te vullen]',
+            'E-mailadres: [aan te vullen]'
+          ]
+        },
+        {
+          title: '2. Verantwoordelijken voor de publicatie',
+          paragraphs: [
+            'De verantwoordelijken voor de publicatie zijn Thomas Point en Julien Van der Borght, in hun hoedanigheid van zaakvoerders van JVTP SNC.',
+            'Zij zijn bereikbaar via het hierboven vermelde e-mailadres.'
+          ]
+        },
+        {
+          title: '3. Hostingprovider',
+          paragraphs: [
+            'De website wordt gehost door:'
+          ],
+          details: [
+            'Hostinger International Ltd.',
+            '61 Lordou Vironos Street, 6023 Larnaca, Cyprus'
+          ],
+          links: [
+            {
+              label: 'Website',
+              text: 'www.hostinger.com',
+              href: 'https://www.hostinger.com'
+            }
+          ]
+        },
+        {
+          title: '4. Doel van de website',
+          paragraphs: [
+            'De website van JVTP heeft tot doel de door de vennootschap ontwikkelde software te presenteren en te commercialiseren.',
+            'Elke bestelling via de website impliceert de voorafgaande aanvaarding van de Algemene Verkoopsvoorwaarden (AVV), raadpleegbaar op de website.'
+          ]
+        },
+        {
+          title: '5. Intellectuele eigendom',
+          paragraphs: [
+            'Alle inhoud van de website (teksten, afbeeldingen, logo\'s, grafieken, video\'s, software, enz.) is, tenzij anders vermeld, exclusief eigendom van JVTP SNC.',
+            'Elke reproductie, voorstelling, wijziging, publicatie, overdracht of aanpassing, geheel of gedeeltelijk, is verboden zonder voorafgaande schriftelijke toestemming.'
+          ]
+        },
+        {
+          title: '6. Bescherming van persoonsgegevens (GDPR)',
+          paragraphs: [
+            'JVTP SNC verbindt zich ertoe dat de verzameling en verwerking van uw persoonsgegevens in overeenstemming zijn met de Algemene Verordening Gegevensbescherming (EU) 2016/679.',
+            'Gebruikers beschikken over een recht op inzage, rectificatie, verwijdering en bezwaar met betrekking tot hun persoonsgegevens.',
+            'Deze verzoeken kunnen worden gericht aan: [contact-e-mailadres].',
+            'Een gedetailleerd privacybeleid is beschikbaar op de website.'
+          ]
+        },
+        {
+          title: '7. Cookies',
+          paragraphs: [
+            'De website maakt geen gebruik van cookies.'
+          ]
+        },
+        {
+          title: '8. Aansprakelijkheid',
+          paragraphs: [
+            'JVTP SNC streeft naar de beschikbaarheid en actualisering van de website, maar kan niet aansprakelijk worden gesteld voor onderbrekingen, fouten, gegevensverlies of enige directe of indirecte schade die voortvloeit uit het gebruik van de website of de aangeboden diensten.'
+          ]
+        }
+      ]
+    },
+    privacy_page: {
+      badge: 'Privacybeleid',
+      heroTitle: 'Bescherming van persoonsgegevens',
+      heroIntro: 'Dit beleid legt uit hoe JVTP SNC uw persoonsgegevens verzamelt, gebruikt, bewaart en beschermt in het kader van het gebruik van de website en de Evalix-software.',
+      title: 'Privacybeleid',
+      lastUpdated: 'Laatste update: [aan te vullen]',
+      sections: [
+        {
+          title: '1. Inleiding',
+          paragraphs: [
+            'Dit privacybeleid beschrijft hoe JVTP SNC, een vennootschap onder firma met maatschappelijke zetel Chemin des Pères 1, 1420 Braine-l\'Alleud (België) en ingeschreven bij de KBO onder het nummer 1029.330.643, de persoonsgegevens verwerkt van haar klanten, prospecten en gebruikers van de Evalix-software.',
+            'JVTP SNC verbindt zich ertoe de toepasselijke wetgeving inzake gegevensbescherming na te leven, waaronder de GDPR en de Belgische wet van 30 juli 2018.'
+          ]
+        },
+        {
+          title: '2. Verwerkingsverantwoordelijke',
+          paragraphs: [
+            'De verwerkingsverantwoordelijke is: JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. E-mail: [aan te vullen].'
+          ]
+        },
+        {
+          title: '3. Verzamelde gegevens',
+          paragraphs: [
+            'JVTP SNC verzamelt uitsluitend de gegevens die noodzakelijk zijn voor het beheer van de commerciële relatie en de klantenservice.',
+            'De Evalix-software verzamelt, verzendt of bewaart geen gegevens die door de gebruiker worden ingevoerd; deze blijven volledig onder de verantwoordelijkheid van de klant.'
+          ]
+        },
+        {
+          title: '4. Doeleinden van de verwerking',
+          paragraphs: [
+            'De gegevens worden gebruikt voor: het beheer van bestellingen en licenties, technische ondersteuning, communicatie over updates, boekhoudkundige en wettelijke verplichtingen en commerciële communicatie (met toestemming).'
+          ]
+        },
+        {
+          title: '5. Rechtsgrond van de verwerking',
+          paragraphs: [
+            'De verwerkingen zijn gebaseerd op de volgende gronden: uitvoering van het contract, wettelijke verplichting, toestemming en gerechtvaardigd belang.'
+          ]
+        },
+        {
+          title: '6. Bewaartermijn',
+          paragraphs: [
+            'De gegevens worden bewaard gedurende de looptijd van de contractuele relatie en vervolgens gedurende 5 jaar gearchiveerd.',
+            'Marketinggegevens worden bewaard tot het intrekken van de toestemming.'
+          ]
+        },
+        {
+          title: '7. Gegevensdeling',
+          paragraphs: [
+            'De gegevens worden nooit verkocht of verhuurd.',
+            'Ze kunnen worden gedeeld met technische dienstverleners of met de autoriteiten indien de wet dit vereist.'
+          ]
+        },
+        {
+          title: '8. Hosting en beveiliging',
+          paragraphs: [
+            'De website van JVTP SNC wordt gehost door Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Cyprus.',
+            'JVTP SNC implementeert technische en organisatorische maatregelen om gegevens te beschermen tegen verlies, diefstal of ongeoorloofde toegang.'
+          ]
+        },
+        {
+          title: '9. Rechten van betrokkenen',
+          paragraphs: [
+            'Elke gebruiker beschikt over een recht op inzage, rectificatie, verwijdering, beperking, bezwaar en overdraagbaarheid van zijn gegevens.',
+            'Deze verzoeken kunnen worden gericht aan: [aan te vullen e-mailadres]. Antwoord binnen 30 werkdagen.'
+          ]
+        },
+        {
+          title: '10. Gegevensoverdracht buiten de EU',
+          paragraphs: [
+            'Er vindt geen overdracht buiten de Europese Unie plaats, behalve indien contractueel noodzakelijk en met waarborgen in overeenstemming met de GDPR.'
+          ]
+        },
+        {
+          title: '11. Cookies',
+          paragraphs: [
+            'De website gebruikt geen cookies.'
+          ]
+        },
+        {
+          title: '12. Wijziging van het beleid',
+          paragraphs: [
+            'Dit beleid kan op elk moment worden bijgewerkt.',
+            'Belangrijke wijzigingen worden meegedeeld via de website of per e-mail.'
+          ]
+        },
+        {
+          title: '13. Contact',
+          paragraphs: [
+            'Voor vragen over gegevensbescherming: JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud.',
+            'E-mail: [aan te vullen].'
+          ]
+        }
+      ]
+    },
+    terms_page: {
+      badge: 'Algemene verkoopsvoorwaarden',
+      heroTitle: 'Algemene Verkoopsvoorwaarden (AVV) - Evalix-softwarelicentie',
+      heroIntro: 'Deze voorwaarden regelen de verkoop en het gebruik van de Evalix-licenties die door JVTP SNC worden uitgegeven.',
+      sections: [
+        {
+          title: 'Artikel 1: Partijen',
+          paragraphs: [
+            'Deze Algemene Verkoopsvoorwaarden ("AVV") regelen de verkoop en de toekenning van licenties voor de Evalix-software tussen:',
+            'De vennootschap JVTP SNC, met maatschappelijke zetel Chemin des Pères 1, 1420 Braine-l\'Alleud (België), ingeschreven onder btw-nummer [btw-nummer - aan te vullen] (hierna de Uitgever of Verkoper).',
+            'En de klant die een gebruikslicentie voor de Evalix-software wil verwerven (hierna de Klant of Licentienemer).'
+          ],
+          list: [
+            'Telefoonnummer: [aan te vullen]',
+            'E-mailadres: [aan te vullen]',
+            'Website: [aan te vullen]'
+          ]
+        },
+        {
+          title: 'Artikel 2: Voorwerp van het contract',
+          paragraphs: [
+            'Dit contract heeft tot doel een niet-exclusief en niet-overdraagbaar gebruiksrecht op de Evalix-software te verlenen, uitgegeven door JVTP SNC.',
+            'De Evalix-software is een informaticatool die bedoeld is voor de berekening van schadevergoedingen bij lichamelijke letselschade als gevolg van ongevallen.',
+            'De Verkoper verleent de Klant een gebruikslicentie zonder overdracht van eigendom van de software, de updates of de documentatie.'
+          ]
+        },
+        {
+          title: 'Artikel 3: Omvang en beperkingen van de licentie',
+          paragraphs: [
+            'Deze licentie bepaalt de rechten en beperkingen die aan de Klant worden toegekend bij het gebruik van de Evalix-software.'
+          ],
+          subsections: [
+            {
+              title: '3.1. Verleende gebruiksrechten',
+              list: [
+                'De Evalix-software te installeren en te gebruiken op het aantal toestellen dat overeenkomt met het aantal aangeschafte licenties.',
+                'De software te gebruiken voor eigen behoeften en overeenkomstig de bestemming ervan.',
+                'De door de Evalix-software gegenereerde bestanden met derden te delen.'
+              ]
+            },
+            {
+              title: '3.2. Gebruiksbeperkingen',
+              paragraphs: [
+                'Zonder voorafgaande schriftelijke toestemming van de Uitgever verbindt de Klant zich ertoe om niet:'
+              ],
+              list: [
+                'Reverse engineering, decompilatie of demontage van de software uit te voeren.',
+                'De software te wijzigen, aan te passen of afgeleide werken te creëren.',
+                'De software te distribueren, verkopen, sublicentiëren, verhuren, uitlenen of ter beschikking te stellen van derden.',
+                'De software te gebruiken voor onwettige doeleinden of op een wijze die niet overeenkomt met de bestemming.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Artikel 4: Duur van de licentie en verlenging',
+          paragraphs: [
+            'De licentie op de Evalix-software wordt voor bepaalde duur verleend, afhankelijk van de keuze bij de bestelling:'
+          ],
+          list: [
+            'Driemaandelijkse duur (3 maanden).',
+            'Jaarlijkse duur (12 maanden).'
+          ],
+          note: 'Een maand voor het verstrijken van de licentie neemt de Uitgever contact op met de Klant om een verlenging voor te stellen. De verlenging wordt pas van kracht na ontvangst van de betaling overeenkomstig artikel 5.'
+        },
+        {
+          title: 'Artikel 5: Prijs en betalingsmodaliteiten',
+          subsections: [
+            {
+              title: '5.1. Licentieprijzen',
+              paragraphs: [
+                'De prijzen worden uitgedrukt in euro, exclusief btw en inclusief btw, volgens het in België geldende btw-tarief (momenteel 21%).'
+              ],
+              list: [
+                'Driemaandelijks plan: tot en met tien licenties, 50 € per maand excl. btw per licentie; vanaf elf licenties, 45 € per maand excl. btw per licentie.',
+                'Jaarlijks plan: tot en met tien licenties, 45 € per maand excl. btw per licentie; vanaf elf licenties, 40 € per maand excl. btw per licentie.',
+                'De betaling is verschuldigd in één keer voor de gekozen licentieperiode.'
+              ]
+            },
+            {
+              title: '5.2. Betalingsmodaliteiten',
+              paragraphs: [
+                'De betaling van de licenties gebeurt uitsluitend via bankoverschrijving op de rekening van JVTP SNC.',
+                'De bankgegevens worden aan de Klant meegedeeld tijdens de bestelling.'
+              ]
+            },
+            {
+              title: '5.3. Gevolgen van niet-betaling',
+              paragraphs: [
+                'Bij het uitblijven van de betaling binnen de gestelde termijnen behoudt de Uitgever zich het recht voor om de licenties van de Klant onmiddellijk te schorsen tot volledige regularisatie.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Artikel 6: Levering en activatie',
+          subsections: [
+            {
+              title: '6.1. Leveringswijze',
+              list: [
+                'De Evalix-software wordt geleverd via een beveiligde downloadlink die per e-mail wordt verzonden en beschikbaar is op de website van de Uitgever.',
+                'De activatiecodes van de licenties worden per e-mail naar de Klant gestuurd.'
+              ]
+            },
+            {
+              title: '6.2. Leveringstermijnen',
+              paragraphs: [
+                'De activatiecodes worden uiterlijk binnen 72 werkuren na de effectieve ontvangst van de betaling door de Uitgever verzonden.'
+              ]
+            },
+            {
+              title: '6.3. Activatieprocedure',
+              paragraphs: [
+                'De Klant ontvangt per e-mail de gedetailleerde instructies en de codes die nodig zijn om de licenties te activeren en de Evalix-software te gebruiken.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Artikel 7: Updates en ondersteuning',
+          subsections: [
+            {
+              title: '7.1. Updatebeleid',
+              paragraphs: [
+                'Updates van de Evalix-software zijn in de licentieprijs inbegrepen.',
+                'Ze worden automatisch gedownload en geïnstalleerd wanneer de software actief is en er een internetverbinding beschikbaar is.'
+              ]
+            },
+            {
+              title: '7.2. Ondersteuningsdiensten',
+              paragraphs: [
+                'Bij vragen of problemen kan de Klant contact opnemen met de Uitgever:'
+              ],
+              list: [
+                'Via e-mail: [ondersteunings-e-mailadres - aan te vullen].',
+                'Via het contactformulier op de website van de Uitgever: [website-adres - aan te vullen].'
+              ],
+              note: 'Het verzoek moet een gedetailleerde beschrijving van het probleem bevatten en indien mogelijk schermopnamen. De Uitgever bevestigt ontvangst binnen 24 werkuren en streeft ernaar het probleem zo snel mogelijk op te lossen.'
+            }
+          ]
+        },
+        {
+          title: 'Artikel 8: Garanties en aansprakelijkheid',
+          subsections: [
+            {
+              title: '8.1. Wettelijke garanties',
+              paragraphs: [
+                'De Uitgever is aansprakelijk voor conformiteitsgebreken van de software en verborgen gebreken van het verkochte goed onder de voorwaarden van het Belgische recht.'
+              ]
+            },
+            {
+              title: '8.2. Commerciële garantie',
+              paragraphs: [
+                'De Uitgever garandeert dat de Evalix-software vrij is van ernstige bugs die het normale gebruik verhinderen gedurende de looptijd van de licentie.',
+                'Deze garantie dekt geen problemen die het gevolg zijn van oneigenlijk gebruik, wijzigingen door de Klant of niet-gespecificeerde incompatibiliteiten.',
+                'Bij een ernstige bug die het volledige gebruik verhindert, kan de Uitgever de duur van de actieve licenties verlengen of de Klant gedeeltelijk terugbetalen.'
+              ]
+            },
+            {
+              title: '8.3. Uitsluitingen van garantie',
+              list: [
+                'Gebruik van de software dat niet overeenstemt met de bestemming of met de instructies van de Uitgever.',
+                'Wijzigingen, aanpassingen of wijzigingen van de software door de Klant of een niet-geautoriseerde derde.',
+                'Schade veroorzaakt door software van derden, virussen, cyberaanvallen of andere externe oorzaken.',
+                'Niet-naleving van de technische vereisten of het aanbevolen systeem door de Uitgever.'
+              ]
+            },
+            {
+              title: '8.4. Aansprakelijkheidsbeperking',
+              paragraphs: [
+                'De aansprakelijkheid van de Uitgever is beperkt tot het totale bedrag dat de Klant in de twaalf maanden voorafgaand aan het schadegeval voor de licentie heeft betaald.',
+                'Er wordt geen schadevergoeding toegekend voor indirecte schade, waaronder verlies van gegevens, omzet of cliënteel.',
+                'Omdat de Evalix-software geen persoonsgegevens verzamelt, blijft de Klant als enige verantwoordelijk voor de gegevens die via de software worden verwerkt.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Artikel 9: Intellectuele eigendom',
+          paragraphs: [
+            'De Evalix-software en alle bijbehorende intellectuele-eigendomsrechten blijven het exclusieve eigendom van JVTP SNC.',
+            'De verwerving van een licentie verleent de Klant geen enkel intellectueel eigendomsrecht. Elke ongeoorloofde reproductie, aanpassing of gebruik is strikt verboden.'
+          ]
+        },
+        {
+          title: 'Artikel 10: Beëindiging',
+          subsections: [
+            {
+              title: '10.1. Beëindigingsvoorwaarden',
+              paragraphs: [
+                'De Uitgever kan de licentie van rechtswege en zonder schadevergoeding beëindigen bij ernstige tekortkomingen van de Klant, met name:'
+              ],
+              list: [
+                'Niet-betaling van verschuldigde bedragen binnen de gestelde termijnen.',
+                'Schending van de gebruiksbeperkingen van de licentie.',
+                'Poging tot reverse engineering, decompilatie, wijziging of ongeoorloofde distributie van de software.'
+              ],
+              note: 'De Klant kan de licentie beëindigen door geen verlenging aan te vragen aan het einde van de lopende periode. Geen terugbetaling voor de resterende periode.'
+            },
+            {
+              title: '10.2. Gevolgen van beëindiging',
+              list: [
+                'Alle aan de Klant toegekende licenties worden onmiddellijk gedeactiveerd.',
+                'Alle gebruiksrechten eindigen en de Klant moet de software van al zijn systemen verwijderen.',
+                'Er wordt geen terugbetaling gedaan van reeds betaalde bedragen.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Artikel 11: Bescherming van persoonsgegevens',
+          paragraphs: [
+            'De Uitgever respecteert de GDPR voor de gegevens die worden verzameld in het kader van het licentiebeheer en de klantrelatie.',
+            'De Evalix-software verzamelt of bewaart geen gegevens die door de gebruiker worden ingevoerd; deze blijven volledig onder verantwoordelijkheid van de Klant.'
+          ]
+        },
+        {
+          title: 'Artikel 12: Overmacht',
+          paragraphs: [
+            'In geval van overmacht die de uitvoering van de verplichtingen van een partij verhindert, worden deze verplichtingen opgeschort.',
+            'Bij een aangetoonde ernstige bug die het normale gebruik van de software verhindert, verlengt de Uitgever de licenties voor de periode tussen de melding van het probleem en de effectieve oplossing.'
+          ]
+        },
+        {
+          title: 'Artikel 13: Niet-overdraagbaarheid',
+          paragraphs: [
+            'De licentie voor het gebruik van de Evalix-software is persoonlijk en niet-overdraagbaar. Elke overdracht, cessie of onderlicentie vereist de voorafgaande schriftelijke toestemming van de Uitgever.'
+          ]
+        },
+        {
+          title: 'Artikel 14: Toepasselijk recht en geschillenbeslechting',
+          subsections: [
+            {
+              title: '14.1. Toepasselijk recht',
+              paragraphs: [
+                'Deze AVV worden beheerst en geïnterpreteerd volgens het Belgische recht.'
+              ]
+            },
+            {
+              title: '14.2. Minnerlijke geschillenregeling',
+              paragraphs: [
+                'Bij een geschil over de geldigheid, interpretatie of uitvoering van de AVV verbinden de partijen zich ertoe eerst een minnelijke oplossing te zoeken, onder meer via bemiddeling.'
+              ]
+            },
+            {
+              title: '14.3. Bevoegde rechtbank',
+              paragraphs: [
+                'Bij gebrek aan minnelijke oplossing is de Ondernemingsrechtbank Waals-Brabant, afdeling Nijvel (België), exclusief bevoegd, zelfs bij meerdere verweerders of vrijwaring.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Artikel 15: Aanvaarding van de AVV',
+          paragraphs: [
+            'De Klant erkent de huidige AVV te hebben gelezen voordat hij een bestelling plaatst.',
+            'De aankoop van een licentie en de ontvangst van de betaling door de Verkoper houden een volledige en onvoorwaardelijke aanvaarding van deze AVV in.'
+          ]
+        }
+      ]
+    },
     pricing: {
       title: 'Onze tariefplannen',
       subtitle: 'Kies het plan dat het beste past bij uw behoeften en de grootte van uw team.',
@@ -1080,6 +1954,443 @@ const translations = {
       privacy: 'Privacy policy',
       navigation: 'Navigation',
       conditions_generales: 'General conditions of sale'
+    },
+    legal_page: {
+      badge: 'Legal notices',
+      heroTitle: 'Legal information about the Evalix website',
+      heroIntro: 'This information informs users about the identity of the website publisher, its hosting provider, and the applicable terms of use.',
+      sections: [
+        {
+          title: '1. Legal information',
+          paragraphs: [
+            'This website is published by:'
+          ],
+          details: [
+            'JVTP SNC',
+            'Chemin des Pères 1',
+            '1420 Braine-l\'Alleud - Belgium',
+            'Company number (BCE): 1029.330.643',
+            'Creation date: 17 October 2025',
+            'VAT number: [to be completed]',
+            'Email address: [to be completed]'
+          ]
+        },
+        {
+          title: '2. Publication managers',
+          paragraphs: [
+            'The publication managers are Thomas Point and Julien Van der Borght, acting as managing partners of JVTP SNC.',
+            'They can be contacted at the email address indicated above.'
+          ]
+        },
+        {
+          title: '3. Website hosting',
+          paragraphs: [
+            'The website is hosted by:'
+          ],
+          details: [
+            'Hostinger International Ltd.',
+            '61 Lordou Vironos Street, 6023 Larnaca, Cyprus'
+          ],
+          links: [
+            {
+              label: 'Website',
+              text: 'www.hostinger.com',
+              href: 'https://www.hostinger.com'
+            }
+          ]
+        },
+        {
+          title: '4. Purpose of the website',
+          paragraphs: [
+            'The JVTP website is intended to present and market the software developed by the company.',
+            'Any order placed through the website implies prior acceptance of the General Terms and Conditions of Sale (GTCS), available on the website.'
+          ]
+        },
+        {
+          title: '5. Intellectual property',
+          paragraphs: [
+            'All website content (texts, images, logos, graphics, videos, software, etc.) is the exclusive property of JVTP SNC, unless otherwise stated.',
+            'Any reproduction, representation, modification, publication, transmission, or adaptation, in whole or in part, is strictly prohibited without prior written authorization.'
+          ]
+        },
+        {
+          title: '6. Protection of personal data (GDPR)',
+          paragraphs: [
+            'JVTP SNC ensures that the collection and processing of your personal data comply with the General Data Protection Regulation (EU) 2016/679.',
+            'Users have the right to access, rectify, erase, and object to the processing of their personal data.',
+            'Requests can be sent to: [contact email address].',
+            'A detailed privacy policy is available on the website.'
+          ]
+        },
+        {
+          title: '7. Cookies',
+          paragraphs: [
+            'The website does not use any cookies.'
+          ]
+        },
+        {
+          title: '8. Liability',
+          paragraphs: [
+            'JVTP SNC strives to keep the website available and up to date, but cannot be held liable for interruptions, errors, data loss, or any direct or indirect damage resulting from the use of the website or the services provided.'
+          ]
+        }
+      ]
+    },
+    privacy_page: {
+      badge: 'Privacy policy',
+      heroTitle: 'Protection of personal data',
+      heroIntro: 'This policy explains how JVTP SNC collects, uses, stores, and protects your personal data when using the website and the Evalix software.',
+      title: 'Privacy Policy',
+      lastUpdated: 'Last updated: [to be completed]',
+      sections: [
+        {
+          title: '1. Introduction',
+          paragraphs: [
+            'This privacy policy describes how JVTP SNC, a general partnership with its registered office at Chemin des Pères 1, 1420 Braine-l\'Alleud (Belgium) and registered with the BCE under number 1029.330.643, processes the personal data of its clients, prospects, and users of the Evalix software.',
+            'JVTP SNC is committed to complying with the applicable data protection legislation, including the GDPR and the Belgian law of 30 July 2018.'
+          ]
+        },
+        {
+          title: '2. Data controller',
+          paragraphs: [
+            'The data controller is: JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. Email: [to be completed].'
+          ]
+        },
+        {
+          title: '3. Data collected',
+          paragraphs: [
+            'JVTP SNC only collects the data necessary to manage the commercial relationship and customer support.',
+            'The Evalix software does not collect, transmit, or store any data entered by the user; these remain under the sole responsibility of the client.'
+          ]
+        },
+        {
+          title: '4. Purposes of processing',
+          paragraphs: [
+            'Data are used for: managing orders and licenses, technical support, communication about updates, accounting and legal obligations, and marketing communications (with consent).'
+          ]
+        },
+        {
+          title: '5. Legal basis for processing',
+          paragraphs: [
+            'Processing is based on the following legal grounds: performance of the contract, legal obligation, consent, and legitimate interest.'
+          ]
+        },
+        {
+          title: '6. Data retention period',
+          paragraphs: [
+            'Data are kept for the duration of the contractual relationship and then archived for 5 years.',
+            'Marketing data are retained until consent is withdrawn.'
+          ]
+        },
+        {
+          title: '7. Data sharing',
+          paragraphs: [
+            'Data are never sold or rented.',
+            'They may be shared with technical service providers or with authorities if required by law.'
+          ]
+        },
+        {
+          title: '8. Hosting and security',
+          paragraphs: [
+            'The JVTP SNC website is hosted by Hostinger International Ltd., 61 Lordou Vironos Street, 6023 Larnaca, Cyprus.',
+            'JVTP SNC implements technical and organizational measures to protect data against loss, theft, or unauthorized access.'
+          ]
+        },
+        {
+          title: '9. Rights of data subjects',
+          paragraphs: [
+            'Each user has the right to access, rectify, erase, restrict, object to, and port their personal data.',
+            'Requests can be sent to: [contact email to be completed]. Response within 30 working days.'
+          ]
+        },
+        {
+          title: '10. Data transfers outside the EU',
+          paragraphs: [
+            'No transfers outside the European Union are carried out, unless contractually required and with safeguards compliant with the GDPR.'
+          ]
+        },
+        {
+          title: '11. Cookies',
+          paragraphs: [
+            'The website does not use cookies.'
+          ]
+        },
+        {
+          title: '12. Changes to the policy',
+          paragraphs: [
+            'This policy may be updated at any time.',
+            'Significant changes will be notified via the website or by email.'
+          ]
+        },
+        {
+          title: '13. Contact',
+          paragraphs: [
+            'For any question regarding data protection: JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud.',
+            'Email: [to be completed].'
+          ]
+        }
+      ]
+    },
+    terms_page: {
+      badge: 'General terms of sale',
+      heroTitle: 'General Terms and Conditions of Sale (GTCS) - Evalix Software License',
+      heroIntro: 'These terms govern the sale and use of Evalix licenses issued by JVTP SNC.',
+      sections: [
+        {
+          title: 'Article 1: Parties',
+          paragraphs: [
+            'These General Terms and Conditions of Sale ("GTCS") govern the sale and licensing of the Evalix software between:',
+            'The company JVTP SNC, with registered office at Chemin des Pères 1, 1420 Braine-l\'Alleud (Belgium), registered under VAT number [VAT number - to be completed] (hereinafter the Vendor).',
+            'And the client wishing to acquire a license to use the Evalix software (hereinafter the Client or Licensee).'
+          ],
+          list: [
+            'Phone number: [to be completed]',
+            'Email address: [to be completed]',
+            'Website: [to be completed]'
+          ]
+        },
+        {
+          title: 'Article 2: Purpose of the agreement',
+          paragraphs: [
+            'This agreement grants a non-exclusive, non-transferable right to use the Evalix software, published by JVTP SNC.',
+            'The Evalix software is an IT tool designed to calculate compensation for bodily injury resulting from accidents.',
+            'The Vendor grants the Client a license to use the software, without any transfer of ownership of the software, its updates, or its documentation.'
+          ]
+        },
+        {
+          title: 'Article 3: Scope and restrictions of the license',
+          paragraphs: [
+            'This license defines the rights and limitations granted to the Client regarding the use of the Evalix software.'
+          ],
+          subsections: [
+            {
+              title: '3.1. Granted usage rights',
+              list: [
+                'Install and use the Evalix software on the number of workstations corresponding to the number of licenses purchased.',
+                'Use the software for internal needs and in accordance with its intended purpose.',
+                'Share files generated by the Evalix software with third parties.'
+              ]
+            },
+            {
+              title: '3.2. Usage restrictions',
+              paragraphs: [
+                'Unless previously authorized in writing by the Vendor, the Client expressly refrains from:'
+              ],
+              list: [
+                'Performing reverse engineering, decompiling, or disassembling the software.',
+                'Modifying, adapting, or creating derivative works from the software.',
+                'Distributing, selling, sublicensing, renting, lending, or making the software available to third parties.',
+                'Using the software for unlawful purposes or in a manner inconsistent with its intended use.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 4: Term of the license and renewal',
+          paragraphs: [
+            'The Evalix software license is granted for a fixed period, depending on the option selected at the time of order:'
+          ],
+          list: [
+            'Quarterly term (3 months).',
+            'Annual term (12 months).'
+          ],
+          note: 'One month before the license expires, the Vendor contacts the Client to propose a renewal. The renewal takes effect only after payment is received, in accordance with Article 5.'
+        },
+        {
+          title: 'Article 5: Pricing and payment terms',
+          subsections: [
+            {
+              title: '5.1. License pricing',
+              paragraphs: [
+                'Prices are expressed in euros, excluding VAT and including VAT, at the Belgian VAT rate in force (currently 21%).'
+              ],
+              list: [
+                'Quarterly plan: up to ten licenses, €50 per month excl. VAT per license; from eleven licenses, €45 per month excl. VAT per license.',
+                'Annual plan: up to ten licenses, €45 per month excl. VAT per license; from eleven licenses, €40 per month excl. VAT per license.',
+                'Payment is due in a single instalment for the selected license period.'
+              ]
+            },
+            {
+              title: '5.2. Payment terms',
+              paragraphs: [
+                'Payment for the licenses is made exclusively by bank transfer to the account of JVTP SNC.',
+                'Bank details are provided to the Client during the order process.'
+              ]
+            },
+            {
+              title: '5.3. Consequences of non-payment',
+              paragraphs: [
+                "If payment is not received within the allotted time, the Vendor reserves the right to immediately suspend the Client's licenses until full payment is made."
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 6: Delivery and activation',
+          subsections: [
+            {
+              title: '6.1. Delivery method',
+              list: [
+                "The Evalix software is provided via a secure download link sent by email and available on the Vendor's website.",
+                'License activation codes are sent to the Client by email.'
+              ]
+            },
+            {
+              title: '6.2. Delivery timeframes',
+              paragraphs: [
+                'Activation codes are sent within 72 working hours from the effective receipt of payment by the Vendor.'
+              ]
+            },
+            {
+              title: '6.3. Activation procedure',
+              paragraphs: [
+                'The Client receives by email the detailed instructions and codes required to activate the licenses and use the Evalix software.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 7: Updates and support',
+          subsections: [
+            {
+              title: '7.1. Update policy',
+              paragraphs: [
+                'Updates to the Evalix software are included in the license price.',
+                'They are automatically downloaded and installed when the software is running and an internet connection is available.'
+              ]
+            },
+            {
+              title: '7.2. Support services',
+              paragraphs: [
+                'In case of difficulty, the Client may contact the Vendor:'
+              ],
+              list: [
+                'By email: [support email address - to be completed].',
+                "Via the contact form on the Vendor's website: [website address - to be completed]."
+              ],
+              note: 'Requests must include a detailed description of the issue and, where possible, screenshots. The Vendor acknowledges receipt within 24 working hours and strives to resolve the issue as quickly as possible.'
+            }
+          ]
+        },
+        {
+          title: 'Article 8: Warranties and liability',
+          subsections: [
+            {
+              title: '8.1. Statutory warranties',
+              paragraphs: [
+                'The Vendor is liable for any lack of conformity of the software and for hidden defects in the item sold, in accordance with Belgian law.'
+              ]
+            },
+            {
+              title: '8.2. Commercial warranty',
+              paragraphs: [
+                'The Vendor guarantees that the Evalix software is free from major bugs that prevent normal use for the duration of the license.',
+                'This warranty does not cover issues resulting from improper use, modifications made by the Client, or unspecified incompatibilities.',
+                'If a major bug prevents full use of the software, the Vendor may extend the duration of the active licenses or partially refund the Client.'
+              ]
+            },
+            {
+              title: '8.3. Warranty exclusions',
+              list: [
+                "Use of the software that is inconsistent with its intended purpose or with the Vendor's instructions.",
+                'Modifications, adaptations, or alterations to the software by the Client or by an unauthorized third party.',
+                'Damage caused by third-party software, viruses, cyberattacks, or any other external cause.',
+                'Failure to comply with the technical or environmental prerequisites specified by the Vendor.'
+              ]
+            },
+            {
+              title: '8.4. Limitation of liability',
+              paragraphs: [
+                "The Vendor's liability is limited to the total amount paid by the Client for the license during the twelve months preceding the event giving rise to the damage.",
+                'No compensation is due for indirect damages, including loss of data, revenue, or customers.',
+                'As the Evalix software does not collect personal data, the Client remains solely responsible for the data processed through the software.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 9: Intellectual property',
+          paragraphs: [
+            'The Evalix software and all associated intellectual property rights remain the exclusive property of JVTP SNC.',
+            'Purchasing a license does not grant the Client any intellectual property rights. Any unauthorized reproduction, adaptation, or use is strictly prohibited.'
+          ]
+        },
+        {
+          title: 'Article 10: Termination',
+          subsections: [
+            {
+              title: '10.1. Termination conditions',
+              paragraphs: [
+                'The Vendor may terminate the license automatically, without notice or compensation, in the event of serious breach by the Client, in particular:'
+              ],
+              list: [
+                'Failure to pay amounts due within the specified time.',
+                'Violation of the license usage restrictions.',
+                'Attempted reverse engineering, decompilation, modification, or unauthorized distribution of the software.'
+              ],
+              note: 'The Client may terminate the license by not renewing it at the end of the current period. No refund is granted for the remaining period.'
+            },
+            {
+              title: '10.2. Consequences of termination',
+              list: [
+                'All licenses granted to the Client are immediately deactivated.',
+                'Usage rights end and the Client must uninstall the software from all systems.',
+                'No refund is made for amounts already paid.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 11: Personal data protection',
+          paragraphs: [
+            'The Vendor complies with the GDPR for data collected in the context of license management and the customer relationship.',
+            "The Evalix software does not collect or store any data entered by the user; these remain entirely under the Client's responsibility."
+          ]
+        },
+        {
+          title: 'Article 12: Force majeure',
+          paragraphs: [
+            'In the event of force majeure preventing either party from fulfilling its obligations, such obligations are suspended.',
+            "If a proven major bug prevents normal use of the software, the Vendor extends the licenses for the period between the Client's notification of the issue and its effective resolution."
+          ]
+        },
+        {
+          title: 'Article 13: Non-transferability',
+          paragraphs: [
+            'The license to use the Evalix software is personal and non-transferable. Any transfer, assignment, or sublicense requires the prior written consent of the Vendor.'
+          ]
+        },
+        {
+          title: 'Article 14: Governing law and dispute resolution',
+          subsections: [
+            {
+              title: '14.1. Governing law',
+              paragraphs: [
+                'These GTCS are governed by and interpreted in accordance with Belgian law.'
+              ]
+            },
+            {
+              title: '14.2. Amicable resolution of disputes',
+              paragraphs: [
+                'In the event of a dispute concerning the validity, interpretation, or performance of the GTCS, the parties agree to seek an amicable solution first, including mediation.'
+              ]
+            },
+            {
+              title: '14.3. Competent jurisdiction',
+              paragraphs: [
+                'Failing an amicable solution, the Enterprise Court of Walloon Brabant, Nivelles division (Belgium), has exclusive jurisdiction, even in the event of multiple defendants or third-party proceedings.'
+              ]
+            }
+          ]
+        },
+        {
+          title: 'Article 15: Acceptance of the GTCS',
+          paragraphs: [
+            'The Client acknowledges having read these GTCS prior to placing an order.',
+            'Purchasing a license and the Vendor receiving payment constitute full and unconditional acceptance of these GTCS.'
+          ]
+        }
+      ]
     },
     pricing: {
       title: 'Our pricing plans',
