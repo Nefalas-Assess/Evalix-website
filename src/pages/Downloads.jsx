@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Monitor, Smartphone, Shield, CheckCircle } from 'lucide-react';
@@ -8,10 +8,36 @@ import PageTitle from '../components/layout/PageTitle';
 const Downloads = () => {
   const { t } = useLanguage();
 
-  const downloadLinks = {
-    windows: 'https://github.com/Nefalas-Assess/Assess-calculator/releases/download/v0.2.2/Evalix-0.2.2.exe',
-    macos: 'https://github.com/Nefalas-Assess/Assess-calculator/releases/download/v0.2.2/Evalix-0.2.2.dmg'
+  const defaultDownloadLinks = {
+    windows: 'https://github.com/Nefalas-Assess/Assess-calculator/releases/download/v1.0.0/Evalix-1.0.0.exe',
+    macos: 'https://github.com/Nefalas-Assess/Assess-calculator/releases/download/v1.0.0/Evalix-1.0.0.dmg',
   };
+
+  const [downloadLinks, setDownloadLinks] = useState(defaultDownloadLinks);
+
+  useEffect(() => {
+    const fetchLatestRelease = async () => {
+      try {
+        const response = await fetch('https://api.github.com/repos/Nefalas-Assess/Assess-calculator/releases/latest');
+        if (!response.ok) throw new Error('Unable to fetch release');
+
+        const data = await response.json();
+        const assets = Array.isArray(data.assets) ? data.assets : [];
+        const findAsset = (ext) =>
+          assets.find((asset) => asset.name?.toLowerCase().endsWith(ext))?.browser_download_url;
+
+        setDownloadLinks({
+          windows: findAsset('.exe') || defaultDownloadLinks.windows,
+          macos: findAsset('.dmg') || defaultDownloadLinks.macos
+        });
+      } catch (error) {
+        console.error('Failed to load latest release:', error);
+        setDownloadLinks(defaultDownloadLinks);
+      }
+    };
+
+    fetchLatestRelease();
+  }, []);
 
   const systemRequirements = {
     windows: {
@@ -211,4 +237,3 @@ const Downloads = () => {
 };
 
 export default Downloads;
-
