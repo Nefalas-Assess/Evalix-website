@@ -140,6 +140,7 @@ const Pricing = () => {
                 <Button
                   className="w-full bg-primary hover:bg-primary/90"
                   size="lg"
+                  onClick={() => window.location.href = '/account'}
                 >
                   {t("pricing.subscribe")}
                 </Button>

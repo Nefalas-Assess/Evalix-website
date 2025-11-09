@@ -97,11 +97,34 @@ const GenerateKeyModal = ({
     );
 
     // Memoized billing interval
-    const billingInterval = useMemo(() => {
+    const billingIntervalKey = useMemo(() => {
         if (!currentPrice?.recurring?.interval) return '';
         const interval = currentPrice.recurring.interval;
-        return interval === 'month' ? 'mois' : interval === 'year' ? 'an' : interval;
+        const intervalCount = currentPrice.recurring.interval_count || 1;
+
+        if (interval === 'month' && intervalCount === 3) {
+            return 'quarter';
+        }
+
+        if (interval === 'month') return 'month';
+        if (interval === 'year') return 'year';
+        return interval;
     }, [currentPrice]);
+
+    const billingIntervalLabel = useMemo(() => {
+        if (!billingIntervalKey) return '';
+
+        switch (billingIntervalKey) {
+            case 'month':
+                return t('generate_key_modal.interval_month');
+            case 'quarter':
+                return t('generate_key_modal.interval_quarter');
+            case 'year':
+                return t('generate_key_modal.interval_year');
+            default:
+                return billingIntervalKey;
+        }
+    }, [billingIntervalKey, t]);
 
     // Memoized prices with pricing (sorted by annual price)
     const pricesWithPricing = useMemo(() => {
@@ -299,7 +322,8 @@ const GenerateKeyModal = ({
                         <PricingSummary
                             licenseCount={licenseCount}
                             pricingInfo={pricingInfo}
-                            billingInterval={billingInterval}
+                            billingIntervalKey={billingIntervalKey}
+                            billingIntervalLabel={billingIntervalLabel}
                             tierInfo={tierInfo}
                         />
                     )}
@@ -389,8 +413,15 @@ const EmptyPricesState = React.memo(() => {
     );
 });
 
-const PricingSummary = React.memo(({ licenseCount, pricingInfo, billingInterval, tierInfo }) => {
+const PricingSummary = React.memo(({ licenseCount, pricingInfo, billingIntervalKey, billingIntervalLabel, tierInfo }) => {
     const { t } = useLanguage();
+    const totalLabel =
+        billingIntervalKey === 'month'
+            ? t('generate_key_modal.total_monthly')
+            : billingIntervalKey === 'quarter'
+                ? t('generate_key_modal.total_quarterly')
+            : t('generate_key_modal.total_annual');
+
     return (
         <div className="space-y-3 p-4 bg-muted rounded-lg">
             <h4 className="font-medium text-sm">{t('generate_key_modal.order_summary')}</h4>
@@ -398,13 +429,13 @@ const PricingSummary = React.memo(({ licenseCount, pricingInfo, billingInterval,
             <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                     <span>{licenseCount} {licenseCount > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')}</span>
-                    <span>x {pricingInfo.unitPrice.toFixed(2)}€/{billingInterval}</span>
+                    <span>x {pricingInfo.unitPrice.toFixed(2)}€/{billingIntervalLabel || billingIntervalKey}</span>
                 </div>
 
                 <Separator />
 
                 <div className="flex justify-between font-medium">
-                    <span>{billingInterval === 'mois' ? t('generate_key_modal.total_monthly') : t('generate_key_modal.total_annual')}</span>
+                    <span>{totalLabel}</span>
                     <span>{pricingInfo.totalPrice.toFixed(2)}€ TTC</span>
                 </div>
 
