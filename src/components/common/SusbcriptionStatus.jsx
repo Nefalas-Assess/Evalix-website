@@ -108,7 +108,7 @@ const SubscriptionStatus = ({ subscription, refreshSubscription }) => {
                 <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">{t('account.subscription.type')}</span>
                     <Badge variant="outline">
-                        {subscription?.plan?.interval === 'month' ? t('account.subscription.type_monthly') : t('account.subscription.type_annual')}
+                        {t(`pricing.period.${subscription?.plan?.interval}${subscription?.plan?.interval_count}`)}
                     </Badge>
                 </div>
 

@@ -169,7 +169,7 @@ const GenerateKeyModal = ({
                 savings,
                 savingsPercentage,
                 minQuantity: minQuantityForDiscount,
-                message: `${t('generate_key_modal.savings_potential')} ${savingsPercentage}% (${savings.toFixed(2)}€/${t('generate_key_modal.per_license')}) ${t('generate_key_modal.savings_from')} ${minQuantityForDiscount} ${minQuantityForDiscount > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')}`
+                message: `${t('generate_key_modal.savings_potential')} ${t('generate_key_modal.savings_from')} ${minQuantityForDiscount} ${minQuantityForDiscount > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')}`
             };
         } else if (tierIndex > 0) {
             info = `${t('generate_key_modal.tier_preferential')} (${tiers[tierIndex - 1].up_to + 1}+ ${t('generate_key_modal.licenses_plural')})`;
@@ -185,7 +185,7 @@ const GenerateKeyModal = ({
                 savings,
                 savingsPercentage,
                 totalSavings: savings * licenseCount,
-                message: `${t('generate_key_modal.savings_current')} ${savingsPercentage}% ${t('generate_key_modal.savings_per_license')} (${(savings * licenseCount).toFixed(2)}€ ${t('generate_key_modal.savings_total')})`
+                message: `${t('generate_key_modal.savings_current')} ${(savings * licenseCount).toFixed(2)}€ ${t('generate_key_modal.savings_total')}`
             };
         } else {
             info = t('generate_key_modal.tier_standard');
@@ -259,8 +259,7 @@ const GenerateKeyModal = ({
                                 <span className="font-medium text-sm">{t('generate_key_modal.current_subscription')}</span>
                             </div>
                             <p className="text-xs text-blue-600">
-                                {currentSubscription.quantity || 1} {(currentSubscription.quantity || 1) > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')} •
-                                {currentSubscription.price?.recurring?.interval === 'month' ? t('account.subscription.type_monthly') : t('account.subscription.type_annual')}
+                                {currentSubscription.quantity || 1} {(currentSubscription.quantity || 1) > 1 ? t('generate_key_modal.licenses_plural') : t('generate_key_modal.licenses')} • {t(`pricing.period.${currentSubscription.plan?.interval}${currentSubscription.plan?.interval_count}`)}
                             </p>
                         </div>
                     )}
@@ -299,7 +298,6 @@ const GenerateKeyModal = ({
                             <div className="space-y-2">
                                 {pricesWithPricing.map(({ price, pricing }) => {
                                     const isSelected = price.id === selectedPriceId;
-                                    const interval = pricing.interval === 'month' ? '/mois' : pricing.interval === 'year' ? '/an' : '';
 
                                     return (
                                         <PriceOption
