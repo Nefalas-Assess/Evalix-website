@@ -35,4 +35,4 @@ jobs:
           password: ${{ secrets.HOSTINGER_FTP_PASS }}
           local-dir: dist/
           remote-dir: public_html
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
