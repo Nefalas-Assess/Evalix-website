@@ -41,6 +41,7 @@ const LicenseSection = ({ license, onGenerateKey, onUpdateSubscription }) => {
                     </div>
                 )}
 
+                {/* Device count information */}
                 {license?.maxDevices && (
                     <div className="p-3 bg-muted rounded-lg">
                         <Label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
