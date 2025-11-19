@@ -38,7 +38,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: t('contact_page.contact_info.email_info.title'),
-      content: 'contact@evalix.com',
+      content: 'info@evalix.be',
       description: t('contact_page.contact_info.email_info.description')
     },
     {
@@ -246,5 +246,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-
