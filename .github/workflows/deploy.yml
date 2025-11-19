@@ -33,6 +33,6 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USER }}
           password: ${{ secrets.HOSTINGER_FTP_PASS }}
-          local-dir: dist
+          local-dir: dist/
           remote-dir: public_html
           dangerous-clean-slate: true
