@@ -18,9 +18,21 @@ import { useLanguage } from '../contexts/LanguageContext';
 import PageTitle from '../components/layout/PageTitle';
 import { useLatestRelease } from '@/hooks/useLatestRelease';
 
+import image1en from '../assets/home/1_en.jpg';
+import image1fr from '../assets/home/1_fr.jpg';
+import image1nl from '../assets/home/1_nl.jpg';
+
 const Home = () => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const { version } = useLatestRelease();
+
+  const languageImageMap = {
+    fr: image1fr,
+    nl: image1nl,
+    en: image1en
+  };
+
+  const selectedImage = languageImageMap[currentLanguage] || image1en;
 
   const features = [
     {
@@ -140,6 +152,12 @@ const Home = () => {
             </h2>
           </div>
 
+          <div className="max-w-[400px] mx-auto mb-16 w-full">
+            <div className="rounded-2xl overflow-hidden shadow-xl border border-border/60 bg-background">
+              <img src={selectedImage} alt="Evalix report preview" className="w-full h-auto object-cover" />
+            </div>
+          </div>
+          
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => {
               const Icon = benefit.icon;
