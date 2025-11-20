@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { FlagFR, FlagNL, FlagGB } from '../components/common/FlagIcons';
 
 const LanguageContext = createContext();
 
@@ -2666,9 +2667,9 @@ const translations = {
 
 // Langues disponibles
 const availableLanguages = [
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
-  { code: 'en', name: 'English', flag: '🇬🇧' }
+  { code: 'fr', name: 'Français', flagEmoji: '🇫🇷', FlagComponent: FlagFR },
+  { code: 'nl', name: 'Nederlands', flagEmoji: '🇳🇱', FlagComponent: FlagNL },
+  { code: 'en', name: 'English', flagEmoji: '🇬🇧', FlagComponent: FlagGB }
 ];
 
 // Fonction pour obtenir la langue depuis localStorage ou utiliser la langue par défaut

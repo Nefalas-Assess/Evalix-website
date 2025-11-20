@@ -19,6 +19,8 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
+  const currentLanguageData = availableLanguages.find(lang => lang.code === currentLanguage);
+  const isWindows = typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().includes('windows');
 
   // Check authentication status
   useEffect(() => {
@@ -41,6 +43,33 @@ const Header = () => {
     { key: 'contact', path: '/contacts' },
     { key: 'downloads', path: '/telechargements' }
   ];
+
+  const renderFlag = (lang, className) => {
+    if (!lang) return <Globe className={className} />;
+    const FlagComponent = lang.FlagComponent;
+    const emoji = lang.flagEmoji;
+
+    if (isWindows && FlagComponent) {
+      return <FlagComponent className={className} />;
+    }
+
+    if (emoji) {
+      return (
+        <span
+          className={`inline-block align-middle ${className || ''}`.trim()}
+          style={{ fontSize: '18px', lineHeight: 1 }}
+        >
+          {emoji}
+        </span>
+      );
+    }
+
+    if (FlagComponent) {
+      return <FlagComponent className={className} />;
+    }
+
+    return <Globe className={className} />;
+  };
 
   const isActivePath = (path) => {
     if (path === '/') {
@@ -85,9 +114,7 @@ const Header = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="w-9 px-0">
-                  <span className="text-lg">
-                    {availableLanguages.find(lang => lang.code === currentLanguage)?.flag || '🌐'}
-                  </span>
+                  {renderFlag(currentLanguageData, 'h-4 w-6')}
                   <span className="sr-only">{t('header.change_language')}</span>
                 </Button>
               </DropdownMenuTrigger>
@@ -98,7 +125,7 @@ const Header = () => {
                     onClick={() => changeLanguage(lang.code)}
                     className={currentLanguage === lang.code ? 'bg-accent' : ''}
                   >
-                    <span className="mr-2">{lang.flag}</span>
+                    {renderFlag(lang, 'mr-2 h-4 w-6 shrink-0')}
                     {lang.name}
                   </DropdownMenuItem>
                 ))}
@@ -190,11 +217,11 @@ const Header = () => {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="ghost" size="sm">
-                        <span className="text-lg mr-2">
-                          {availableLanguages.find(lang => lang.code === currentLanguage)?.flag || '🌐'}
+                        <span className="mr-2">
+                          {renderFlag(currentLanguageData, 'h-4 w-6')}
                         </span>
                         <span className="text-sm">
-                          {availableLanguages.find(lang => lang.code === currentLanguage)?.name}
+                          {currentLanguageData?.name}
                         </span>
                       </Button>
                     </DropdownMenuTrigger>
@@ -205,7 +232,7 @@ const Header = () => {
                           onClick={() => changeLanguage(lang.code)}
                           className={currentLanguage === lang.code ? 'bg-accent' : ''}
                         >
-                          <span className="mr-2">{lang.flag}</span>
+                          {renderFlag(lang, 'mr-2 h-4 w-6 shrink-0')}
                           {lang.name}
                         </DropdownMenuItem>
                       ))}
@@ -273,4 +300,3 @@ const Header = () => {
 };
 
 export default Header;
-
