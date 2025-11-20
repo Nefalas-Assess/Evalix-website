@@ -141,23 +141,24 @@ const Home = () => {
             })}
           </div>
         </div>
+        <div className="max-w-[400px] mx-auto mt-16 w-full">
+            <div className="rounded-2xl overflow-hidden shadow-xl border border-border/60 bg-background">
+              <img src={selectedImage} alt="Evalix report preview" className="w-full h-auto object-cover" />
+            </div>
+          </div>
       </section>
 
       {/* Benefits Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+         
+
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               {t("home.benefits.title")}
             </h2>
           </div>
 
-          <div className="max-w-[400px] mx-auto mb-16 w-full">
-            <div className="rounded-2xl overflow-hidden shadow-xl border border-border/60 bg-background">
-              <img src={selectedImage} alt="Evalix report preview" className="w-full h-auto object-cover" />
-            </div>
-          </div>
-          
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => {
               const Icon = benefit.icon;

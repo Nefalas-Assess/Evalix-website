@@ -20,8 +20,52 @@ import {
 import { useLanguage } from '../contexts/LanguageContext';
 import PageTitle from '../components/layout/PageTitle';
 
+import image1en from '../assets/presentation/lg_en.png';
+import image1fr from '../assets/presentation/lg_fr.png';
+import image1nl from '../assets/presentation/lg_nl.png';
+
+import image2en from '../assets/presentation/calc_en.png';
+import image2fr from '../assets/presentation/calc_fr.png';
+import image2nl from '../assets/presentation/calc_nl.png';
+
+import image3en from '../assets/presentation/int_en.png';
+import image3fr from '../assets/presentation/int_fr.png';
+import image3nl from '../assets/presentation/int_nl.png';
+
+import image4en from '../assets/presentation/home_en.png';
+import image4fr from '../assets/presentation/home_fr.png';
+import image4nl from '../assets/presentation/home_nl.png';
+
 const Presentation = () => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
+
+  const imageMap = {
+    lg: {
+      fr: image1fr,
+      nl: image1nl,
+      en: image1en
+    },
+    calc: {
+      fr: image2fr,
+      nl: image2nl,
+      en: image2en
+    },
+    int: {
+      fr: image3fr,
+      nl: image3nl,
+      en: image3en
+    },
+    home: {
+      fr: image4fr,
+      nl: image4nl,
+      en: image4en
+    }
+  };
+
+  const selectedLgImage = imageMap?.lg?.[currentLanguage] || imageMap?.lg?.en;
+  const selectedCalcImage = imageMap?.calc?.[currentLanguage] || imageMap?.calc?.en;
+  const selectedIntImage = imageMap?.int?.[currentLanguage] || imageMap?.int?.en;
+  const selectedHomeImage = imageMap?.home?.[currentLanguage] || imageMap?.home?.en;
 
   const features = [
     {
@@ -94,6 +138,11 @@ const Presentation = () => {
                 </div>
               ))}
             </div>
+            <div className="max-w-[500px] mx-auto mt-6 w-full">
+              <div className="rounded-2xl overflow-hidden shadow-xl border border-border/60 bg-background">
+                <img src={selectedHomeImage} alt="Evalix presentation preview" className="w-full h-auto object-cover" />
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -126,6 +175,11 @@ const Presentation = () => {
                 <span className="font-medium">English</span>
               </div>
             </div>
+            <div className="max-w-[500px] mx-auto mt-6 w-full">
+              <div className="rounded-2xl overflow-hidden shadow-xl border border-border/60 bg-background">
+                <img src={selectedLgImage} alt="Evalix presentation preview" className="w-full h-auto object-cover" />
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -153,6 +207,11 @@ const Presentation = () => {
                 {t("presentation.precision.example")}
               </p>
             </div>
+            <div className="max-w-[500px] mx-auto mt-6 w-full">
+              <div className="rounded-2xl overflow-hidden shadow-xl border border-border/60 bg-background">
+                <img src={selectedCalcImage} alt="Evalix calculation preview" className="w-full h-auto object-cover" />
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -171,6 +230,11 @@ const Presentation = () => {
             <p className="text-muted-foreground">
               {t("presentation.interests.content")}
             </p>
+            <div className="max-w-[500px] mx-auto mt-6 w-full">
+              <div className="rounded-2xl overflow-hidden shadow-xl border border-border/60 bg-background">
+                <img src={selectedIntImage} alt="Evalix interests preview" className="w-full h-auto object-cover" />
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -199,14 +263,6 @@ const Presentation = () => {
                   {t("presentation.test_license.cta_request")}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-              </div>
-
-              {/* Espace réservé pour capture d'écran */}
-              <div className="w-full md:w-80 h-48 bg-muted rounded-lg border-2 border-dashed border-muted-foreground/25 flex items-center justify-center">
-                <div className="text-center text-muted-foreground">
-                  <div className="text-sm font-medium mb-1">Espace réservé</div>
-                  <div className="text-xs">Capture d'écran à intégrer</div>
-                </div>
               </div>
             </div>
           </CardContent>
@@ -240,14 +296,6 @@ const Presentation = () => {
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* Espace réservé pour capture d'écran */}
-            <div className="w-full h-48 bg-muted rounded-lg border-2 border-dashed border-muted-foreground/25 flex items-center justify-center">
-              <div className="text-center text-muted-foreground">
-                <div className="text-sm font-medium mb-1">Espace réservé</div>
-                <div className="text-xs">Capture d'écran des tarifs à intégrer</div>
-              </div>
             </div>
           </CardContent>
         </Card>
