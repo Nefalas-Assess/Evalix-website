@@ -47,7 +47,7 @@ const translations = {
       cta: 'Télécharger'
     },
     home: {
-      new_version_badge: 'Nouvelle version 1.0.0 disponible',
+      new_version_badge: 'Nouvelle version {version} disponible',
       why_choose_evalix: {
         title: 'Pourquoi choisir Evalix ?',
         subtitle: 'Une solution complète qui répond aux besoins spécifiques des professionnels du droit et de l\'assurance en matière d\'indemnisation.'
@@ -738,7 +738,7 @@ const translations = {
         memory: '4 GB RAM',
         storage: '500 MB d\'espace libre',
         download_button: 'Télécharger pour Windows',
-        file_info: 'Fichier .exe • Version 1.0.0'
+        file_info: 'Fichier .exe • Version {version}'
       },
       macos_card: {
         title: 'macOS',
@@ -749,7 +749,7 @@ const translations = {
         memory: '4 GB RAM',
         storage: '500 MB d\'espace libre',
         download_button: 'Télécharger pour macOS',
-        file_info: 'Fichier .dmg • Version 1.0.0'
+        file_info: 'Fichier .dmg • Version {version}'
       },
       features_section: {
         title: 'Fonctionnalités',
@@ -759,7 +759,7 @@ const translations = {
         },
         latest_version: {
           title: 'Dernière version',
-          description: 'Version 1.0.0 avec les dernières améliorations'
+          description: 'Version {version} avec les dernières améliorations'
         },
         modern_interface: {
           title: 'Interface moderne',
@@ -770,14 +770,14 @@ const translations = {
         title: 'Instructions d\'installation',
         windows: {
           title: 'Windows',
-          step1: 'Téléchargez le fichier Evalix-1.0.0.exe',
+          step1: 'Téléchargez le fichier {file}',
           step2: 'Exécutez le fichier en tant qu\'administrateur',
           step3: 'Suivez les instructions de l\'assistant d\'installation',
           step4: 'Lancez Evalix depuis le menu Démarrer'
         },
         macos: {
           title: 'macOS',
-          step1: 'Téléchargez le fichier Evalix-1.0.0.dmg',
+          step1: 'Téléchargez le fichier {file}',
           step2: 'Ouvrez le fichier .dmg téléchargé',
           step3: 'Glissez Evalix vers le dossier Applications',
           step4: 'Lancez Evalix depuis le Launchpad'
@@ -930,7 +930,7 @@ const translations = {
       cta: "Downloaden"
     },
     home: {
-      new_version_badge: "Nieuwe versie 1.0.0 beschikbaar",
+      new_version_badge: "Nieuwe versie {version} beschikbaar",
       why_choose_evalix: {
         title: "Waarom kiezen voor Evalix?",
         subtitle: "Een complete oplossing die voldoet aan de specifieke behoeften van professionals in de juridische en verzekeringssector op het gebied van schadevergoeding."
@@ -1621,7 +1621,7 @@ const translations = {
         memory: '4 GB RAM',
         storage: '500 MB vrije ruimte',
         download_button: 'Download voor Windows',
-        file_info: 'Bestand .exe • Versie 1.0.0'
+        file_info: 'Bestand .exe • Versie {version}'
       },
       macos_card: {
         title: 'macOS',
@@ -1632,7 +1632,7 @@ const translations = {
         memory: '4 GB RAM',
         storage: '500 MB vrije ruimte',
         download_button: 'Download voor macOS',
-        file_info: 'Bestand .dmg • Versie 1.0.0'
+        file_info: 'Bestand .dmg • Versie {version}'
       },
       features_section: {
         title: 'Functionaliteiten',
@@ -1642,7 +1642,7 @@ const translations = {
         },
         latest_version: {
           title: 'Nieuwste versie',
-          description: 'Versie 1.0.0 met de nieuwste verbeteringen'
+          description: 'Versie {version} met de nieuwste verbeteringen'
         },
         modern_interface: {
           title: 'Moderne interface',
@@ -1653,14 +1653,14 @@ const translations = {
         title: 'Installatie-instructies',
         windows: {
           title: 'Windows',
-          step1: 'Download het bestand Evalix-1.0.0.exe',
+          step1: 'Download het bestand {file}',
           step2: 'Voer het bestand uit als administrator',
           step3: 'Volg de instructies van de installatiewizard',
           step4: 'Start Evalix vanuit het Startmenu'
         },
         macos: {
           title: 'macOS',
-          step1: 'Download het bestand Evalix-1.0.0.dmg',
+          step1: 'Download het bestand {file}',
           step2: 'Open het gedownloade .dmg-bestand',
           step3: 'Sleep Evalix naar de map Toepassingen',
           step4: 'Start Evalix vanuit Launchpad'
@@ -1813,7 +1813,7 @@ const translations = {
       cta: "Download"
     },
     home: {
-      new_version_badge: "New version 1.0.0 available",
+      new_version_badge: "New version {version} available",
       why_choose_evalix: {
         title: "Why choose Evalix?",
         subtitle: "A complete solution that meets the specific needs of legal and insurance professionals in compensation matters."
@@ -2504,7 +2504,7 @@ const translations = {
         memory: '4 GB RAM',
         storage: '500 MB free space',
         download_button: 'Download for Windows',
-        file_info: 'File .exe • Version 1.0.0'
+        file_info: 'File .exe • Version {version}'
       },
       macos_card: {
         title: 'macOS',
@@ -2515,7 +2515,7 @@ const translations = {
         memory: '4 GB RAM',
         storage: '500 MB free space',
         download_button: 'Download for macOS',
-        file_info: 'File .dmg • Version 1.0.0'
+        file_info: 'File .dmg • Version {version}'
       },
       features_section: {
         title: 'Features',
@@ -2525,7 +2525,7 @@ const translations = {
         },
         latest_version: {
           title: 'Latest version',
-          description: 'Version 1.0.0 with the latest improvements'
+          description: 'Version {version} with the latest improvements'
         },
         modern_interface: {
           title: 'Modern interface',
@@ -2536,14 +2536,14 @@ const translations = {
         title: 'Installation instructions',
         windows: {
           title: 'Windows',
-          step1: 'Download the Evalix-1.0.0.exe file',
+          step1: 'Download the {file} file',
           step2: 'Run the file as administrator',
           step3: 'Follow the installation wizard instructions',
           step4: 'Launch Evalix from the Start menu'
         },
         macos: {
           title: 'macOS',
-          step1: 'Download the Evalix-1.0.0.dmg file',
+          step1: 'Download the {file} file',
           step2: 'Open the downloaded .dmg file',
           step3: 'Drag Evalix to the Applications folder',
           step4: 'Launch Evalix from Launchpad'
@@ -2702,12 +2702,18 @@ export const LanguageProvider = ({ children }) => {
     }
   };
 
-  const t = (key) => {
+  const t = (key, replacements = {}) => {
     const keys = key.split('.');
     let value = translations[currentLanguage];
 
     for (const k of keys) {
       value = value?.[k];
+    }
+
+    if (typeof value === 'string' && replacements && Object.keys(replacements).length > 0) {
+      Object.entries(replacements).forEach(([placeholder, replacement]) => {
+        value = value.replace(new RegExp(`{${placeholder}}`, 'g'), replacement);
+      });
     }
 
     return value || key;

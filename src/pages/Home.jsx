@@ -16,9 +16,11 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import PageTitle from '../components/layout/PageTitle';
+import { useLatestRelease } from '@/hooks/useLatestRelease';
 
 const Home = () => {
   const { t } = useLanguage();
+  const { version } = useLatestRelease();
 
   const features = [
     {
@@ -70,7 +72,7 @@ const Home = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <Badge variant="secondary" className="mb-6 bg-primary/10 text-primary">
-              {t("home.new_version_badge")}
+              {t("home.new_version_badge", { version })}
             </Badge>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
@@ -233,4 +235,3 @@ const Home = () => {
 };
 
 export default Home;
-

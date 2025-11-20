@@ -1,43 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Monitor, Smartphone, Shield, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import PageTitle from '../components/layout/PageTitle';
+import { useLatestRelease } from '@/hooks/useLatestRelease';
 
 const Downloads = () => {
   const { t } = useLanguage();
+  const { downloadLinks, version } = useLatestRelease();
 
-  const defaultDownloadLinks = {
-    windows: 'https://github.com/Nefalas-Assess/Assess-calculator/releases/download/v1.0.0/Evalix-1.0.0.exe',
-    macos: 'https://github.com/Nefalas-Assess/Assess-calculator/releases/download/v1.0.0/Evalix-1.0.0.dmg',
+  const fileNames = {
+    windows: `Evalix-${version}.exe`,
+    macos: `Evalix-${version}.dmg`
   };
-
-  const [downloadLinks, setDownloadLinks] = useState(defaultDownloadLinks);
-
-  useEffect(() => {
-    const fetchLatestRelease = async () => {
-      try {
-        const response = await fetch('https://api.github.com/repos/Nefalas-Assess/Assess-calculator/releases/latest');
-        if (!response.ok) throw new Error('Unable to fetch release');
-
-        const data = await response.json();
-        const assets = Array.isArray(data.assets) ? data.assets : [];
-        const findAsset = (ext) =>
-          assets.find((asset) => asset.name?.toLowerCase().endsWith(ext))?.browser_download_url;
-
-        setDownloadLinks({
-          windows: findAsset('.exe') || defaultDownloadLinks.windows,
-          macos: findAsset('.dmg') || defaultDownloadLinks.macos
-        });
-      } catch (error) {
-        console.error('Failed to load latest release:', error);
-        setDownloadLinks(defaultDownloadLinks);
-      }
-    };
-
-    fetchLatestRelease();
-  }, []);
 
   const systemRequirements = {
     windows: {
@@ -121,7 +97,7 @@ const Downloads = () => {
             </Button>
 
             <p className="text-xs text-muted-foreground text-center">
-              {t('downloads_page.windows_card.file_info')}
+              {t('downloads_page.windows_card.file_info', { version })}
             </p>
           </CardContent>
         </Card>
@@ -159,7 +135,7 @@ const Downloads = () => {
             </Button>
 
             <p className="text-xs text-muted-foreground text-center">
-              {t('downloads_page.macos_card.file_info')}
+              {t('downloads_page.macos_card.file_info', { version })}
             </p>
           </CardContent>
         </Card>
@@ -178,7 +154,10 @@ const Downloads = () => {
                 {t(`downloads_page.features_section.${feature.key}.title`)}
               </h3>
               <p className="text-sm text-muted-foreground">
-                {t(`downloads_page.features_section.${feature.key}.description`)}
+                {t(
+                  `downloads_page.features_section.${feature.key}.description`,
+                  feature.key === 'latest_version' ? { version } : {}
+                )}
               </p>
             </div>
           );
@@ -198,7 +177,7 @@ const Downloads = () => {
               {t('downloads_page.installation_instructions.windows.title')}
             </h3>
             <ol className="space-y-2 text-sm text-muted-foreground">
-              <li>{t('downloads_page.installation_instructions.windows.step1')}</li>
+              <li>{t('downloads_page.installation_instructions.windows.step1', { file: fileNames.windows })}</li>
               <li>{t('downloads_page.installation_instructions.windows.step2')}</li>
               <li>{t('downloads_page.installation_instructions.windows.step3')}</li>
               <li>{t('downloads_page.installation_instructions.windows.step4')}</li>
@@ -211,7 +190,7 @@ const Downloads = () => {
               {t('downloads_page.installation_instructions.macos.title')}
             </h3>
             <ol className="space-y-2 text-sm text-muted-foreground">
-              <li>{t('downloads_page.installation_instructions.macos.step1')}</li>
+              <li>{t('downloads_page.installation_instructions.macos.step1', { file: fileNames.macos })}</li>
               <li>{t('downloads_page.installation_instructions.macos.step2')}</li>
               <li>{t('downloads_page.installation_instructions.macos.step3')}</li>
               <li>{t('downloads_page.installation_instructions.macos.step4')}</li>
