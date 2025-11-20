@@ -211,8 +211,8 @@ const translations = {
             '1420 Braine-l\'Alleud - Belgique',
             'Numéro d\'entreprise (BCE) : 1029.330.643',
             'Date de création : 17 octobre 2025',
-            'Numéro de TVA : [à compléter]',
-            'Adresse e-mail : [à compléter]'
+            'Numéro de TVA : 1029.330.643',
+            'Adresse e-mail : info@evalix.be'
           ]
         },
         {
@@ -281,7 +281,7 @@ const translations = {
       heroTitle: 'Protection des données personnelles',
       heroIntro: 'Cette politique explique comment JVTP SNC collecte, utilise, conserve et protège vos données personnelles dans le cadre de l\'utilisation du site et du logiciel Evalix.',
       title: 'Politique de Confidentialité',
-      lastUpdated: 'Dernière mise à jour : [à compléter]',
+      lastUpdated: 'Dernière mise à jour : 20/11/2025',
       sections: [
         {
           title: '1. Introduction',
@@ -293,7 +293,7 @@ const translations = {
         {
           title: '2. Responsable du traitement',
           paragraphs: [
-            'Le responsable du traitement des données est : JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. E-mail : [à compléter].'
+            'Le responsable du traitement des données est : JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. E-mail : info@evalix.be.'
           ]
         },
         {
@@ -384,9 +384,8 @@ const translations = {
             'Et le Client désirant acquérir une licence d\'utilisation du logiciel Evalix (ci-après le Client ou le Licencié).'
           ],
           list: [
-            'Numéro de téléphone : [à compléter]',
-            'Adresse e-mail : [à compléter]',
-            'Site web : [à compléter]'
+            'Adresse e-mail : info@evalix.be',
+            'Site web : https://www.evalix.be'
           ]
         },
         {
@@ -505,8 +504,8 @@ const translations = {
                 'En cas de difficulté, le Client peut contacter l\'Éditeur :'
               ],
               list: [
-                'Par e-mail : [adresse e-mail de support - à compléter].',
-                'Via le formulaire de contact sur le site de l\'Éditeur : [adresse du site web - à compléter].'
+                'Par e-mail : info@evalix.be.',
+                'Via le formulaire de contact sur le site de l\'Éditeur : https://www.evalix.be.'
               ],
               note: 'La demande doit inclure une description détaillée du problème et, si possible, des captures d\'écran. Un accusé de réception est envoyé sous 24 heures ouvrées et l\'Éditeur s\'efforce de résoudre le problème dans les meilleurs délais.'
             }
@@ -1095,8 +1094,8 @@ const translations = {
             '1420 Braine-l\'Alleud - België',
             'Ondernemingsnummer (KBO): 1029.330.643',
             'Oprichtingsdatum: 17 oktober 2025',
-            'btw-nummer: [aan te vullen]',
-            'E-mailadres: [aan te vullen]'
+            'btw-nummer: 1029.330.643',
+            'E-mailadres: info@evalix.be'
           ]
         },
         {
@@ -1165,7 +1164,7 @@ const translations = {
       heroTitle: 'Bescherming van persoonsgegevens',
       heroIntro: 'Dit beleid legt uit hoe JVTP SNC uw persoonsgegevens verzamelt, gebruikt, bewaart en beschermt in het kader van het gebruik van de website en de Evalix-software.',
       title: 'Privacybeleid',
-      lastUpdated: 'Laatste update: [aan te vullen]',
+      lastUpdated: 'Laatste update: 20/11/2025',
       sections: [
         {
           title: '1. Inleiding',
@@ -1177,7 +1176,7 @@ const translations = {
         {
           title: '2. Verwerkingsverantwoordelijke',
           paragraphs: [
-            'De verwerkingsverantwoordelijke is: JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. E-mail: [aan te vullen].'
+            'De verwerkingsverantwoordelijke is: JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. E-mail: info@evalix.be.'
           ]
         },
         {
@@ -1268,9 +1267,8 @@ const translations = {
             'En de klant die een gebruikslicentie voor de Evalix-software wil verwerven (hierna de Klant of Licentienemer).'
           ],
           list: [
-            'Telefoonnummer: [aan te vullen]',
-            'E-mailadres: [aan te vullen]',
-            'Website: [aan te vullen]'
+            'E-mailadres: info@evalix.be',
+            'Website: https://www.evalix.be'
           ]
         },
         {
@@ -1389,8 +1387,8 @@ const translations = {
                 'Bij vragen of problemen kan de Klant contact opnemen met de Uitgever:'
               ],
               list: [
-                'Via e-mail: [ondersteunings-e-mailadres - aan te vullen].',
-                'Via het contactformulier op de website van de Uitgever: [website-adres - aan te vullen].'
+                'Via e-mail: info@evalix.be.',
+                'Via het contactformulier op de website van de Uitgever: https://www.evalix.be.'
               ],
               note: 'Het verzoek moet een gedetailleerde beschrijving van het probleem bevatten en indien mogelijk schermopnamen. De Uitgever bevestigt ontvangst binnen 24 werkuren en streeft ernaar het probleem zo snel mogelijk op te lossen.'
             }
@@ -1979,8 +1977,8 @@ const translations = {
             '1420 Braine-l\'Alleud - Belgium',
             'Company number (BCE): 1029.330.643',
             'Creation date: 17 October 2025',
-            'VAT number: [to be completed]',
-            'Email address: [to be completed]'
+            'VAT number: 1029.330.643',
+            'Email address: info@evalix.be'
           ]
         },
         {
@@ -2049,7 +2047,7 @@ const translations = {
       heroTitle: 'Protection of personal data',
       heroIntro: 'This policy explains how JVTP SNC collects, uses, stores, and protects your personal data when using the website and the Evalix software.',
       title: 'Privacy Policy',
-      lastUpdated: 'Last updated: [to be completed]',
+      lastUpdated: 'Last updated: 11/20/2025',
       sections: [
         {
           title: '1. Introduction',
@@ -2061,7 +2059,7 @@ const translations = {
         {
           title: '2. Data controller',
           paragraphs: [
-            'The data controller is: JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. Email: [to be completed].'
+            'The data controller is: JVTP SNC, Chemin des Pères 1, 1420 Braine-l\'Alleud. Email: info@evalix.be.'
           ]
         },
         {
@@ -2152,9 +2150,8 @@ const translations = {
             'And the client wishing to acquire a license to use the Evalix software (hereinafter the Client or Licensee).'
           ],
           list: [
-            'Phone number: [to be completed]',
-            'Email address: [to be completed]',
-            'Website: [to be completed]'
+            'Email address: info@evalix.be',
+            'Website: https://www.evalix.be'
           ]
         },
         {
@@ -2273,8 +2270,8 @@ const translations = {
                 'In case of difficulty, the Client may contact the Vendor:'
               ],
               list: [
-                'By email: [support email address - to be completed].',
-                "Via the contact form on the Vendor's website: [website address - to be completed]."
+                'By email: info@evalix.be.',
+                "Via the contact form on the Vendor's website: https://www.evalix.be."
               ],
               note: 'Requests must include a detailed description of the issue and, where possible, screenshots. The Vendor acknowledges receipt within 24 working hours and strives to resolve the issue as quickly as possible.'
             }
