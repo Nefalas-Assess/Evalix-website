@@ -693,7 +693,9 @@ const translations = {
         message: 'Message',
         message_placeholder: 'Décrivez votre demande en détail...',
         send: 'Envoyer le message',
-        success: 'Votre message a été envoyé avec succès !'
+        sending: 'Envoi en cours...',
+        success: 'Votre message a été envoyé avec succès !',
+        error: 'Une erreur est survenue lors de l\'envoi du message. Merci de réessayer.'
       },
       contact_info: {
         title: 'Informations de contact',
@@ -1576,7 +1578,9 @@ const translations = {
         message: 'Bericht',
         message_placeholder: 'Beschrijf uw verzoek in detail...',
         send: 'Bericht verzenden',
-        success: 'Uw bericht is succesvol verzonden!'
+        sending: 'Bezig met verzenden...',
+        success: 'Uw bericht is succesvol verzonden!',
+        error: 'Er is een fout opgetreden bij het verzenden van het bericht. Probeer het opnieuw.'
       },
       contact_info: {
         title: 'Contactinformatie',
@@ -2459,7 +2463,9 @@ const translations = {
         message: 'Message',
         message_placeholder: 'Describe your request in detail...',
         send: 'Send message',
-        success: 'Your message has been sent successfully!'
+        sending: 'Sending...',
+        success: 'Your message has been sent successfully!',
+        error: 'An error occurred while sending the message. Please try again.'
       },
       contact_info: {
         title: 'Contact information',

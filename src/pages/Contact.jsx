@@ -4,20 +4,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
+import { Mail, Phone, Send } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import PageTitle from '../components/layout/PageTitle';
+import { sendContactEmail } from '../services/contactService';
 
 const Contact = () => {
   const { t } = useLanguage();
-  const [formData, setFormData] = useState({
+  const initialFormState = {
     name: '',
     email: '',
     company: '',
     phone: '',
     subject: '',
     message: ''
-  });
+  };
+  const [formData, setFormData] = useState(initialFormState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,11 +31,21 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ici, on pourrait intégrer un service d'envoi d'email
-    console.log('Form submitted:', formData);
-    alert(t('contact_page.form.success'));
+    setSubmitError('');
+    setIsSubmitting(true);
+
+    try {
+      await sendContactEmail(formData);
+      alert(t('contact_page.form.success'));
+      setFormData(initialFormState);
+    } catch (error) {
+      console.error('Error sending contact form:', error);
+      setSubmitError(t('contact_page.form.error') || 'Une erreur est survenue lors de l\'envoi du message.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -151,9 +165,18 @@ const Contact = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90" size="lg">
+              {submitError && (
+                <p className="text-sm text-red-500">{submitError}</p>
+              )}
+
+              <Button
+                type="submit"
+                className="w-full bg-primary hover:bg-primary/90"
+                size="lg"
+                disabled={isSubmitting}
+              >
                 <Send className="h-4 w-4 mr-2" />
-                {t('contact_page.form.send')}
+                {isSubmitting ? (t('contact_page.form.sending') || 'Envoi...') : t('contact_page.form.send')}
               </Button>
             </form>
           </CardContent>
