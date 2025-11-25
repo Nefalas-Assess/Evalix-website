@@ -111,12 +111,6 @@ const Pricing = () => {
                   <div className="text-sm text-muted-foreground mt-2">
                     {currentPricing.currency}{currentPricing.priceHT.toFixed(2)} {t("pricing.htva")} | {currentPricing.currency}{currentPricing.priceTTC.toFixed(2)} {t("pricing.tvac")} {t("pricing.perMonthPerLicense")}
                   </div>
-
-                  {selectedPlan === "annual" && (
-                    <div className="text-sm text-primary font-medium mt-2">
-                      {t("pricing.savings")}: {savings.savingsPercentage}% ({currentPricing.currency}{savings.savings.toFixed(2)}/an)
-                    </div>
-                  )}
                 </div>
               </CardHeader>
 
