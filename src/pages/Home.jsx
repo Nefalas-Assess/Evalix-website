@@ -206,12 +206,12 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 items-center justify-items-center">
+          <div className="flex flex-wrap justify-center items-center gap-8">
             {/* Company logos */}
             {trustedCompanies.map((company, index) => (
               <div
                 key={index}
-                className="w-full max-w-[180px] h-24 flex items-center justify-center p-4 bg-card rounded-lg border border-border dark:border-border/50 dark:hover:border-border transition-all grayscale hover:grayscale-0 opacity-70 hover:opacity-100 shadow-sm dark:shadow-none"
+                className="w-full max-w-[180px] h-24 flex items-center justify-center p-4 bg-card rounded-lg border border-border dark:border-border/50 dark:hover:border-border transition-all opacity-100 shadow-sm dark:shadow-none"
                 title={`${company.name}${company.slogan ? ` - ${company.slogan}` : ''}`}
               >
                 <img
