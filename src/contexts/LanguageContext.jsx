@@ -94,6 +94,10 @@ const translations = {
           description: 'Équipe de support technique et formation à l\'écoute pour une prise en main optimale.'
         }
       },
+      trusted_companies: {
+        title: 'Ils nous font confiance',
+        subtitle: 'Des entreprises de confiance utilisent Evalix pour leurs calculs d\'indemnisation'
+      },
       test_license: {
         title: 'Testez Evalix gratuitement',
         subtitle: 'Découvrez toutes les fonctionnalités d\'Evalix avec notre licence de test',
@@ -979,6 +983,10 @@ const translations = {
           description: "Technische ondersteuning en trainingsteam dat luistert voor optimale adoptie."
         }
       },
+      trusted_companies: {
+        title: "Ze vertrouwen op ons",
+        subtitle: "Vertrouwde bedrijven gebruiken Evalix voor hun schadevergoedingsberekeningen"
+      },
       test_license: {
         title: "Test Evalix gratis",
         subtitle: "Ontdek alle functionaliteiten van Evalix met onze testlicentie",
@@ -1863,6 +1871,10 @@ const translations = {
           title: "Dedicated support",
           description: "Technical support and training team listening for optimal adoption."
         }
+      },
+      trusted_companies: {
+        title: "They trust us",
+        subtitle: "Trusted companies use Evalix for their compensation calculations"
       },
       test_license: {
         title: "Test Evalix for free",

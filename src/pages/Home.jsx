@@ -22,9 +22,23 @@ import image1en from '../assets/home/1_en.jpg';
 import image1fr from '../assets/home/1_fr.jpg';
 import image1nl from '../assets/home/1_nl.jpg';
 
+// Company logos - Add your logo images to src/assets/companies/
+import interEuropeLogo from '../assets/companies/inter-europe-logo.png';
+
 const Home = () => {
   const { t, currentLanguage } = useLanguage();
   const { version } = useLatestRelease();
+
+  // Trusted companies logos
+  const trustedCompanies = [
+    {
+      name: 'INTER EUROPE',
+      slogan: 'Partner in Claims',
+      logo: interEuropeLogo,
+      alt: 'INTER EUROPE - Partner in Claims'
+    }
+    // Add more companies here as you get their logos
+  ];
 
   const languageImageMap = {
     fr: image1fr,
@@ -176,6 +190,37 @@ const Home = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted Companies Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+              {t("home.trusted_companies.title")}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t("home.trusted_companies.subtitle")}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8 items-center justify-items-center">
+            {/* Company logos */}
+            {trustedCompanies.map((company, index) => (
+              <div
+                key={index}
+                className="w-full max-w-[180px] h-24 flex items-center justify-center p-4 bg-card rounded-lg border border-border dark:border-border/50 dark:hover:border-border transition-all grayscale hover:grayscale-0 opacity-70 hover:opacity-100 shadow-sm dark:shadow-none"
+                title={`${company.name}${company.slogan ? ` - ${company.slogan}` : ''}`}
+              >
+                <img
+                  src={company.logo}
+                  alt={company.alt || company.name}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
