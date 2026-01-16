@@ -23,10 +23,43 @@ const translations = {
       downloads: 'Téléchargements - Evalix',
       login: 'Connexion - Evalix',
       signup: 'Inscription - Evalix',
+      forgotPassword: 'Mot de passe oublié - Evalix',
+      resetPassword: 'Réinitialiser le mot de passe - Evalix',
       account: 'Mon compte - Evalix',
       legal: 'Mentions légales - Evalix',
       privacy: 'Politique de confidentialité - Evalix',
       terms: 'Conditions générales - Evalix'
+    },
+    auth: {
+      forgot: {
+        title: 'Mot de passe oublié',
+        subtitle: 'Recevez un lien de réinitialisation par email.',
+        emailLabel: 'Adresse e-mail',
+        emailPlaceholder: 'votre@email.com',
+        send: 'Envoyer le lien',
+        sending: 'Envoi en cours...',
+        sentDescription:
+          'Si un compte existe avec cet email, un lien de réinitialisation vient de vous être envoyé.',
+        backToLogin: 'Retour à la connexion',
+        genericError: 'Une erreur est survenue lors de l’envoi du lien'
+      },
+      reset: {
+        title: 'Réinitialiser le mot de passe',
+        subtitle: 'Choisissez un nouveau mot de passe.',
+        loading: 'Chargement...',
+        passwordLabel: 'Nouveau mot de passe',
+        confirmPasswordLabel: 'Confirmer le mot de passe',
+        passwordPlaceholder: 'Votre nouveau mot de passe',
+        confirmPasswordPlaceholder: 'Confirmez le mot de passe',
+        save: 'Mettre à jour',
+        saving: 'Mise à jour...',
+        goToLogin: 'Se connecter',
+        successDescription: 'Votre mot de passe a bien été mis à jour. Vous pouvez vous connecter.',
+        invalidLink: 'Lien invalide ou expiré. Merci de refaire une demande de réinitialisation.',
+        passwordTooShort: 'Le mot de passe doit contenir au moins 6 caractères',
+        passwordMismatch: 'Les mots de passe ne correspondent pas',
+        genericError: 'Une erreur est survenue lors de la réinitialisation'
+      }
     },
     nav: {
       home: 'Accueil',
@@ -913,10 +946,43 @@ const translations = {
       downloads: "Downloads - Evalix",
       login: "Inloggen - Evalix",
       signup: "Registreren - Evalix",
+      forgotPassword: 'Wachtwoord vergeten - Evalix',
+      resetPassword: 'Wachtwoord opnieuw instellen - Evalix',
       account: "Mijn Account - Evalix",
       legal: "Juridische vermeldingen - Evalix",
       privacy: "Privacybeleid - Evalix",
       terms: "Algemene voorwaarden - Evalix"
+    },
+    auth: {
+      forgot: {
+        title: 'Wachtwoord vergeten',
+        subtitle: 'Ontvang een resetlink via e-mail.',
+        emailLabel: 'E-mailadres',
+        emailPlaceholder: 'jij@email.com',
+        send: 'Link verzenden',
+        sending: 'Bezig met verzenden...',
+        sentDescription:
+          'Als er een account bestaat met dit e-mailadres, is er zojuist een resetlink verzonden.',
+        backToLogin: 'Terug naar inloggen',
+        genericError: 'Er is een fout opgetreden bij het verzenden van de link'
+      },
+      reset: {
+        title: 'Wachtwoord opnieuw instellen',
+        subtitle: 'Kies een nieuw wachtwoord.',
+        loading: 'Laden...',
+        passwordLabel: 'Nieuw wachtwoord',
+        confirmPasswordLabel: 'Bevestig wachtwoord',
+        passwordPlaceholder: 'Uw nieuwe wachtwoord',
+        confirmPasswordPlaceholder: 'Bevestig het wachtwoord',
+        save: 'Bijwerken',
+        saving: 'Bijwerken...',
+        goToLogin: 'Inloggen',
+        successDescription: 'Uw wachtwoord is bijgewerkt. U kunt nu inloggen.',
+        invalidLink: 'Ongeldige of verlopen link. Vraag opnieuw een reset aan.',
+        passwordTooShort: 'Het wachtwoord moet minimaal 6 tekens bevatten',
+        passwordMismatch: 'Wachtwoorden komen niet overeen',
+        genericError: 'Er is een fout opgetreden bij het resetten'
+      }
     },
     nav: {
       home: 'Home',
@@ -1802,10 +1868,43 @@ const translations = {
       downloads: "Downloads - Evalix",
       login: "Login - Evalix",
       signup: "Sign Up - Evalix",
+      forgotPassword: 'Forgot password - Evalix',
+      resetPassword: 'Reset password - Evalix',
       account: "My Account - Evalix",
       legal: "Legal notices - Evalix",
       privacy: "Privacy Policy - Evalix",
       terms: "Terms and conditions - Evalix"
+    },
+    auth: {
+      forgot: {
+        title: 'Forgot password',
+        subtitle: 'Get a reset link by email.',
+        emailLabel: 'Email address',
+        emailPlaceholder: 'you@email.com',
+        send: 'Send reset link',
+        sending: 'Sending...',
+        sentDescription:
+          'If an account exists with this email, a reset link has just been sent.',
+        backToLogin: 'Back to login',
+        genericError: 'An error occurred while sending the link'
+      },
+      reset: {
+        title: 'Reset password',
+        subtitle: 'Choose a new password.',
+        loading: 'Loading...',
+        passwordLabel: 'New password',
+        confirmPasswordLabel: 'Confirm password',
+        passwordPlaceholder: 'Your new password',
+        confirmPasswordPlaceholder: 'Confirm your password',
+        save: 'Update password',
+        saving: 'Updating...',
+        goToLogin: 'Login',
+        successDescription: 'Your password has been updated. You can now log in.',
+        invalidLink: 'Invalid or expired link. Please request a new reset link.',
+        passwordTooShort: 'Password must be at least 6 characters',
+        passwordMismatch: 'Passwords do not match',
+        genericError: 'An error occurred while resetting your password'
+      }
     },
     nav: {
       home: 'Home',

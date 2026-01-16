@@ -13,6 +13,8 @@ import Presentation from './pages/Presentation';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Account from './pages/Account';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import MentionLegal from './pages/MentionLegal';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import ConditionGeneral from './pages/ConditionGeneral';
@@ -33,6 +35,8 @@ function App() {
                   <Route path="/telechargements" element={<Downloads />} />
                   <Route path="/contacts" element={<Contact />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/signup" element={<Signup />} />
                   <Route path="/account" element={<Account />} />
                   <Route path="/mentions-legales" element={<MentionLegal />} />

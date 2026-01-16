@@ -19,6 +19,18 @@ export const seoContent = {
           "Logiciel professionnel pour calculer les indemnités des victimes d'accidents : barèmes mis à jour, rapports clairs et simulations instantanées.",
         type: 'website'
       },
+      forgotPassword: {
+        title: 'Mot de passe oublié - Evalix',
+        description:
+          'Recevez un lien de réinitialisation de mot de passe pour accéder à nouveau à votre compte Evalix.',
+        type: 'website'
+      },
+      resetPassword: {
+        title: 'Réinitialiser le mot de passe - Evalix',
+        description:
+          'Choisissez un nouveau mot de passe pour votre compte Evalix en toute sécurité.',
+        type: 'website'
+      },
       presentation: {
         title: 'Présentation du logiciel Evalix',
         description:
@@ -55,6 +67,18 @@ export const seoContent = {
           'Professional software to calculate compensation for accident victims with updated guidelines, instant simulations, and clear reports.',
         type: 'website'
       },
+      forgotPassword: {
+        title: 'Forgot password - Evalix',
+        description:
+          'Get a password reset link to regain access to your Evalix account.',
+        type: 'website'
+      },
+      resetPassword: {
+        title: 'Reset password - Evalix',
+        description:
+          'Set a new password for your Evalix account securely.',
+        type: 'website'
+      },
       presentation: {
         title: 'Evalix product overview',
         description:
@@ -89,6 +113,18 @@ export const seoContent = {
         title: 'Evalix | Software voor schadevergoedingen',
         description:
           'Professionele software om vergoedingen voor slachtoffers van ongevallen te berekenen met actuele tabellen en duidelijke rapporten.',
+        type: 'website'
+      },
+      forgotPassword: {
+        title: 'Wachtwoord vergeten - Evalix',
+        description:
+          'Ontvang een link om uw wachtwoord opnieuw in te stellen en weer toegang te krijgen tot uw Evalix-account.',
+        type: 'website'
+      },
+      resetPassword: {
+        title: 'Wachtwoord opnieuw instellen - Evalix',
+        description:
+          'Kies veilig een nieuw wachtwoord voor uw Evalix-account.',
         type: 'website'
       },
       presentation: {
